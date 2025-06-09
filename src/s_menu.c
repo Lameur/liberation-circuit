@@ -28,6 +28,10 @@ s_menu.c calls back here for various things.
 #include "e_header.h"
 #include "e_editor.h"
 #include "e_help.h"
+
+#ifdef NETWORK_ENABLED
+#include "s_multiplayer_public.h"
+#endif
 #include "e_log.h"
 #include "g_game.h"
 #include "g_world.h"
@@ -45,6 +49,7 @@ s_menu.c calls back here for various things.
 
 #include "s_mission.h"
 #include "s_menu.h"
+#include "s_multiplayer_public.h"
 #include "g_world_back.h"
 #include "g_world_map.h"
 #include "g_world_map_2.h"
@@ -116,6 +121,9 @@ EL_ACTION_STORY_HARD,
 EL_ACTION_STORY_ADVANCED_HARD,
 EL_ACTION_TUTORIAL,
 EL_ACTION_SETUP_GAME,
+#ifdef NETWORK_ENABLED
+EL_ACTION_MULTIPLAYER,
+#endif
 EL_ACTION_LOAD,
 //EL_ACTION_SETUP,
 //EL_ACTION_TUTORIAL,
@@ -177,6 +185,9 @@ EL_MAIN_START_GAME_HARD,
 EL_MAIN_START_GAME_ADVANCED_HARD,
 EL_MAIN_TUTORIAL,
 EL_MAIN_SETUP_GAME,
+#ifdef NETWORK_ENABLED
+EL_MAIN_MULTIPLAYER,
+#endif
 //EL_MAIN_LOAD,
 EL_MAIN_LOAD_GAMEFILE,
 //EL_MAIN_SETUP,
@@ -326,6 +337,16 @@ struct menu_liststruct menu_list [ELS] =
   -1, // slider_index
 //  HELP_USE_SYSFILE, // help_type
  }, // EL_MAIN_SETUP_GAME
+#ifdef NETWORK_ENABLED
+ {
+  EL_TYPE_ACTION, // type
+  EL_ACTION_MULTIPLAYER, // action
+  0, // start_value
+  "MULTIPLAYER", // name
+  -1, // slider_index
+//  HELP_MULTIPLAYER, // help_type
+ }, // EL_MAIN_MULTIPLAYER
+#endif
 /* {
   EL_TYPE_ACTION, // type
   EL_ACTION_LOAD, // action
@@ -773,6 +794,9 @@ EL_MAIN_START_GAME_ADVANCED,
 EL_MAIN_START_GAME_ADVANCED_HARD,
 //EL_MAIN_TUTORIAL,
 EL_MAIN_SETUP_GAME,
+#ifdef NETWORK_ENABLED
+EL_MAIN_MULTIPLAYER,
+#endif
 //EL_MAIN_LOAD,
 //EL_MAIN_LOAD_GAMEFILE,
 //EL_MAIN_SETUP,
@@ -1252,6 +1276,15 @@ void display_menu_2(void)
  al_set_target_bitmap(al_get_backbuffer(display));
  al_set_clipping_rectangle(0, 0, settings.option [OPTION_WINDOW_W], settings.option [OPTION_WINDOW_H]);
  reset_i_buttons();
+
+#ifdef NETWORK_ENABLED
+ // Handle multiplayer menu phase drawing
+ if (game.phase == GAME_PHASE_MULTIPLAYER) {
+   multiplayer_menu_draw();
+   al_flip_display();
+   return;
+ }
+#endif
 
  int i, j, y1, y2;
 
@@ -1787,6 +1820,15 @@ void run_menu_input(void)
 
  get_ex_control(0, 0);
 
+#ifdef NETWORK_ENABLED
+ // Handle multiplayer menu phase
+ if (game.phase == GAME_PHASE_MULTIPLAYER) {
+   multiplayer_menu_update();
+   multiplayer_menu_handle_input();
+   return;
+ }
+#endif
+
  int i;
  int mouse_x = ex_control.mouse_x_pixels;
 // int mouse_y = ex_control.mouse_y_pixels; // ignores window_pos
@@ -2005,6 +2047,21 @@ void run_menu_input(void)
        play_interface_sound(SAMPLE_BLIP1, TONE_3C);
        open_menu(MENU_SETUP);
        break;
+
+#ifdef NETWORK_ENABLED
+      case EL_ACTION_MULTIPLAYER:
+       play_interface_sound(SAMPLE_BLIP1, TONE_3C);
+       // Initialize and open multiplayer menu system
+       if (multiplayer_menu_init()) {
+         // Switch to multiplayer menu mode
+         game.phase = GAME_PHASE_MULTIPLAYER;
+         multiplayer_menu_set_state(MP_MENU_MAIN);
+       } else {
+         // Network initialization failed
+         write_line_to_log("Failed to initialize multiplayer system", MLOG_COL_ERROR);
+       }
+       break;
+#endif
 
 
 /*

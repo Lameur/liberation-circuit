@@ -2118,6 +2118,7 @@ GAME_PHASE_OVER, // game is over
 GAME_PHASE_FORCE_QUIT, // clicked on quit in system menu - forces the game loop to break
 
 GAME_PHASE_MENU, // user is still in start menus (this value won't be encountered much, if ever, in practice)
+GAME_PHASE_MULTIPLAYER, // user is in multiplayer menu system
 
 GAME_PHASES // used in game loading bounds-check
 };

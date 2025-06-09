@@ -242,6 +242,10 @@ z_poly.c - an editor for me to use to design components. Generates code
 #include "e_header.h"
 #include "e_editor.h"
 #include "t_template.h"
+#ifdef NETWORK_ENABLED
+#include "n_network.h"
+#include "s_multiplayer.h"
+#endif
 #include "t_files.h"
 #include "m_input.h"
 #include "s_menu.h"
@@ -368,6 +372,14 @@ fpr("\n templates");
 
  init_story_interface();
 
+#ifdef NETWORK_ENABLED
+ if (!network_init()) {
+     fpr("\nWarning: Failed to initialize network subsystem. Multiplayer disabled.");
+ } else {
+     fpr("\nNetwork subsystem initialized. Multiplayer available.");
+ }
+#endif
+
 fpr("\nInitialised.\n");
 
 #ifdef DEBUG_MODE
@@ -385,6 +397,11 @@ al_drop_path_tail(test_path);
 fpr("\npath4 [%s]", al_path_cstr(test_path, '/'));
 */
  start_menus(); // game loop is called from here
+
+#ifdef NETWORK_ENABLED
+ network_shutdown();
+ fpr("\nNetwork subsystem shut down.");
+#endif
 
  return 0;
 
