@@ -1,0 +1,1732 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      The system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+      La g├®n├®ration a d├®marr├® 09/06/2025 20:37:31.
+      
+      Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\4.0.2\\CompilerIdC\\CompilerIdC.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+      PrepareForBuild:
+        Cr├®ation du r├®pertoire "Debug\\".
+        La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+        Cr├®ation du r├®pertoire "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Cr├®ation de "Debug\\CompilerIdC.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+        Mise ├á jour de l'horodatage "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+      ClCompile:
+        D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\4.0.2\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Mise ├á jour de l'horodatage "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\4.0.2\\CompilerIdC\\CompilerIdC.vcxproj" termin├®e (cibles par d├®faut).
+      
+      La g├®n├®ration a r├®ussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps ├®coul├® 00:00:07.27
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        X:/projects/liberation-circuit/CMakeFiles/4.0.2/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+      La g├®n├®ration a d├®marr├® 09/06/2025 20:37:45.
+      
+      Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\4.0.2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+      PrepareForBuild:
+        Cr├®ation du r├®pertoire "Debug\\".
+        La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+        Cr├®ation du r├®pertoire "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Cr├®ation de "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+        Mise ├á jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      ClCompile:
+        D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\4.0.2\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Mise ├á jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\4.0.2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" termin├®e (cibles par d├®faut).
+      
+      La g├®n├®ration a r├®ussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps ├®coul├® 00:00:02.82
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        X:/projects/liberation-circuit/CMakeFiles/4.0.2/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:55 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-kfmaet"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-kfmaet"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-kfmaet'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1c0ca.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:37:50.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-kfmaet\\cmTC_1c0ca.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_1c0ca.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-kfmaet\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_1c0ca.dir\\Debug\\cmTC_1c0ca.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_1c0ca.dir\\Debug\\cmTC_1c0ca.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_1c0ca.dir\\Debug\\cmTC_1c0ca.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1c0ca.dir\\Debug\\\\" /Fd"cmTC_1c0ca.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\Scoop\\apps\\cmake\\current\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1c0ca.dir\\Debug\\\\" /Fd"cmTC_1c0ca.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\Scoop\\apps\\cmake\\current\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
+          CMakeCCompilerABI.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-kfmaet\\Debug\\cmTC_1c0ca.exe" /INCREMENTAL /ILK:"cmTC_1c0ca.dir\\Debug\\cmTC_1c0ca.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-kfmaet/Debug/cmTC_1c0ca.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-kfmaet/Debug/cmTC_1c0ca.lib" /MACHINE:X64  /machine:x64 cmTC_1c0ca.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_1c0ca.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-kfmaet\\Debug\\cmTC_1c0ca.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_1c0ca.dir\\Debug\\cmTC_1c0ca.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_1c0ca.dir\\Debug\\cmTC_1c0ca.tlog\\cmTC_1c0ca.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-kfmaet\\cmTC_1c0ca.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.76
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:227 (message)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'C': D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/Internal/CMakeDetermineLinkerId.cmake:36 (message)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:270 (cmake_determine_linker_id)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      Running the C compiler's linker: "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.43.34810.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:55 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3uj9il"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3uj9il"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3uj9il'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b4bca.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:37:54.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3uj9il\\cmTC_b4bca.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_b4bca.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3uj9il\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_b4bca.dir\\Debug\\cmTC_b4bca.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_b4bca.dir\\Debug\\cmTC_b4bca.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_b4bca.dir\\Debug\\cmTC_b4bca.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b4bca.dir\\Debug\\\\" /Fd"cmTC_b4bca.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\Scoop\\apps\\cmake\\current\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b4bca.dir\\Debug\\\\" /Fd"cmTC_b4bca.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\Scoop\\apps\\cmake\\current\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3uj9il\\Debug\\cmTC_b4bca.exe" /INCREMENTAL /ILK:"cmTC_b4bca.dir\\Debug\\cmTC_b4bca.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3uj9il/Debug/cmTC_b4bca.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3uj9il/Debug/cmTC_b4bca.lib" /MACHINE:X64  /machine:x64 cmTC_b4bca.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_b4bca.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3uj9il\\Debug\\cmTC_b4bca.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_b4bca.dir\\Debug\\cmTC_b4bca.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_b4bca.dir\\Debug\\cmTC_b4bca.tlog\\cmTC_b4bca.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3uj9il\\cmTC_b4bca.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.73
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:227 (message)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/Internal/CMakeDetermineLinkerId.cmake:36 (message)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:270 (cmake_determine_linker_id)"
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      Running the CXX compiler's linker: "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.43.34810.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:513 (check_include_files)"
+    checks:
+      - "Looking for include file dirent.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wfqxle"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wfqxle"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_DIRENT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wfqxle'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_e0f9b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:18.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\cmTC_e0f9b.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_e0f9b.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_e0f9b.dir\\Debug\\cmTC_e0f9b.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_e0f9b.dir\\Debug\\cmTC_e0f9b.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_e0f9b.dir\\Debug\\cmTC_e0f9b.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e0f9b.dir\\Debug\\\\" /Fd"cmTC_e0f9b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\ALLEGRO_HAVE_DIRENT_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e0f9b.dir\\Debug\\\\" /Fd"cmTC_e0f9b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\ALLEGRO_HAVE_DIRENT_H.c"
+          ALLEGRO_HAVE_DIRENT_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\ALLEGRO_HAVE_DIRENT_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'dirent.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\cmTC_e0f9b.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\cmTC_e0f9b.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\cmTC_e0f9b.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\ALLEGRO_HAVE_DIRENT_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'dirent.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wfqxle\\cmTC_e0f9b.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.72
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:514 (check_include_files)"
+    checks:
+      - "Looking for include file inttypes.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jaldqx"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jaldqx"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_INTTYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jaldqx'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6f75b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:23.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\cmTC_6f75b.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_6f75b.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_6f75b.dir\\Debug\\cmTC_6f75b.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_6f75b.dir\\Debug\\cmTC_6f75b.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_6f75b.dir\\Debug\\cmTC_6f75b.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6f75b.dir\\Debug\\\\" /Fd"cmTC_6f75b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\ALLEGRO_HAVE_INTTYPES_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6f75b.dir\\Debug\\\\" /Fd"cmTC_6f75b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\ALLEGRO_HAVE_INTTYPES_H.c"
+          ALLEGRO_HAVE_INTTYPES_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\Debug\\cmTC_6f75b.exe" /INCREMENTAL /ILK:"cmTC_6f75b.dir\\Debug\\cmTC_6f75b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jaldqx/Debug/cmTC_6f75b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jaldqx/Debug/cmTC_6f75b.lib" /MACHINE:X64  /machine:x64 cmTC_6f75b.dir\\Debug\\ALLEGRO_HAVE_INTTYPES_H.obj
+          cmTC_6f75b.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\Debug\\cmTC_6f75b.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_6f75b.dir\\Debug\\cmTC_6f75b.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_6f75b.dir\\Debug\\cmTC_6f75b.tlog\\cmTC_6f75b.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jaldqx\\cmTC_6f75b.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.11
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:515 (check_include_files)"
+    checks:
+      - "Looking for include file linux/input.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-0tbgec"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-0tbgec"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_LINUX_INPUT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-0tbgec'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_95165.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:27.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\cmTC_95165.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_95165.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_95165.dir\\Debug\\cmTC_95165.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_95165.dir\\Debug\\cmTC_95165.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_95165.dir\\Debug\\cmTC_95165.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_95165.dir\\Debug\\\\" /Fd"cmTC_95165.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\ALLEGRO_HAVE_LINUX_INPUT_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_95165.dir\\Debug\\\\" /Fd"cmTC_95165.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\ALLEGRO_HAVE_LINUX_INPUT_H.c"
+          ALLEGRO_HAVE_LINUX_INPUT_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\ALLEGRO_HAVE_LINUX_INPUT_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'linux/input.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\cmTC_95165.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\cmTC_95165.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\cmTC_95165.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\ALLEGRO_HAVE_LINUX_INPUT_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'linux/input.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-0tbgec\\cmTC_95165.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.33
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:516 (check_include_files)"
+    checks:
+      - "Looking for include file stdbool.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-1k4ims"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-1k4ims"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_STDBOOL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-1k4ims'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_41ed5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:31.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\cmTC_41ed5.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_41ed5.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_41ed5.dir\\Debug\\cmTC_41ed5.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_41ed5.dir\\Debug\\cmTC_41ed5.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_41ed5.dir\\Debug\\cmTC_41ed5.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_41ed5.dir\\Debug\\\\" /Fd"cmTC_41ed5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\ALLEGRO_HAVE_STDBOOL_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_41ed5.dir\\Debug\\\\" /Fd"cmTC_41ed5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\ALLEGRO_HAVE_STDBOOL_H.c"
+          ALLEGRO_HAVE_STDBOOL_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\Debug\\cmTC_41ed5.exe" /INCREMENTAL /ILK:"cmTC_41ed5.dir\\Debug\\cmTC_41ed5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-1k4ims/Debug/cmTC_41ed5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-1k4ims/Debug/cmTC_41ed5.lib" /MACHINE:X64  /machine:x64 cmTC_41ed5.dir\\Debug\\ALLEGRO_HAVE_STDBOOL_H.obj
+          cmTC_41ed5.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\Debug\\cmTC_41ed5.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_41ed5.dir\\Debug\\cmTC_41ed5.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_41ed5.dir\\Debug\\cmTC_41ed5.tlog\\cmTC_41ed5.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-1k4ims\\cmTC_41ed5.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:05.48
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:517 (check_include_files)"
+    checks:
+      - "Looking for include file stdint.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wtyz94"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wtyz94"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wtyz94'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_10403.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:37.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\cmTC_10403.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_10403.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_10403.dir\\Debug\\cmTC_10403.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_10403.dir\\Debug\\cmTC_10403.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_10403.dir\\Debug\\cmTC_10403.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_10403.dir\\Debug\\\\" /Fd"cmTC_10403.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\ALLEGRO_HAVE_STDINT_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_10403.dir\\Debug\\\\" /Fd"cmTC_10403.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\ALLEGRO_HAVE_STDINT_H.c"
+          ALLEGRO_HAVE_STDINT_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\Debug\\cmTC_10403.exe" /INCREMENTAL /ILK:"cmTC_10403.dir\\Debug\\cmTC_10403.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wtyz94/Debug/cmTC_10403.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-wtyz94/Debug/cmTC_10403.lib" /MACHINE:X64  /machine:x64 cmTC_10403.dir\\Debug\\ALLEGRO_HAVE_STDINT_H.obj
+          cmTC_10403.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\Debug\\cmTC_10403.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_10403.dir\\Debug\\cmTC_10403.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_10403.dir\\Debug\\cmTC_10403.tlog\\cmTC_10403.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-wtyz94\\cmTC_10403.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.99
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:518 (check_include_files)"
+    checks:
+      - "Looking for include file sys/io.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-08j5jo"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-08j5jo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_IO_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-08j5jo'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_12493.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:42.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\cmTC_12493.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_12493.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_12493.dir\\Debug\\cmTC_12493.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_12493.dir\\Debug\\cmTC_12493.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_12493.dir\\Debug\\cmTC_12493.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_12493.dir\\Debug\\\\" /Fd"cmTC_12493.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\ALLEGRO_HAVE_SYS_IO_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_12493.dir\\Debug\\\\" /Fd"cmTC_12493.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\ALLEGRO_HAVE_SYS_IO_H.c"
+          ALLEGRO_HAVE_SYS_IO_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\ALLEGRO_HAVE_SYS_IO_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/io.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\cmTC_12493.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\cmTC_12493.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\cmTC_12493.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\ALLEGRO_HAVE_SYS_IO_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/io.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-08j5jo\\cmTC_12493.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:01.37
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:519 (check_include_files)"
+    checks:
+      - "Looking for include file sys/stat.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jj6tkc"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jj6tkc"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_STAT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jj6tkc'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1aec1.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:45.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\cmTC_1aec1.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_1aec1.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_1aec1.dir\\Debug\\cmTC_1aec1.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_1aec1.dir\\Debug\\cmTC_1aec1.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_1aec1.dir\\Debug\\cmTC_1aec1.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1aec1.dir\\Debug\\\\" /Fd"cmTC_1aec1.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\ALLEGRO_HAVE_SYS_STAT_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1aec1.dir\\Debug\\\\" /Fd"cmTC_1aec1.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\ALLEGRO_HAVE_SYS_STAT_H.c"
+          ALLEGRO_HAVE_SYS_STAT_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\Debug\\cmTC_1aec1.exe" /INCREMENTAL /ILK:"cmTC_1aec1.dir\\Debug\\cmTC_1aec1.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jj6tkc/Debug/cmTC_1aec1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-jj6tkc/Debug/cmTC_1aec1.lib" /MACHINE:X64  /machine:x64 cmTC_1aec1.dir\\Debug\\ALLEGRO_HAVE_SYS_STAT_H.obj
+          cmTC_1aec1.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\Debug\\cmTC_1aec1.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_1aec1.dir\\Debug\\cmTC_1aec1.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_1aec1.dir\\Debug\\cmTC_1aec1.tlog\\cmTC_1aec1.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-jj6tkc\\cmTC_1aec1.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.96
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:520 (check_include_files)"
+    checks:
+      - "Looking for include file sys/time.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-gevx3e"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-gevx3e"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_TIME_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-gevx3e'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4490f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:48.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\cmTC_4490f.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_4490f.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_4490f.dir\\Debug\\cmTC_4490f.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_4490f.dir\\Debug\\cmTC_4490f.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_4490f.dir\\Debug\\cmTC_4490f.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4490f.dir\\Debug\\\\" /Fd"cmTC_4490f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\ALLEGRO_HAVE_SYS_TIME_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4490f.dir\\Debug\\\\" /Fd"cmTC_4490f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\ALLEGRO_HAVE_SYS_TIME_H.c"
+          ALLEGRO_HAVE_SYS_TIME_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\ALLEGRO_HAVE_SYS_TIME_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/time.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\cmTC_4490f.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\cmTC_4490f.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\cmTC_4490f.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\ALLEGRO_HAVE_SYS_TIME_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/time.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-gevx3e\\cmTC_4490f.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:01.63
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:521 (check_include_files)"
+    checks:
+      - "Looking for include file time.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-xw76v1"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-xw76v1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_TIME_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-xw76v1'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4bc9e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:51.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\cmTC_4bc9e.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_4bc9e.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_4bc9e.dir\\Debug\\cmTC_4bc9e.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_4bc9e.dir\\Debug\\cmTC_4bc9e.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_4bc9e.dir\\Debug\\cmTC_4bc9e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4bc9e.dir\\Debug\\\\" /Fd"cmTC_4bc9e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\ALLEGRO_HAVE_TIME_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4bc9e.dir\\Debug\\\\" /Fd"cmTC_4bc9e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\ALLEGRO_HAVE_TIME_H.c"
+          ALLEGRO_HAVE_TIME_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\Debug\\cmTC_4bc9e.exe" /INCREMENTAL /ILK:"cmTC_4bc9e.dir\\Debug\\cmTC_4bc9e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-xw76v1/Debug/cmTC_4bc9e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-xw76v1/Debug/cmTC_4bc9e.lib" /MACHINE:X64  /machine:x64 cmTC_4bc9e.dir\\Debug\\ALLEGRO_HAVE_TIME_H.obj
+          cmTC_4bc9e.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\Debug\\cmTC_4bc9e.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_4bc9e.dir\\Debug\\cmTC_4bc9e.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_4bc9e.dir\\Debug\\cmTC_4bc9e.tlog\\cmTC_4bc9e.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-xw76v1\\cmTC_4bc9e.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.66
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:522 (check_include_files)"
+    checks:
+      - "Looking for include file sys/utsname.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-ao4bdl"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-ao4bdl"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_UTSNAME_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-ao4bdl'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cb0ff.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:56.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\cmTC_cb0ff.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_cb0ff.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_cb0ff.dir\\Debug\\cmTC_cb0ff.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_cb0ff.dir\\Debug\\cmTC_cb0ff.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_cb0ff.dir\\Debug\\cmTC_cb0ff.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cb0ff.dir\\Debug\\\\" /Fd"cmTC_cb0ff.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\ALLEGRO_HAVE_SYS_UTSNAME_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cb0ff.dir\\Debug\\\\" /Fd"cmTC_cb0ff.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\ALLEGRO_HAVE_SYS_UTSNAME_H.c"
+          ALLEGRO_HAVE_SYS_UTSNAME_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\ALLEGRO_HAVE_SYS_UTSNAME_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/utsname.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\cmTC_cb0ff.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\cmTC_cb0ff.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\cmTC_cb0ff.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\ALLEGRO_HAVE_SYS_UTSNAME_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/utsname.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ao4bdl\\cmTC_cb0ff.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:01.75
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:523 (check_include_files)"
+    checks:
+      - "Looking for include file sys/types.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-f2aohf"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-f2aohf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-f2aohf'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f3620.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:38:59.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\cmTC_f3620.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_f3620.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_f3620.dir\\Debug\\cmTC_f3620.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_f3620.dir\\Debug\\cmTC_f3620.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_f3620.dir\\Debug\\cmTC_f3620.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f3620.dir\\Debug\\\\" /Fd"cmTC_f3620.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\ALLEGRO_HAVE_SYS_TYPES_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f3620.dir\\Debug\\\\" /Fd"cmTC_f3620.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\ALLEGRO_HAVE_SYS_TYPES_H.c"
+          ALLEGRO_HAVE_SYS_TYPES_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\Debug\\cmTC_f3620.exe" /INCREMENTAL /ILK:"cmTC_f3620.dir\\Debug\\cmTC_f3620.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-f2aohf/Debug/cmTC_f3620.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-f2aohf/Debug/cmTC_f3620.lib" /MACHINE:X64  /machine:x64 cmTC_f3620.dir\\Debug\\ALLEGRO_HAVE_SYS_TYPES_H.obj
+          cmTC_f3620.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\Debug\\cmTC_f3620.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_f3620.dir\\Debug\\cmTC_f3620.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_f3620.dir\\Debug\\cmTC_f3620.tlog\\cmTC_f3620.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-f2aohf\\cmTC_f3620.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.87
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:524 (check_include_files)"
+    checks:
+      - "Looking for include file soundcard.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-39mxgt"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-39mxgt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SOUNDCARD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-39mxgt'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_aff2e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:04.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\cmTC_aff2e.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_aff2e.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_aff2e.dir\\Debug\\cmTC_aff2e.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_aff2e.dir\\Debug\\cmTC_aff2e.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_aff2e.dir\\Debug\\cmTC_aff2e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_aff2e.dir\\Debug\\\\" /Fd"cmTC_aff2e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\ALLEGRO_HAVE_SOUNDCARD_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_aff2e.dir\\Debug\\\\" /Fd"cmTC_aff2e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\ALLEGRO_HAVE_SOUNDCARD_H.c"
+          ALLEGRO_HAVE_SOUNDCARD_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\ALLEGRO_HAVE_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\cmTC_aff2e.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\cmTC_aff2e.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\cmTC_aff2e.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\ALLEGRO_HAVE_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-39mxgt\\cmTC_aff2e.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:01.58
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:525 (check_include_files)"
+    checks:
+      - "Looking for include file sys/soundcard.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-lug2bg"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-lug2bg"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_SOUNDCARD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-lug2bg'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a9781.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:07.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\cmTC_a9781.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_a9781.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_a9781.dir\\Debug\\cmTC_a9781.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_a9781.dir\\Debug\\cmTC_a9781.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_a9781.dir\\Debug\\cmTC_a9781.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a9781.dir\\Debug\\\\" /Fd"cmTC_a9781.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\ALLEGRO_HAVE_SYS_SOUNDCARD_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a9781.dir\\Debug\\\\" /Fd"cmTC_a9781.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\ALLEGRO_HAVE_SYS_SOUNDCARD_H.c"
+          ALLEGRO_HAVE_SYS_SOUNDCARD_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\ALLEGRO_HAVE_SYS_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\cmTC_a9781.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\cmTC_a9781.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\cmTC_a9781.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\ALLEGRO_HAVE_SYS_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-lug2bg\\cmTC_a9781.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:01.64
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:526 (check_include_files)"
+    checks:
+      - "Looking for include file machine/soundcard.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-b1y6r5"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-b1y6r5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_MACHINE_SOUNDCARD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-b1y6r5'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d7a4e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:09.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\cmTC_d7a4e.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_d7a4e.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_d7a4e.dir\\Debug\\cmTC_d7a4e.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_d7a4e.dir\\Debug\\cmTC_d7a4e.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_d7a4e.dir\\Debug\\cmTC_d7a4e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d7a4e.dir\\Debug\\\\" /Fd"cmTC_d7a4e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\ALLEGRO_HAVE_MACHINE_SOUNDCARD_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d7a4e.dir\\Debug\\\\" /Fd"cmTC_d7a4e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\ALLEGRO_HAVE_MACHINE_SOUNDCARD_H.c"
+          ALLEGRO_HAVE_MACHINE_SOUNDCARD_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\ALLEGRO_HAVE_MACHINE_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'machine/soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\cmTC_d7a4e.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\cmTC_d7a4e.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\cmTC_d7a4e.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\ALLEGRO_HAVE_MACHINE_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'machine/soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-b1y6r5\\cmTC_d7a4e.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:01.87
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:527 (check_include_files)"
+    checks:
+      - "Looking for include file linux/soundcard.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3qkwmo"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3qkwmo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_LINUX_SOUNDCARD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3qkwmo'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cca12.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:12.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\cmTC_cca12.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_cca12.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_cca12.dir\\Debug\\cmTC_cca12.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_cca12.dir\\Debug\\cmTC_cca12.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_cca12.dir\\Debug\\cmTC_cca12.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cca12.dir\\Debug\\\\" /Fd"cmTC_cca12.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\ALLEGRO_HAVE_LINUX_SOUNDCARD_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cca12.dir\\Debug\\\\" /Fd"cmTC_cca12.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\ALLEGRO_HAVE_LINUX_SOUNDCARD_H.c"
+          ALLEGRO_HAVE_LINUX_SOUNDCARD_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\ALLEGRO_HAVE_LINUX_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'linux/soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\cmTC_cca12.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\cmTC_cca12.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\cmTC_cca12.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\ALLEGRO_HAVE_LINUX_SOUNDCARD_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'linux/soundcard.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3qkwmo\\cmTC_cca12.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.48
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:528 (check_include_files)"
+    checks:
+      - "Looking for include file libkern/OSAtomic.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-ghuvdi"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-ghuvdi"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_OSATOMIC_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-ghuvdi'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_78dc9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:16.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\cmTC_78dc9.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_78dc9.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_78dc9.dir\\Debug\\cmTC_78dc9.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_78dc9.dir\\Debug\\cmTC_78dc9.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_78dc9.dir\\Debug\\cmTC_78dc9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_78dc9.dir\\Debug\\\\" /Fd"cmTC_78dc9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\ALLEGRO_HAVE_OSATOMIC_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_78dc9.dir\\Debug\\\\" /Fd"cmTC_78dc9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\ALLEGRO_HAVE_OSATOMIC_H.c"
+          ALLEGRO_HAVE_OSATOMIC_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\ALLEGRO_HAVE_OSATOMIC_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'libkern/OSAtomic.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\cmTC_78dc9.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\cmTC_78dc9.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\cmTC_78dc9.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\ALLEGRO_HAVE_OSATOMIC_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'libkern/OSAtomic.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-ghuvdi\\cmTC_78dc9.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.18
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:529 (check_include_files)"
+    checks:
+      - "Looking for include file sys/inotify.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-pw0goa"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-pw0goa"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYS_INOTIFY_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-pw0goa'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_34caa.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:20.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\cmTC_34caa.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_34caa.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_34caa.dir\\Debug\\cmTC_34caa.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_34caa.dir\\Debug\\cmTC_34caa.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_34caa.dir\\Debug\\cmTC_34caa.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_34caa.dir\\Debug\\\\" /Fd"cmTC_34caa.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\ALLEGRO_HAVE_SYS_INOTIFY_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_34caa.dir\\Debug\\\\" /Fd"cmTC_34caa.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\ALLEGRO_HAVE_SYS_INOTIFY_H.c"
+          ALLEGRO_HAVE_SYS_INOTIFY_H.c
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\ALLEGRO_HAVE_SYS_INOTIFY_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/inotify.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\cmTC_34caa.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\cmTC_34caa.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\cmTC_34caa.vcxproj" (cible par d├®faut) (1) ->
+        (ClCompile cible) -> 
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\ALLEGRO_HAVE_SYS_INOTIFY_H.c(2,10): error C1083: Impossible d'ouvrir le fichier include┬á: 'sys/inotify.h'┬á: No such file or directory [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-pw0goa\\cmTC_34caa.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps ├®coul├® 00:00:02.74
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckIncludeFiles.cmake:141 (try_compile)"
+      - "CMakeLists.txt:530 (check_include_files)"
+    checks:
+      - "Looking for include file sal.h"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-tuxsa2"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-tuxsa2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SAL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-tuxsa2'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_461fa.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:24.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\cmTC_461fa.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_461fa.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_461fa.dir\\Debug\\cmTC_461fa.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_461fa.dir\\Debug\\cmTC_461fa.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_461fa.dir\\Debug\\cmTC_461fa.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_461fa.dir\\Debug\\\\" /Fd"cmTC_461fa.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\ALLEGRO_HAVE_SAL_H.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_461fa.dir\\Debug\\\\" /Fd"cmTC_461fa.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\ALLEGRO_HAVE_SAL_H.c"
+          ALLEGRO_HAVE_SAL_H.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\Debug\\cmTC_461fa.exe" /INCREMENTAL /ILK:"cmTC_461fa.dir\\Debug\\cmTC_461fa.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-tuxsa2/Debug/cmTC_461fa.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-tuxsa2/Debug/cmTC_461fa.lib" /MACHINE:X64  /machine:x64 cmTC_461fa.dir\\Debug\\ALLEGRO_HAVE_SAL_H.obj
+          cmTC_461fa.vcxproj -> X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\Debug\\cmTC_461fa.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_461fa.dir\\Debug\\cmTC_461fa.tlog\\unsuccessfulbuild".
+          Mise ├á jour de l'horodatage "cmTC_461fa.dir\\Debug\\cmTC_461fa.tlog\\cmTC_461fa.lastbuildstate".
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-tuxsa2\\cmTC_461fa.vcxproj" termin├®e (cibles par d├®faut).
+        
+        La g├®n├®ration a r├®ussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps ├®coul├® 00:00:04.74
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:532 (check_function_exists)"
+    checks:
+      - "Looking for getexecname"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-2mo5a6"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-2mo5a6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_GETEXECNAME"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-2mo5a6'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d37aa.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:30.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_d37aa.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_d37aa.dir\\Debug\\cmTC_d37aa.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_d37aa.dir\\Debug\\cmTC_d37aa.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_d37aa.dir\\Debug\\cmTC_d37aa.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=getexecname /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d37aa.dir\\Debug\\\\" /Fd"cmTC_d37aa.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=getexecname /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_d37aa.dir\\Debug\\\\" /Fd"cmTC_d37aa.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\Debug\\cmTC_d37aa.exe" /INCREMENTAL /ILK:"cmTC_d37aa.dir\\Debug\\cmTC_d37aa.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-2mo5a6/Debug/cmTC_d37aa.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-2mo5a6/Debug/cmTC_d37aa.lib" /MACHINE:X64  /machine:x64 cmTC_d37aa.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu getexecname r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\Debug\\cmTC_d37aa.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu getexecname r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\Debug\\cmTC_d37aa.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-2mo5a6\\cmTC_d37aa.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.28
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:533 (check_function_exists)"
+    checks:
+      - "Looking for mkstemp"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rd3417"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rd3417"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_MKSTEMP"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rd3417'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_8f614.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:35.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_8f614.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_8f614.dir\\Debug\\cmTC_8f614.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_8f614.dir\\Debug\\cmTC_8f614.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_8f614.dir\\Debug\\cmTC_8f614.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=mkstemp /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_8f614.dir\\Debug\\\\" /Fd"cmTC_8f614.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=mkstemp /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_8f614.dir\\Debug\\\\" /Fd"cmTC_8f614.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\Debug\\cmTC_8f614.exe" /INCREMENTAL /ILK:"cmTC_8f614.dir\\Debug\\cmTC_8f614.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rd3417/Debug/cmTC_8f614.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rd3417/Debug/cmTC_8f614.lib" /MACHINE:X64  /machine:x64 cmTC_8f614.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu mkstemp r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\Debug\\cmTC_8f614.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu mkstemp r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\Debug\\cmTC_8f614.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rd3417\\cmTC_8f614.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:04.02
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:534 (check_function_exists)"
+    checks:
+      - "Looking for mmap"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-oks8p2"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-oks8p2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_MMAP"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-oks8p2'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b9113.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:41.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_b9113.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_b9113.dir\\Debug\\cmTC_b9113.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_b9113.dir\\Debug\\cmTC_b9113.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_b9113.dir\\Debug\\cmTC_b9113.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=mmap /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b9113.dir\\Debug\\\\" /Fd"cmTC_b9113.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=mmap /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b9113.dir\\Debug\\\\" /Fd"cmTC_b9113.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\Debug\\cmTC_b9113.exe" /INCREMENTAL /ILK:"cmTC_b9113.dir\\Debug\\cmTC_b9113.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-oks8p2/Debug/cmTC_b9113.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-oks8p2/Debug/cmTC_b9113.lib" /MACHINE:X64  /machine:x64 cmTC_b9113.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu mmap r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\Debug\\cmTC_b9113.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu mmap r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\Debug\\cmTC_b9113.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-oks8p2\\cmTC_b9113.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:09.91
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:535 (check_function_exists)"
+    checks:
+      - "Looking for mprotect"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rw7f32"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rw7f32"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_MPROTECT"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rw7f32'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3aaf9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:52.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_3aaf9.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_3aaf9.dir\\Debug\\cmTC_3aaf9.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_3aaf9.dir\\Debug\\cmTC_3aaf9.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_3aaf9.dir\\Debug\\cmTC_3aaf9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=mprotect /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3aaf9.dir\\Debug\\\\" /Fd"cmTC_3aaf9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=mprotect /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3aaf9.dir\\Debug\\\\" /Fd"cmTC_3aaf9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\Debug\\cmTC_3aaf9.exe" /INCREMENTAL /ILK:"cmTC_3aaf9.dir\\Debug\\cmTC_3aaf9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rw7f32/Debug/cmTC_3aaf9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-rw7f32/Debug/cmTC_3aaf9.lib" /MACHINE:X64  /machine:x64 cmTC_3aaf9.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu mprotect r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\Debug\\cmTC_3aaf9.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu mprotect r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\Debug\\cmTC_3aaf9.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-rw7f32\\cmTC_3aaf9.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.29
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:536 (check_function_exists)"
+    checks:
+      - "Looking for sched_yield"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-9g3tai"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-9g3tai"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SCHED_YIELD"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-9g3tai'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_94794.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:39:57.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_94794.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_94794.dir\\Debug\\cmTC_94794.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_94794.dir\\Debug\\cmTC_94794.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_94794.dir\\Debug\\cmTC_94794.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=sched_yield /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_94794.dir\\Debug\\\\" /Fd"cmTC_94794.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=sched_yield /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_94794.dir\\Debug\\\\" /Fd"cmTC_94794.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\Debug\\cmTC_94794.exe" /INCREMENTAL /ILK:"cmTC_94794.dir\\Debug\\cmTC_94794.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-9g3tai/Debug/cmTC_94794.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-9g3tai/Debug/cmTC_94794.lib" /MACHINE:X64  /machine:x64 cmTC_94794.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu sched_yield r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\Debug\\cmTC_94794.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu sched_yield r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\Debug\\cmTC_94794.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-9g3tai\\cmTC_94794.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:04.79
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:537 (check_function_exists)"
+    checks:
+      - "Looking for sysconf"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-c585s8"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-c585s8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_SYSCONF"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-c585s8'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_151a3.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:40:03.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_151a3.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_151a3.dir\\Debug\\cmTC_151a3.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_151a3.dir\\Debug\\cmTC_151a3.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_151a3.dir\\Debug\\cmTC_151a3.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=sysconf /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_151a3.dir\\Debug\\\\" /Fd"cmTC_151a3.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=sysconf /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_151a3.dir\\Debug\\\\" /Fd"cmTC_151a3.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\Debug\\cmTC_151a3.exe" /INCREMENTAL /ILK:"cmTC_151a3.dir\\Debug\\cmTC_151a3.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-c585s8/Debug/cmTC_151a3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-c585s8/Debug/cmTC_151a3.lib" /MACHINE:X64  /machine:x64 cmTC_151a3.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu sysconf r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\Debug\\cmTC_151a3.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu sysconf r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\Debug\\cmTC_151a3.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-c585s8\\cmTC_151a3.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:05.40
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:538 (check_function_exists)"
+    checks:
+      - "Looking for fseeko"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3buwmw"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3buwmw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_FSEEKO"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3buwmw'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cffe9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:40:15.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_cffe9.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_cffe9.dir\\Debug\\cmTC_cffe9.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_cffe9.dir\\Debug\\cmTC_cffe9.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_cffe9.dir\\Debug\\cmTC_cffe9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cffe9.dir\\Debug\\\\" /Fd"cmTC_cffe9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cffe9.dir\\Debug\\\\" /Fd"cmTC_cffe9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\Debug\\cmTC_cffe9.exe" /INCREMENTAL /ILK:"cmTC_cffe9.dir\\Debug\\cmTC_cffe9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3buwmw/Debug/cmTC_cffe9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-3buwmw/Debug/cmTC_cffe9.lib" /MACHINE:X64  /machine:x64 cmTC_cffe9.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu fseeko r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\Debug\\cmTC_cffe9.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu fseeko r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\Debug\\cmTC_cffe9.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-3buwmw\\cmTC_cffe9.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:05.53
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CheckFunctionExists.cmake:93 (try_compile)"
+      - "CMakeLists.txt:539 (check_function_exists)"
+    checks:
+      - "Looking for ftello"
+    directories:
+      source: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-otdv2k"
+      binary: "X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-otdv2k"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 /W3 -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE "
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "X:/projects/liberation-circuit/allegro/cmake"
+    buildResult:
+      variable: "ALLEGRO_HAVE_FTELLO"
+      cached: true
+      stdout: |
+        Change Dir: 'X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-otdv2k'
+        
+        Run Build Command(s): "D:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_112d9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.13.26+f3741e9cf pour .NET Framework
+        La g├®n├®ration a d├®marr├® 09/06/2025 20:40:21.
+        
+        Projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj" sur le n┼ôud 1 (cibles par d├®faut).
+        PrepareForBuild:
+          Cr├®ation du r├®pertoire "cmTC_112d9.dir\\Debug\\".
+          La sortie structur├®e est activ├®e. La mise en forme du compilateur diagnostics refl├¿te la hi├®rarchie des erreurs. Pour plus dÔÇÖinformations, consultez https://aka.ms/cpp/structured-output.
+          Cr├®ation du r├®pertoire "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\Debug\\".
+          Cr├®ation du r├®pertoire "cmTC_112d9.dir\\Debug\\cmTC_112d9.tlog\\".
+        InitializeBuildStatus:
+          Cr├®ation de "cmTC_112d9.dir\\Debug\\cmTC_112d9.tlog\\unsuccessfulbuild", car "AlwaysCreate" a ├®t├® sp├®cifi├®.
+          Mise ├á jour de l'horodatage "cmTC_112d9.dir\\Debug\\cmTC_112d9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=ftello /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_112d9.dir\\Debug\\\\" /Fd"cmTC_112d9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\CheckFunctionExists.c"
+          Compilateur d'optimisation Microsoft (R) C/C++ version┬á19.43.34810 pour x64
+          Copyright (C) Microsoft Corporation. Tous droits r├®serv├®s.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D CHECK_FUNCTION_EXISTS=ftello /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_112d9.dir\\Debug\\\\" /Fd"cmTC_112d9.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\Debug\\cmTC_112d9.exe" /INCREMENTAL /ILK:"cmTC_112d9.dir\\Debug\\cmTC_112d9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-otdv2k/Debug/cmTC_112d9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"X:/projects/liberation-circuit/CMakeFiles/CMakeScratch/TryCompile-otdv2k/Debug/cmTC_112d9.lib" /MACHINE:X64  /machine:x64 cmTC_112d9.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu ftello r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj]
+        X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\Debug\\cmTC_112d9.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj]
+        G├®n├®ration du projet "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj" termin├®e (cibles par d├®faut) -- ├ëCHEC.
+        
+        ├ëCHEC de la build.
+        
+        "X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj" (cible par d├®faut) (1) ->
+        (Link cible) -> 
+          CheckFunctionExists.obj : error LNK2019: symbole externe non r├®solu ftello r├®f├®renc├® dans la fonction main [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj]
+          X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\Debug\\cmTC_112d9.exe : fatal error LNK1120: 1 externes non r├®solus [X:\\projects\\liberation-circuit\\CMakeFiles\\CMakeScratch\\TryCompile-otdv2k\\cmTC_112d9.vcxproj]
+        
+            0 Avertissement(s)
+            2 Erreur(s)
+        
+        Temps ├®coul├® 00:00:03.37
+        
+      exitCode: 1
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Scoop/apps/cmake/current/share/cmake-4.0/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:55 (project)"
+    message: |
+      The system is: Windows - 10.0.26100 - AMD64
+...

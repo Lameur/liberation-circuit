@@ -16,6 +16,7 @@ CompileFlags:
 
             # You can also add header include paths here, each prefixed with '-I', one path per line, like this:
             # -I/usr/include
+            -Iallegro/include/allegro5
         ]
 
 # for more options, type ctrl + space to bring up the auto-completion list
