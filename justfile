@@ -10,16 +10,16 @@ export ALLEGRO_MODULES := "allegro-5 allegro_audio-5 allegro_acodec-5 allegro_di
 
 # Compiler detection
 # Compiler detection (prioritize Clang/LLVM, make GCC optional)
-cc := if env_var_or_default("CC", "") != "" { 
-    env_var_or_default("CC", "") 
-} else if `command -v clang >/dev/null 2>&1 && echo "yes" || echo "no"` == "yes" { 
-    "clang" 
-} else if `command -v clang-cl >/dev/null 2>&1 && echo "yes" || echo "no"` == "yes" { 
-    "clang-cl" 
-} else if `command -v gcc >/dev/null 2>&1 && echo "yes" || echo "no"` == "yes" { 
-    "gcc" 
-} else { 
-    "clang" 
+cc := if env_var_or_default("CC", "") != "" {
+    env_var_or_default("CC", "")
+} else if `command -v clang >/dev/null 2>&1 && echo "yes" || echo "no"` == "yes" {
+    "clang"
+} else if `command -v clang-cl >/dev/null 2>&1 && echo "yes" || echo "no"` == "yes" {
+    "clang-cl"
+} else if `command -v gcc >/dev/null 2>&1 && echo "yes" || echo "no"` == "yes" {
+    "gcc"
+} else {
+    "clang"
 }
 
 # Platform detection
@@ -28,12 +28,12 @@ exe_ext := if os == "windows" { ".exe" } else { "" }
 bin_name := "bin/libcirc" + exe_ext
 
 # Compiler-specific flags
-base_warnings := if cc =~ "clang" { 
-    "-Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wno-unused-variable" 
-} else if cc =~ "gcc" { 
-    "-Wall -Wno-misleading-indentation -Wno-unused-variable -Wno-unused-but-set-variable" 
-} else { 
-    "-Wall" 
+base_warnings := if cc =~ "clang" {
+    "-Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wno-unused-variable"
+} else if cc =~ "gcc" {
+    "-Wall -Wno-misleading-indentation -Wno-unused-variable -Wno-unused-but-set-variable"
+} else {
+    "-Wall"
 }
 
 # Build flags
@@ -68,7 +68,7 @@ setup:
 _setup-linux:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     if command -v apt-get >/dev/null 2>&1; then
         echo "Detected Ubuntu/Debian - installing via apt"
         sudo apt-get update
@@ -108,12 +108,12 @@ _setup-linux:
 _setup-macos:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     if ! command -v brew >/dev/null 2>&1; then
         echo "Homebrew not found. Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    
+
     echo "Installing dependencies via Homebrew..."
     brew install allegro pkg-config
 
@@ -121,12 +121,12 @@ _setup-macos:
 _setup-windows:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     echo "Windows Setup Options:"
     echo "1. Native LLVM/Clang (recommended)"
     echo "2. MSYS2 with MinGW (fallback)"
     echo ""
-    
+
     if command -v clang >/dev/null 2>&1 || command -v clang-cl >/dev/null 2>&1; then
         echo "✓ LLVM/Clang detected - using native Windows build"
         echo "Please ensure Allegro 5 is available or use the PowerShell script:"
@@ -171,7 +171,7 @@ build: deps
 _compile-sources:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     for src_file in {{_sources}}; do
         obj_file="${src_file%.c}.o"
         if [[ "$src_file" -nt "$obj_file" ]] || [[ ! -f "$obj_file" ]]; then
@@ -195,9 +195,9 @@ debug:
 _compile-debug:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     debug_cflags="`{{PKG_CONFIG}} --cflags {{ALLEGRO_MODULES}}` {{base_warnings}} -g -DDEBUG_MODE"
-    
+
     for src_file in {{_sources}}; do
         obj_file="${src_file%.c}.o"
         echo "Compiling $src_file (debug) with {{cc}}..."
@@ -224,24 +224,24 @@ run: build
 install: build
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     if [[ "{{os}}" == "windows" ]]; then
         echo "System-wide installation not supported on Windows"
         echo "Copy the 'bin' directory to your desired location instead"
         exit 1
     fi
-    
+
     PREFIX=${PREFIX:-/usr/local}
     echo "Installing to $PREFIX..."
-    
+
     sudo mkdir -p "$PREFIX/bin"
     sudo mkdir -p "$PREFIX/share/liberation-circuit"
     sudo mkdir -p "$PREFIX/share/applications"
     sudo mkdir -p "$PREFIX/share/pixmaps"
-    
+
     sudo cp bin/libcirc "$PREFIX/bin/"
     sudo cp -r bin/* "$PREFIX/share/liberation-circuit/"
-    
+
     echo "✓ Installation complete"
 
 # Create distribution package
@@ -271,9 +271,9 @@ network: deps
 _compile-network:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     network_cflags="`{{PKG_CONFIG}} --cflags {{ALLEGRO_MODULES}}` {{base_warnings}} -O2 -DNETWORK_ENABLED"
-    
+
     for src_file in {{_sources}}; do
         obj_file="${src_file%.c}.o"
         if [[ "$src_file" -nt "$obj_file" ]] || [[ ! -f "$obj_file" ]]; then
@@ -285,13 +285,13 @@ _compile-network:
 _link-network:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     if [[ "{{os}}" == "windows" ]]; then
         network_libs="{{libs}} -lws2_32"
     else
         network_libs="{{libs}}"
     fi
-    
+
     echo "Linking {{bin_name}} (network) with {{cc}}..."
     {{cc}} {{cflags}} -o {{bin_name}} {{_objects}} $network_libs
 
@@ -319,9 +319,9 @@ network-debug:
 _compile-network-debug:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     debug_cflags="`{{PKG_CONFIG}} --cflags {{ALLEGRO_MODULES}}` {{base_warnings}} -g -DDEBUG_MODE -DNETWORK_ENABLED -DNETWORK_DEBUG"
-    
+
     for src_file in {{_sources}}; do
         obj_file="${src_file%.c}.o"
         echo "Compiling $src_file (network debug) with {{cc}}..."
@@ -331,13 +331,13 @@ _compile-network-debug:
 _link-network-debug:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     if [[ "{{os}}" == "windows" ]]; then
         network_libs="{{libs}} -lws2_32"
     else
         network_libs="{{libs}}"
     fi
-    
+
     echo "Linking {{bin_name}} (network debug) with {{cc}}..."
     {{cc}} -g -o {{bin_name}} {{_objects}} $network_libs
 
@@ -384,7 +384,7 @@ info:
 watch:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+
     if command -v inotifywait >/dev/null 2>&1; then
         echo "Watching for changes..."
         while inotifywait -r -e modify src/; do

@@ -1,2 +1,5 @@
 *.o
 lc
+*.dll
+obj/
+build-windows/
