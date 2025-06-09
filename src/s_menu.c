@@ -8,8 +8,8 @@ s_menu.c calls back here for various things.
 */
 
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_native_dialog.h>
+#include <allegro5/allegro_primitives.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -17,17 +17,17 @@ s_menu.c calls back here for various things.
 #include "m_config.h"
 
 #include "g_header.h"
-#include "m_globvars.h"
 #include "i_header.h"
+#include "m_globvars.h"
 #include "m_maths.h"
 
 #include "g_misc.h"
 
 #include "c_header.h"
-#include "e_slider.h"
-#include "e_header.h"
 #include "e_editor.h"
+#include "e_header.h"
 #include "e_help.h"
+#include "e_slider.h"
 
 #ifdef NETWORK_ENABLED
 #include "s_multiplayer_public.h"
@@ -36,867 +36,849 @@ s_menu.c calls back here for various things.
 #include "g_game.h"
 #include "g_world.h"
 
+#include "f_game.h"
+#include "f_load.h"
+#include "i_buttons.h"
+#include "i_disp_in.h"
+#include "i_display.h"
 #include "i_input.h"
 #include "i_view.h"
-#include "i_display.h"
-#include "i_disp_in.h"
-#include "i_buttons.h"
-#include "t_template.h"
 #include "m_input.h"
-#include "f_load.h"
-#include "f_game.h"
+#include "t_template.h"
 #include "x_sound.h"
 
-#include "s_mission.h"
-#include "s_menu.h"
-#include "s_multiplayer_public.h"
 #include "g_world_back.h"
 #include "g_world_map.h"
 #include "g_world_map_2.h"
+#include "s_menu.h"
+#include "s_mission.h"
+#include "s_multiplayer_public.h"
 
 #include "h_story.h"
 
 extern struct map_init_struct map_init;
 
-
 //#include "s_setup.h"
 
-extern struct fontstruct font [FONTS];
-extern ALLEGRO_DISPLAY* display;
+extern struct fontstruct font[FONTS];
+extern ALLEGRO_DISPLAY *display;
 
 // these queues are declared in g_game.c. They're externed here so that they can be flushed when the editor does something slow.
-extern ALLEGRO_EVENT_QUEUE* event_queue; // these queues are initialised in main.c
-extern ALLEGRO_EVENT_QUEUE* fps_queue;
+extern ALLEGRO_EVENT_QUEUE *event_queue; // these queues are initialised in main.c
+extern ALLEGRO_EVENT_QUEUE *fps_queue;
 
 extern struct game_struct game; // in g_game.c
 extern struct view_struct view;
 
-void init_w_init(void);
 static void enter_map_code(void);
 static int read_map_code_value(char read_char, int number);
 
-//void generate_w_init_map(void);
+// void generate_w_init_map(void);
 static void reset_map_for_menu(void);
-//static void place_player_on_w_init_map(int player_index, int spawn_x, int spawn_y, int flip_x, int flip_y);
-//static void seed_mrand(int mrand_seed);
-//static int mrand(int range);
+// static void place_player_on_w_init_map(int player_index, int spawn_x, int spawn_y, int flip_x, int flip_y);
+// static void seed_mrand(int mrand_seed);
+// static int mrand(int range);
 
 static void print_key_codes(void);
 
-
-extern char mstring [MENU_STRING_LENGTH];
+extern char mstring[MENU_STRING_LENGTH];
 
 #define ELEMENT_NAME_SIZE 30
 
 enum
 {
-EL_TYPE_ACTION, // does something (e.g. move to another menu) when clicked.
-EL_TYPE_SLIDER, // has a slider - not currently used, may not work
-EL_TYPE_COLOUR, // gives a set of colours to choose from
-EL_TYPE_HEADING, // does nothing and can't be selected
-EL_TYPE_SELECT, // select from a list
-EL_TYPES
+  EL_TYPE_ACTION,  // does something (e.g. move to another menu) when clicked.
+  EL_TYPE_SLIDER,  // has a slider - not currently used, may not work
+  EL_TYPE_COLOUR,  // gives a set of colours to choose from
+  EL_TYPE_HEADING, // does nothing and can't be selected
+  EL_TYPE_SELECT,  // select from a list
+  EL_TYPES
 };
 
 enum // these are particular sliders used in particular elements.
 {
-EL_SLIDER_PLAYERS,
-EL_SLIDER_PROCS,
-EL_SLIDER_TURNS,
-EL_SLIDER_MINUTES,
-//EL_SLIDER_GEN_LIMIT,
-EL_SLIDER_W_BLOCK,
-EL_SLIDER_H_BLOCK,
-EL_SLIDERS
+  EL_SLIDER_PLAYERS,
+  EL_SLIDER_PROCS,
+  EL_SLIDER_TURNS,
+  EL_SLIDER_MINUTES,
+  // EL_SLIDER_GEN_LIMIT,
+  EL_SLIDER_W_BLOCK,
+  EL_SLIDER_H_BLOCK,
+  EL_SLIDERS
 };
 
 enum
 {
-// start menu
-EL_ACTION_MISSION,
-EL_ACTION_ADVANCED_MISSION,
-EL_ACTION_STORY,
-EL_ACTION_STORY_ADVANCED,
-EL_ACTION_STORY_HARD,
-EL_ACTION_STORY_ADVANCED_HARD,
-EL_ACTION_TUTORIAL,
-EL_ACTION_SETUP_GAME,
+  // start menu
+  EL_ACTION_MISSION,
+  EL_ACTION_ADVANCED_MISSION,
+  EL_ACTION_STORY,
+  EL_ACTION_STORY_ADVANCED,
+  EL_ACTION_STORY_HARD,
+  EL_ACTION_STORY_ADVANCED_HARD,
+  EL_ACTION_TUTORIAL,
+  EL_ACTION_SETUP_GAME,
 #ifdef NETWORK_ENABLED
-EL_ACTION_MULTIPLAYER,
+  EL_ACTION_MULTIPLAYER,
 #endif
-EL_ACTION_LOAD,
-//EL_ACTION_SETUP,
-//EL_ACTION_TUTORIAL,
-EL_ACTION_OPTIONS,
-EL_ACTION_QUIT,
-EL_ACTION_NAME, // player name input
-//EL_ACTION_SAVE_GAMEFILE,
-EL_ACTION_LOAD_GAMEFILE,
-EL_ACTION_START_MISSION,
+  EL_ACTION_LOAD,
+  // EL_ACTION_SETUP,
+  // EL_ACTION_TUTORIAL,
+  EL_ACTION_OPTIONS,
+  EL_ACTION_QUIT,
+  EL_ACTION_NAME, // player name input
+  // EL_ACTION_SAVE_GAMEFILE,
+  EL_ACTION_LOAD_GAMEFILE,
+  EL_ACTION_START_MISSION,
 
-// setup menu
-EL_ACTION_START_GAME_FROM_SETUP,
-EL_ACTION_ENTER_CODE,
-EL_ACTION_RANDOMISE_CODE,
+  // setup menu
+  EL_ACTION_START_GAME_FROM_SETUP,
+  EL_ACTION_ENTER_CODE,
+  EL_ACTION_RANDOMISE_CODE,
 
-// misc
-EL_ACTION_BACK_TO_START,
-EL_ACTION_NONE
-
+  // misc
+  EL_ACTION_BACK_TO_START,
+  EL_ACTION_NONE
 };
 
-struct slider_struct element_slider [EL_SLIDERS];
+struct slider_struct element_slider[EL_SLIDERS];
 
 // menu_liststruct holds the lists for creating menu elements.
 // lists should be constant (mutable values are in menu_elementstruct)
 struct menu_liststruct
 {
- int type; // basic type of the element (e.g. button that does something, slider, etc.)
- int action; // specific effect of element (unique to each element, although a single element can be present in multiple menu types)
- int start_value; // if the element has a value (e.g. a slider) this is the default
- char name [ELEMENT_NAME_SIZE];
- int slider_index; // is -1 if element doesn't have a slider
-// int help_type; // HELP_* string to print when right-clicked (see e_help.c)
-
+  int type;		   // basic type of the element (e.g. button that does something, slider, etc.)
+  int action;	   // specific effect of element (unique to each element, although a single element can be present in multiple menu types)
+  int start_value; // if the element has a value (e.g. a slider) this is the default
+  char name[ELEMENT_NAME_SIZE];
+  int slider_index; // is -1 if element doesn't have a slider
+  // int help_type; // HELP_* string to print when right-clicked (see e_help.c)
 };
 
 // each time a menu is opened, a list of menu_elementstructs is initialised with values based on menu_liststruct
 struct menu_elementstruct
 {
- int list_index;
- int x1, y1, x2, y2, w, h; // location/size
+  int list_index;
+  int x1, y1, x2, y2, w, h; // location/size
 
- int type;
- int value;
- int fixed; // if 1, the value cannot be changed (probably because it's a PI_VALUES things and its PI_OPTION is set to zero)
- int highlight;
- int slider_index;
-
+  int type;
+  int value;
+  int fixed; // if 1, the value cannot be changed (probably because it's a PI_VALUES things and its PI_OPTION is set to zero)
+  int highlight;
+  int slider_index;
 };
-
 
 enum
 {
-	// This list must be ordered in the same way as the big menu_list array below
-EL_MAIN_HEADING,
-EL_MAIN_START_GAME,
-EL_MAIN_START_GAME_ADVANCED,
-EL_MAIN_START_GAME_HARD,
-EL_MAIN_START_GAME_ADVANCED_HARD,
-EL_MAIN_TUTORIAL,
-EL_MAIN_SETUP_GAME,
+  // This list must be ordered in the same way as the big menu_list array below
+  EL_MAIN_HEADING,
+  EL_MAIN_START_GAME,
+  EL_MAIN_START_GAME_ADVANCED,
+  EL_MAIN_START_GAME_HARD,
+  EL_MAIN_START_GAME_ADVANCED_HARD,
+  EL_MAIN_TUTORIAL,
+  EL_MAIN_SETUP_GAME,
 #ifdef NETWORK_ENABLED
-EL_MAIN_MULTIPLAYER,
+  EL_MAIN_MULTIPLAYER,
 #endif
-//EL_MAIN_LOAD,
-EL_MAIN_LOAD_GAMEFILE,
-//EL_MAIN_SETUP,
-//EL_MAIN_TUTORIAL,
-//EL_MAIN_OPTIONS,
-EL_MAIN_QUIT,
+  // EL_MAIN_LOAD,
+  EL_MAIN_LOAD_GAMEFILE,
+  // EL_MAIN_SETUP,
+  // EL_MAIN_TUTORIAL,
+  // EL_MAIN_OPTIONS,
+  EL_MAIN_QUIT,
 
-EL_SETUP_HEADING,
-EL_SETUP_START,
+  EL_SETUP_HEADING,
+  EL_SETUP_START,
 
-/*
-Setup buttons:
-start
-players
-//  time limit - short (16 mins), medium (32) long (64), unlimited - no don't do this
-cores/procs - few (8/32), some (16/64), many (32/128), heaps (64/256)
-map size - small, medium, large
-game code
-randomise
+  /*
+  Setup buttons:
+  start
+  players
+  //  time limit - short (16 mins), medium (32) long (64), unlimited - no don't do this
+  cores/procs - few (8/32), some (16/64), many (32/128), heaps (64/256)
+  map size - small, medium, large
+  game code
+  randomise
 
-exit
+  exit
 
-Codes
-first letter: players A=2,B=3,C=4,???D=4:assymetrical
-second letter: map size A,B,C
-third letter: cores/procs A-D
-4-6 seed numbers (0-9)
+  Codes
+  first letter: players A=2,B=3,C=4,???D=4:assymetrical
+  second letter: map size A,B,C
+  third letter: cores/procs A-D
+  4-6 seed numbers (0-9)
 
-*/
+  */
 
+  EL_SETUP_PLAYERS,
+  EL_SETUP_COMMAND_MODE,
+  // EL_SETUP_TURNS,
+  // EL_SETUP_TIME,
+  EL_SETUP_MAP_SIZE,
+  EL_SETUP_CORES,
+  EL_SETUP_DATA,
+  EL_SETUP_CODE,
+  EL_SETUP_RANDOMISE_CODE,
+  // EL_SETUP_GEN_LIMIT,
+  //  EL_SETUP_PACKETS,  should probably derive this from procs rather than allowing it to be set
+  // EL_SETUP_W_BLOCK,
+  // EL_SETUP_H_BLOCK,
+  EL_SETUP_BACK_TO_START,
+  /*EL_SETUP_PLAYER_COL_0,
+  EL_SETUP_PLAYER_COL_1,
+  EL_SETUP_PLAYER_COL_2,
+  EL_SETUP_PLAYER_COL_3,*/
+  EL_SETUP_PLAYER_NAME_0,
+  EL_SETUP_PLAYER_NAME_1,
+  EL_SETUP_PLAYER_NAME_2,
+  EL_SETUP_PLAYER_NAME_3,
+  // EL_SETUP_SAVE_GAMEFILE,
 
-EL_SETUP_PLAYERS,
-EL_SETUP_COMMAND_MODE,
-//EL_SETUP_TURNS,
-//EL_SETUP_TIME,
-EL_SETUP_MAP_SIZE,
-EL_SETUP_CORES,
-EL_SETUP_DATA,
-EL_SETUP_CODE,
-EL_SETUP_RANDOMISE_CODE,
-//EL_SETUP_GEN_LIMIT,
-// EL_SETUP_PACKETS,  should probably derive this from procs rather than allowing it to be set
-//EL_SETUP_W_BLOCK,
-//EL_SETUP_H_BLOCK,
-EL_SETUP_BACK_TO_START,
-/*EL_SETUP_PLAYER_COL_0,
-EL_SETUP_PLAYER_COL_1,
-EL_SETUP_PLAYER_COL_2,
-EL_SETUP_PLAYER_COL_3,*/
-EL_SETUP_PLAYER_NAME_0,
-EL_SETUP_PLAYER_NAME_1,
-EL_SETUP_PLAYER_NAME_2,
-EL_SETUP_PLAYER_NAME_3,
-//EL_SETUP_SAVE_GAMEFILE,
+  EL_MISSIONS_HEADING_TUTORIAL,
+  EL_MISSIONS_T1,
+  EL_MISSIONS_T2,
+  EL_MISSIONS_T3,
+  EL_MISSIONS_HEADING_ADV_TUTORIAL,
+  EL_MISSIONS_T4,
+  EL_TUTORIAL_BACK,
+  EL_MISSIONS_HEADING_MISSIONS,
+  EL_MISSIONS_M1,
+  EL_MISSIONS_M2,
+  EL_MISSIONS_M3,
+  EL_MISSIONS_M4,
+  EL_MISSIONS_M5,
+  EL_MISSIONS_M6,
+  EL_MISSIONS_M7,
+  EL_MISSIONS_M8,
+  EL_MISSIONS_BACK,
+  EL_MISSIONS_HEADING_ADVANCED_MISSIONS,
+  EL_ADVANCED_MISSIONS_M1,
+  EL_ADVANCED_MISSIONS_M2,
+  EL_ADVANCED_MISSIONS_M3,
+  EL_ADVANCED_MISSIONS_M4,
+  EL_ADVANCED_MISSIONS_M5,
+  EL_ADVANCED_MISSIONS_M6,
+  EL_ADVANCED_MISSIONS_M7,
+  EL_ADVANCED_MISSIONS_M8,
+  EL_ADVANCED_MISSIONS_BACK,
 
-EL_MISSIONS_HEADING_TUTORIAL,
-EL_MISSIONS_T1,
-EL_MISSIONS_T2,
-EL_MISSIONS_T3,
-EL_MISSIONS_HEADING_ADV_TUTORIAL,
-EL_MISSIONS_T4,
-EL_TUTORIAL_BACK,
-EL_MISSIONS_HEADING_MISSIONS,
-EL_MISSIONS_M1,
-EL_MISSIONS_M2,
-EL_MISSIONS_M3,
-EL_MISSIONS_M4,
-EL_MISSIONS_M5,
-EL_MISSIONS_M6,
-EL_MISSIONS_M7,
-EL_MISSIONS_M8,
-EL_MISSIONS_BACK,
-EL_MISSIONS_HEADING_ADVANCED_MISSIONS,
-EL_ADVANCED_MISSIONS_M1,
-EL_ADVANCED_MISSIONS_M2,
-EL_ADVANCED_MISSIONS_M3,
-EL_ADVANCED_MISSIONS_M4,
-EL_ADVANCED_MISSIONS_M5,
-EL_ADVANCED_MISSIONS_M6,
-EL_ADVANCED_MISSIONS_M7,
-EL_ADVANCED_MISSIONS_M8,
-EL_ADVANCED_MISSIONS_BACK,
-
-
-// when adding a new member to this list, must also add to the menu_list list below
-ELS
+  // when adding a new member to this list, must also add to the menu_list list below
+  ELS
 };
 
 char *locked_string = {"LOCKED"};
 
-struct menu_liststruct menu_list [ELS] =
-{
-// main menu
- {
-  EL_TYPE_HEADING,
-  EL_ACTION_NONE, // action
-  0, // start_value (used as mission index)
-  "START MENU", // name
-  -1, // slider_index
-//  HELP_NONE, // help_type
- }, // EL_MAIN_HEADING
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_STORY, // action
-  0, // start_value
-  "START", // name
-  -1, // slider_index
-//  HELP_MISSION_MENU, // help_type
- }, // EL_MAIN_START_GAME
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_STORY_ADVANCED, // action
-  0, // start_value
-  "START  <AUTONOMOUS>", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION_MENU, // help_type
- }, // EL_MAIN_START_GAME_ADVANCED
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_STORY_HARD, // action
-  0, // start_value
-  "START  <HARD>", // name
-  -1, // slider_index
-//  HELP_MISSION_MENU, // help_type
- }, // EL_MAIN_START_GAME_HARD
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_STORY_ADVANCED_HARD, // action
-  0, // start_value
-  "START  <AUTONOMOUS+HARD>", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION_MENU, // help_type
- }, // EL_MAIN_START_GAME_ADVANCED_HARD
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_TUTORIAL, // action
-  0, // start_value
-  "TUTORIAL", // name
-  -1, // slider_index
-//  HELP_TUTORIAL_MENU, // help_type
- }, // EL_MAIN_TUTORIAL
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_SETUP_GAME, // action
-  0, // start_value
-  "CUSTOM GAME", // name
-  -1, // slider_index
-//  HELP_USE_SYSFILE, // help_type
- }, // EL_MAIN_SETUP_GAME
+struct menu_liststruct menu_list[ELS] =
+	{
+		// main menu
+		{
+			EL_TYPE_HEADING,
+			EL_ACTION_NONE, // action
+			0,				// start_value (used as mission index)
+			"START MENU",	// name
+			-1,				// slider_index
+							//  HELP_NONE, // help_type
+		},					// EL_MAIN_HEADING
+		{
+			EL_TYPE_ACTION,	 // type
+			EL_ACTION_STORY, // action
+			0,				 // start_value
+			"START",		 // name
+			-1,				 // slider_index
+							 //  HELP_MISSION_MENU, // help_type
+		},					 // EL_MAIN_START_GAME
+		{
+			EL_TYPE_ACTION,			  // type
+			EL_ACTION_STORY_ADVANCED, // action
+			0,						  // start_value
+			"START  <AUTONOMOUS>",	  // name
+			-1,						  // slider_index
+									  //  HELP_ADVANCED_MISSION_MENU, // help_type
+		},							  // EL_MAIN_START_GAME_ADVANCED
+		{
+			EL_TYPE_ACTION,		  // type
+			EL_ACTION_STORY_HARD, // action
+			0,					  // start_value
+			"START  <HARD>",	  // name
+			-1,					  // slider_index
+								  //  HELP_MISSION_MENU, // help_type
+		},						  // EL_MAIN_START_GAME_HARD
+		{
+			EL_TYPE_ACTION,				   // type
+			EL_ACTION_STORY_ADVANCED_HARD, // action
+			0,							   // start_value
+			"START  <AUTONOMOUS+HARD>",	   // name
+			-1,							   // slider_index
+										   //  HELP_ADVANCED_MISSION_MENU, // help_type
+		},								   // EL_MAIN_START_GAME_ADVANCED_HARD
+		{
+			EL_TYPE_ACTION,		// type
+			EL_ACTION_TUTORIAL, // action
+			0,					// start_value
+			"TUTORIAL",			// name
+			-1,					// slider_index
+								//  HELP_TUTORIAL_MENU, // help_type
+		},						// EL_MAIN_TUTORIAL
+		{
+			EL_TYPE_ACTION,		  // type
+			EL_ACTION_SETUP_GAME, // action
+			0,					  // start_value
+			"CUSTOM GAME",		  // name
+			-1,					  // slider_index
+								  //  HELP_USE_SYSFILE, // help_type
+		},						  // EL_MAIN_SETUP_GAME
 #ifdef NETWORK_ENABLED
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_MULTIPLAYER, // action
-  0, // start_value
-  "MULTIPLAYER", // name
-  -1, // slider_index
-//  HELP_MULTIPLAYER, // help_type
- }, // EL_MAIN_MULTIPLAYER
+		{
+			EL_TYPE_ACTION,		   // type
+			EL_ACTION_MULTIPLAYER, // action
+			0,					   // start_value
+			"MULTIPLAYER",		   // name
+			-1,					   // slider_index
+								   //  HELP_MULTIPLAYER, // help_type
+		},						   // EL_MAIN_MULTIPLAYER
 #endif
-/* {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_LOAD, // action
-  0, // start_value
-  "Load Saved Game", // name
-  -1, // slider_index
-  HELP_LOAD, // help_type
- }, // EL_MAIN_LOAD*/
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_LOAD_GAMEFILE, // action
-  0, // start_value
-  "LOAD GAMEFILE", // name
-  -1, // slider_index
-//  HELP_LOAD_GAMEFILE, // help_type
- }, // EL_MAIN_LOAD_GAMEFILE
-/* {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_OPTIONS, // action
-  0, // start_value
-  "Options", // name
-  -1, // slider_index
-  HELP_OPTIONS, // help_type
- }, // EL_MAIN_OPTIONS*/
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_QUIT, // action
-  0, // start_value
-  "EXIT", // name
-  -1, // slider_index
-//  HELP_MAIN_EXIT, // help_type
- }, // EL_MAIN_EXIT
+		/* {
+		  EL_TYPE_ACTION, // type
+		  EL_ACTION_LOAD, // action
+		  0, // start_value
+		  "Load Saved Game", // name
+		  -1, // slider_index
+		  HELP_LOAD, // help_type
+		 }, // EL_MAIN_LOAD*/
+		{
+			EL_TYPE_ACTION,			 // type
+			EL_ACTION_LOAD_GAMEFILE, // action
+			0,						 // start_value
+			"LOAD GAMEFILE",		 // name
+			-1,						 // slider_index
+									 //  HELP_LOAD_GAMEFILE, // help_type
+		},							 // EL_MAIN_LOAD_GAMEFILE
+									 /* {
+									   EL_TYPE_ACTION, // type
+									   EL_ACTION_OPTIONS, // action
+									   0, // start_value
+									   "Options", // name
+									   -1, // slider_index
+									   HELP_OPTIONS, // help_type
+									  }, // EL_MAIN_OPTIONS*/
+		{
+			EL_TYPE_ACTION, // type
+			EL_ACTION_QUIT, // action
+			0,				// start_value
+			"EXIT",			// name
+			-1,				// slider_index
+							//  HELP_MAIN_EXIT, // help_type
+		},					// EL_MAIN_EXIT
 
-// setup menu
- {
-  EL_TYPE_HEADING,
-  EL_ACTION_NONE, // action
-  0, // start_value (used as mission index)
-  "CUSTOM GAME", // name
-  -1, // slider_index
-//  HELP_NONE, // help_type
- }, // EL_SETUP_HEADING
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_START_GAME_FROM_SETUP, // action
-  0, // start_value
-  "START", // name
-  -1, // slider_index
-//  HELP_SETUP_START, // help_type
- }, // EL_SETUP_START
- {
-  EL_TYPE_SELECT, // type
-  2, // minimum value
-  4, // maximum value
-  "PLAYERS", // name
-  -1, // slider_index
-//  HELP_SETUP_PLAYERS, // help_type
- }, // EL_SETUP_PLAYERS
- {
-  EL_TYPE_SELECT, // type
-  0, // minimum value
-  1, // maximum value
-  "COMMAND MODE", // name
-  -1, // slider_index
-//  HELP_SETUP_PLAYERS, // help_type
- }, // EL_SETUP_COMMAND_MODE
-/* {
-  EL_TYPE_SLIDER, // type
-  0, // action
-  0, // start_value - derived from pre_init
-  "Turns", // name
-  EL_SLIDER_TURNS, // slider_index
-  HELP_SETUP_TURNS, // help_type
- }, // EL_SETUP_TURNS*/
-/* {
-  EL_TYPE_SLIDER, // type
-  0, // action
-  0, // start_value - derived from pre_init
-  "Game length (minutes)", // name
-  EL_SLIDER_MINUTES, // slider_index
-  HELP_SETUP_MINUTES, // help_type
- }, // EL_SETUP_MINUTES*/
- {
-  EL_TYPE_SELECT, // type
-  0, // minimum value
-  3, // maximum value
-  "MAP SIZE", // name
-  -1, // slider_index
-//  HELP_SETUP_W_BLOCK, // help_type
- }, // EL_SETUP_MAP_SIZE
- {
-  EL_TYPE_SELECT, // type
-  0, // minimum value
-  3, // maximum value
-  "PROCESSES", // name
-  -1, // slider_index
-//  HELP_SETUP_PROCS, // help_type
- }, // EL_SETUP_CORES
- {
-  EL_TYPE_SELECT, // type
-  0, // minimum value
-  3, // maximum value
-  "STARTING DATA", // name
-  -1, // slider_index
- }, // EL_SETUP_DATA
-/* {
-  EL_TYPE_SLIDER, // type
-  0, // action
-  0, // start_value - derived from pre_init
-  "Components", // name
-  EL_SLIDER_PROCS, // slider_index
-  HELP_SETUP_PROCS, // help_type
- }, // EL_SETUP_PROCS*/
-/* {
-  EL_TYPE_SLIDER, // type
-  0, // action
-  0, // start_value - derived from pre_init
-  "Gen limit", // name
-  EL_SLIDER_GEN_LIMIT, // slider_index
- }, // EL_SETUP_GEN_LIMIT*/
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_ENTER_CODE, // minimum value
-  4, // maximum value
-  "MAP CODE", // name
-  -1, // slider_index
-//  HELP_SETUP_W_BLOCK, // help_type
- }, // EL_SETUP_CODE
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_RANDOMISE_CODE, // action
-  0, // maximum value
-  "RANDOMISE CODE SEED", // name
-  -1, // slider_index
-//  HELP_SETUP_W_BLOCK, // help_type
- }, // EL_SETUP_RANDOMISE_CODE
-/* {
-  EL_TYPE_SLIDER, // type
-  0, // action
-  0, // start_value - derived from pre_init
-  "World size (y)", // name
-  EL_SLIDER_H_BLOCK, // slider_index
-  HELP_SETUP_H_BLOCK, // help_type
- }, // EL_SETUP_H_BLOCK*/
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_BACK_TO_START, // action
-  0, // start_value
-  "BACK", // name
-  -1, // slider_index
-//  HELP_SETUP_BACK_TO_START, // help_type
- }, // EL_SETUP_BACK_TO_START
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_NAME, // action
-  0, // start_value (used as player index)
-  "Player 0 name", // name
-  -1, // slider_index
-//  HELP_SETUP_PLAYER_NAME, // help_type
- }, // EL_SETUP_PLAYER_NAME_0
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_NAME, // action (player index)
-  1, // start_value (used as player index)
-  "Player 1 name", // name
-  -1, // slider_index
-//  HELP_SETUP_PLAYER_NAME, // help_type
- }, // EL_SETUP_PLAYER_NAME_1
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_NAME, // action (player index)
-  2, // start_value (used as player index)
-  "Player 2 name", // name
-  -1, // slider_index
-//  HELP_SETUP_PLAYER_NAME, // help_type
- }, // EL_SETUP_PLAYER_NAME_2
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_NAME, // action (player index)
-  3, // start_value (used as player index)
-  "Player 3 name", // name
-  -1, // slider_index
-//  HELP_SETUP_PLAYER_NAME, // help_type
- }, // EL_SETUP_PLAYER_NAME_3
-/* {
-  EL_TYPE_ACTION,
-  EL_ACTION_SAVE_GAMEFILE, // action
-  0, // start_value (used as player index)
-  "Save gamefile", // name
-  -1, // slider_index
-  HELP_SETUP_SAVE_GAMEFILE, // help_type
- }, // EL_SETUP_SAVE_GAMEFILE*/
+		// setup menu
+		{
+			EL_TYPE_HEADING,
+			EL_ACTION_NONE, // action
+			0,				// start_value (used as mission index)
+			"CUSTOM GAME",	// name
+			-1,				// slider_index
+							//  HELP_NONE, // help_type
+		},					// EL_SETUP_HEADING
+		{
+			EL_TYPE_ACTION,					 // type
+			EL_ACTION_START_GAME_FROM_SETUP, // action
+			0,								 // start_value
+			"START",						 // name
+			-1,								 // slider_index
+											 //  HELP_SETUP_START, // help_type
+		},									 // EL_SETUP_START
+		{
+			EL_TYPE_SELECT, // type
+			2,				// minimum value
+			4,				// maximum value
+			"PLAYERS",		// name
+			-1,				// slider_index
+							//  HELP_SETUP_PLAYERS, // help_type
+		},					// EL_SETUP_PLAYERS
+		{
+			EL_TYPE_SELECT, // type
+			0,				// minimum value
+			1,				// maximum value
+			"COMMAND MODE", // name
+			-1,				// slider_index
+							//  HELP_SETUP_PLAYERS, // help_type
+		},					// EL_SETUP_COMMAND_MODE
+							/* {
+							  EL_TYPE_SLIDER, // type
+							  0, // action
+							  0, // start_value - derived from pre_init
+							  "Turns", // name
+							  EL_SLIDER_TURNS, // slider_index
+							  HELP_SETUP_TURNS, // help_type
+							 }, // EL_SETUP_TURNS*/
+							/* {
+							  EL_TYPE_SLIDER, // type
+							  0, // action
+							  0, // start_value - derived from pre_init
+							  "Game length (minutes)", // name
+							  EL_SLIDER_MINUTES, // slider_index
+							  HELP_SETUP_MINUTES, // help_type
+							 }, // EL_SETUP_MINUTES*/
+		{
+			EL_TYPE_SELECT, // type
+			0,				// minimum value
+			3,				// maximum value
+			"MAP SIZE",		// name
+			-1,				// slider_index
+							//  HELP_SETUP_W_BLOCK, // help_type
+		},					// EL_SETUP_MAP_SIZE
+		{
+			EL_TYPE_SELECT, // type
+			0,				// minimum value
+			3,				// maximum value
+			"PROCESSES",	// name
+			-1,				// slider_index
+							//  HELP_SETUP_PROCS, // help_type
+		},					// EL_SETUP_CORES
+		{
+			EL_TYPE_SELECT,	 // type
+			0,				 // minimum value
+			3,				 // maximum value
+			"STARTING DATA", // name
+			-1,				 // slider_index
+		},					 // EL_SETUP_DATA
+							 /* {
+							   EL_TYPE_SLIDER, // type
+							   0, // action
+							   0, // start_value - derived from pre_init
+							   "Components", // name
+							   EL_SLIDER_PROCS, // slider_index
+							   HELP_SETUP_PROCS, // help_type
+							  }, // EL_SETUP_PROCS*/
+							 /* {
+							   EL_TYPE_SLIDER, // type
+							   0, // action
+							   0, // start_value - derived from pre_init
+							   "Gen limit", // name
+							   EL_SLIDER_GEN_LIMIT, // slider_index
+							  }, // EL_SETUP_GEN_LIMIT*/
+		{
+			EL_TYPE_ACTION,		  // type
+			EL_ACTION_ENTER_CODE, // minimum value
+			4,					  // maximum value
+			"MAP CODE",			  // name
+			-1,					  // slider_index
+								  //  HELP_SETUP_W_BLOCK, // help_type
+		},						  // EL_SETUP_CODE
+		{
+			EL_TYPE_ACTION,			  // type
+			EL_ACTION_RANDOMISE_CODE, // action
+			0,						  // maximum value
+			"RANDOMISE CODE SEED",	  // name
+			-1,						  // slider_index
+									  //  HELP_SETUP_W_BLOCK, // help_type
+		},							  // EL_SETUP_RANDOMISE_CODE
+									  /* {
+										EL_TYPE_SLIDER, // type
+										0, // action
+										0, // start_value - derived from pre_init
+										"World size (y)", // name
+										EL_SLIDER_H_BLOCK, // slider_index
+										HELP_SETUP_H_BLOCK, // help_type
+									   }, // EL_SETUP_H_BLOCK*/
+		{
+			EL_TYPE_ACTION,			 // type
+			EL_ACTION_BACK_TO_START, // action
+			0,						 // start_value
+			"BACK",					 // name
+			-1,						 // slider_index
+									 //  HELP_SETUP_BACK_TO_START, // help_type
+		},							 // EL_SETUP_BACK_TO_START
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_NAME,	 // action
+			0,				 // start_value (used as player index)
+			"Player 0 name", // name
+			-1,				 // slider_index
+							 //  HELP_SETUP_PLAYER_NAME, // help_type
+		},					 // EL_SETUP_PLAYER_NAME_0
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_NAME,	 // action (player index)
+			1,				 // start_value (used as player index)
+			"Player 1 name", // name
+			-1,				 // slider_index
+							 //  HELP_SETUP_PLAYER_NAME, // help_type
+		},					 // EL_SETUP_PLAYER_NAME_1
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_NAME,	 // action (player index)
+			2,				 // start_value (used as player index)
+			"Player 2 name", // name
+			-1,				 // slider_index
+							 //  HELP_SETUP_PLAYER_NAME, // help_type
+		},					 // EL_SETUP_PLAYER_NAME_2
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_NAME,	 // action (player index)
+			3,				 // start_value (used as player index)
+			"Player 3 name", // name
+			-1,				 // slider_index
+							 //  HELP_SETUP_PLAYER_NAME, // help_type
+		},					 // EL_SETUP_PLAYER_NAME_3
+							 /* {
+							   EL_TYPE_ACTION,
+							   EL_ACTION_SAVE_GAMEFILE, // action
+							   0, // start_value (used as player index)
+							   "Save gamefile", // name
+							   -1, // slider_index
+							   HELP_SETUP_SAVE_GAMEFILE, // help_type
+							  }, // EL_SETUP_SAVE_GAMEFILE*/
 
-// Missions
- {
-  EL_TYPE_HEADING,
-  EL_ACTION_NONE, // action
-  0, // start_value (used as mission index)
-  "Tutorials", // name
-  -1, // slider_index
-//  HELP_NONE, // help_type
- }, // EL_MISSIONS_HEADING_TUTORIAL
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-  MISSION_TUTORIAL1, // start_value (used as mission index)
-  "Tutorial: basics", // name
-  -1, // slider_index
-//  HELP_TUTORIAL_1, // help_type
- }, // EL_MISSIONS_T1
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-  MISSION_TUTORIAL2, // start_value (used as mission index)
-  "Tutorial: building + attacking", // name
-  -1, // slider_index
-//  HELP_TUTORIAL_2, // help_type
- }, // EL_MISSIONS_T2
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-  0,//  MISSION_TUTORIAL3, // start_value (used as mission index)
-  "Tutorial: templates", // name
-  -1, // slider_index
-//  HELP_TUTORIAL_3, // help_type
- }, // EL_MISSIONS_T3
- {
-  EL_TYPE_HEADING,
-  EL_ACTION_NONE, // action
-  0, // start_value (used as mission index)
-  "Advanced tutorial", // name
-  -1, // slider_index
-//  HELP_NONE, // help_type
- }, // EL_MISSIONS_HEADING_ADV_TUTORIAL
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//  MISSION_TUTORIAL4, // start_value (used as mission index)
-  "Tutorial: delegation", // name
-  -1, // slider_index
-//  HELP_TUTORIAL_4, // help_type
- }, // EL_MISSIONS_T4
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_BACK_TO_START, // action
-  0, // start_value
-  "Back", // name
-  -1, // slider_index
-//  HELP_TUTORIAL_BACK, // help_type
- }, // EL_TUTORIAL_BACK
- {
-  EL_TYPE_HEADING,
-  EL_ACTION_NONE, // action
-  0, // start_value (used as mission index)
-  "MISSIONS", // name
-  -1, // slider_index
-//  HELP_NONE, // help_type
- }, // EL_MISSIONS_HEADING_MISSIONS
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//  MISSION_MISSION1, // start_value (used as mission index)
-  "MISSION 1 - TUTORIAL", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M1
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION2, // start_value (used as mission index)
-  "MISSION 2 - TUTORIAL", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M2
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION3, // start_value (used as mission index)
-  "MISSION 3", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M3
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION4, // start_value (used as mission index)
-  "MISSION 4", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M4
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION5, // start_value (used as mission index)
-  "MISSION 5", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M5
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION6, // start_value (used as mission index)
-  "MISSION 6", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M6
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION7, // start_value (used as mission index)
-  "MISSION 7", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M7
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_MISSION8, // start_value (used as mission index)
-  "MISSION 8", // name
-  -1, // slider_index
-//  HELP_MISSION, // help_type
- }, // EL_MISSIONS_M8
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_BACK_TO_START, // action
-  0, // start_value
-  "BACK", // name
-  -1, // slider_index
-//  HELP_MISSIONS_BACK, // help_type
- }, // EL_MISSIONS_BACK
- {
-  EL_TYPE_HEADING,
-  EL_ACTION_NONE, // action
-  0, // start_value (used as mission index)
-  "ADVANCED MISSIONS", // name
-  -1, // slider_index
-//  HELP_NONE, // help_type
- }, // EL_MISSIONS_HEADING_MISSIONS
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED1, // start_value (used as mission index)
-  "ADVANCED MISSION 1", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M1
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED2, // start_value (used as mission index)
-  "ADVANCED MISSION 2", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M2
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED3, // start_value (used as mission index)
-  "ADVANCED MISSION 3", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M3
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED4, // start_value (used as mission index)
-  "ADVANCED MISSION 4", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M4
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED5, // start_value (used as mission index)
-  "ADVANCED MISSION 5", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M5
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED6, // start_value (used as mission index)
-  "ADVANCED MISSION 6", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M6
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED7, // start_value (used as mission index)
-  "ADVANCED MISSION 7", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M7
- {
-  EL_TYPE_ACTION,
-  EL_ACTION_START_MISSION, // action
-0,//    MISSION_ADVANCED8, // start_value (used as mission index)
-  "ADVANCED MISSION 8", // name
-  -1, // slider_index
-//  HELP_ADVANCED_MISSION, // help_type
- }, // EL_ADVANCED_MISSIONS_M8
- {
-  EL_TYPE_ACTION, // type
-  EL_ACTION_BACK_TO_START, // action
-  0, // start_value
-  "BACK", // name
-  -1, // slider_index
-//  HELP_MISSIONS_BACK, // help_type
- }, // EL_ADVANCED_MISSIONS_BACK
+		// Missions
+		{
+			EL_TYPE_HEADING,
+			EL_ACTION_NONE, // action
+			0,				// start_value (used as mission index)
+			"Tutorials",	// name
+			-1,				// slider_index
+							//  HELP_NONE, // help_type
+		},					// EL_MISSIONS_HEADING_TUTORIAL
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			MISSION_TUTORIAL1,		 // start_value (used as mission index)
+			"Tutorial: basics",		 // name
+			-1,						 // slider_index
+									 //  HELP_TUTORIAL_1, // help_type
+		},							 // EL_MISSIONS_T1
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION,		  // action
+			MISSION_TUTORIAL2,				  // start_value (used as mission index)
+			"Tutorial: building + attacking", // name
+			-1,								  // slider_index
+											  //  HELP_TUTORIAL_2, // help_type
+		},									  // EL_MISSIONS_T2
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //  MISSION_TUTORIAL3, // start_value (used as mission index)
+			"Tutorial: templates",	 // name
+			-1,						 // slider_index
+									 //  HELP_TUTORIAL_3, // help_type
+		},							 // EL_MISSIONS_T3
+		{
+			EL_TYPE_HEADING,
+			EL_ACTION_NONE,		 // action
+			0,					 // start_value (used as mission index)
+			"Advanced tutorial", // name
+			-1,					 // slider_index
+								 //  HELP_NONE, // help_type
+		},						 // EL_MISSIONS_HEADING_ADV_TUTORIAL
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //  MISSION_TUTORIAL4, // start_value (used as mission index)
+			"Tutorial: delegation",	 // name
+			-1,						 // slider_index
+									 //  HELP_TUTORIAL_4, // help_type
+		},							 // EL_MISSIONS_T4
+		{
+			EL_TYPE_ACTION,			 // type
+			EL_ACTION_BACK_TO_START, // action
+			0,						 // start_value
+			"Back",					 // name
+			-1,						 // slider_index
+									 //  HELP_TUTORIAL_BACK, // help_type
+		},							 // EL_TUTORIAL_BACK
+		{
+			EL_TYPE_HEADING,
+			EL_ACTION_NONE, // action
+			0,				// start_value (used as mission index)
+			"MISSIONS",		// name
+			-1,				// slider_index
+							//  HELP_NONE, // help_type
+		},					// EL_MISSIONS_HEADING_MISSIONS
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //  MISSION_MISSION1, // start_value (used as mission index)
+			"MISSION 1 - TUTORIAL",	 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M1
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION2, // start_value (used as mission index)
+			"MISSION 2 - TUTORIAL",	 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M2
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION3, // start_value (used as mission index)
+			"MISSION 3",			 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M3
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION4, // start_value (used as mission index)
+			"MISSION 4",			 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M4
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION5, // start_value (used as mission index)
+			"MISSION 5",			 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M5
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION6, // start_value (used as mission index)
+			"MISSION 6",			 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M6
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION7, // start_value (used as mission index)
+			"MISSION 7",			 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M7
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_MISSION8, // start_value (used as mission index)
+			"MISSION 8",			 // name
+			-1,						 // slider_index
+									 //  HELP_MISSION, // help_type
+		},							 // EL_MISSIONS_M8
+		{
+			EL_TYPE_ACTION,			 // type
+			EL_ACTION_BACK_TO_START, // action
+			0,						 // start_value
+			"BACK",					 // name
+			-1,						 // slider_index
+									 //  HELP_MISSIONS_BACK, // help_type
+		},							 // EL_MISSIONS_BACK
+		{
+			EL_TYPE_HEADING,
+			EL_ACTION_NONE,		 // action
+			0,					 // start_value (used as mission index)
+			"ADVANCED MISSIONS", // name
+			-1,					 // slider_index
+								 //  HELP_NONE, // help_type
+		},						 // EL_MISSIONS_HEADING_MISSIONS
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED1, // start_value (used as mission index)
+			"ADVANCED MISSION 1",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M1
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED2, // start_value (used as mission index)
+			"ADVANCED MISSION 2",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M2
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED3, // start_value (used as mission index)
+			"ADVANCED MISSION 3",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M3
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED4, // start_value (used as mission index)
+			"ADVANCED MISSION 4",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M4
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED5, // start_value (used as mission index)
+			"ADVANCED MISSION 5",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M5
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED6, // start_value (used as mission index)
+			"ADVANCED MISSION 6",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M6
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED7, // start_value (used as mission index)
+			"ADVANCED MISSION 7",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M7
+		{
+			EL_TYPE_ACTION,
+			EL_ACTION_START_MISSION, // action
+			0,						 //    MISSION_ADVANCED8, // start_value (used as mission index)
+			"ADVANCED MISSION 8",	 // name
+			-1,						 // slider_index
+									 //  HELP_ADVANCED_MISSION, // help_type
+		},							 // EL_ADVANCED_MISSIONS_M8
+		{
+			EL_TYPE_ACTION,			 // type
+			EL_ACTION_BACK_TO_START, // action
+			0,						 // start_value
+			"BACK",					 // name
+			-1,						 // slider_index
+									 //  HELP_MISSIONS_BACK, // help_type
+		},							 // EL_ADVANCED_MISSIONS_BACK
 
-
-
-
-/*
- {
-  EL_TYPE_COL, // type
-  0, // action
-  0, // start_value - derived from pre_init
-  "Colour", // name
-  -1, // slider_index
- }, // EL_SETUP_COL*/
-
-
+		/*
+		 {
+		  EL_TYPE_COL, // type
+		  0, // action
+		  0, // start_value - derived from pre_init
+		  "Colour", // name
+		  -1, // slider_index
+		 }, // EL_SETUP_COL*/
 
 };
 
 enum
 {
-MENU_MAIN,
-MENU_SETUP,
-MENU_MISSIONS,
-MENU_ADVANCED_MISSIONS,
-MENU_TUTORIAL,
+  MENU_MAIN,
+  MENU_SETUP,
+  MENU_MISSIONS,
+  MENU_ADVANCED_MISSIONS,
+  MENU_TUTORIAL,
 
-MENUS
+  MENUS
 };
 
-int menu_list_main [] =
-{
-EL_MAIN_HEADING,
-EL_MAIN_START_GAME,
-EL_MAIN_START_GAME_HARD,
-EL_MAIN_START_GAME_ADVANCED,
-EL_MAIN_START_GAME_ADVANCED_HARD,
-//EL_MAIN_TUTORIAL,
-EL_MAIN_SETUP_GAME,
+int menu_list_main[] =
+	{
+		EL_MAIN_HEADING,
+		EL_MAIN_START_GAME,
+		EL_MAIN_START_GAME_HARD,
+		EL_MAIN_START_GAME_ADVANCED,
+		EL_MAIN_START_GAME_ADVANCED_HARD,
+		// EL_MAIN_TUTORIAL,
+		EL_MAIN_SETUP_GAME,
 #ifdef NETWORK_ENABLED
-EL_MAIN_MULTIPLAYER,
+		EL_MAIN_MULTIPLAYER,
 #endif
-//EL_MAIN_LOAD,
-//EL_MAIN_LOAD_GAMEFILE,
-//EL_MAIN_SETUP,
-//EL_MAIN_TUTORIAL,
-//EL_MAIN_OPTIONS,
-EL_MAIN_QUIT,
--1 // terminates list
+		// EL_MAIN_LOAD,
+		// EL_MAIN_LOAD_GAMEFILE,
+		// EL_MAIN_SETUP,
+		// EL_MAIN_TUTORIAL,
+		// EL_MAIN_OPTIONS,
+		EL_MAIN_QUIT,
+		-1 // terminates list
 };
 
-int menu_list_setup [] =
-{
-EL_SETUP_HEADING,
-EL_SETUP_START,
-EL_SETUP_COMMAND_MODE,
-EL_SETUP_PLAYERS,
-//EL_SETUP_TURNS,
-//EL_SETUP_MINUTES,
-EL_SETUP_MAP_SIZE,
-EL_SETUP_CORES,
-EL_SETUP_DATA,
-EL_SETUP_CODE,
-EL_SETUP_RANDOMISE_CODE,
-//EL_SETUP_PROCS,
-//EL_SETUP_GEN_LIMIT,
-// EL_SETUP_PACKETS,
-//EL_SETUP_W_BLOCK,
-//EL_SETUP_H_BLOCK,
-/*EL_SETUP_PLAYER_COL_0, // must come after EL_SETUP_PLAYERS (as some colour menu options aren't shown if the game has fewer players)
-EL_SETUP_PLAYER_COL_1,
-EL_SETUP_PLAYER_COL_2,
-EL_SETUP_PLAYER_COL_3,*/
-EL_SETUP_PLAYER_NAME_0,
-EL_SETUP_PLAYER_NAME_1,
-EL_SETUP_PLAYER_NAME_2,
-EL_SETUP_PLAYER_NAME_3,
-//EL_SETUP_SAVE_GAMEFILE,
-EL_SETUP_BACK_TO_START,
+int menu_list_setup[] =
+	{
+		EL_SETUP_HEADING,
+		EL_SETUP_START,
+		EL_SETUP_COMMAND_MODE,
+		EL_SETUP_PLAYERS,
+		// EL_SETUP_TURNS,
+		// EL_SETUP_MINUTES,
+		EL_SETUP_MAP_SIZE,
+		EL_SETUP_CORES,
+		EL_SETUP_DATA,
+		EL_SETUP_CODE,
+		EL_SETUP_RANDOMISE_CODE,
+		// EL_SETUP_PROCS,
+		// EL_SETUP_GEN_LIMIT,
+		//  EL_SETUP_PACKETS,
+		// EL_SETUP_W_BLOCK,
+		// EL_SETUP_H_BLOCK,
+		/*EL_SETUP_PLAYER_COL_0, // must come after EL_SETUP_PLAYERS (as some colour menu options aren't shown if the game has fewer players)
+		EL_SETUP_PLAYER_COL_1,
+		EL_SETUP_PLAYER_COL_2,
+		EL_SETUP_PLAYER_COL_3,*/
+		EL_SETUP_PLAYER_NAME_0,
+		EL_SETUP_PLAYER_NAME_1,
+		EL_SETUP_PLAYER_NAME_2,
+		EL_SETUP_PLAYER_NAME_3,
+		// EL_SETUP_SAVE_GAMEFILE,
+		EL_SETUP_BACK_TO_START,
 
--1 // terminates list
+		-1 // terminates list
 };
 
-int menu_list_missions [] =
-{
-EL_MISSIONS_HEADING_MISSIONS,
-EL_MISSIONS_M1,
-EL_MISSIONS_M2,
-EL_MISSIONS_M3,
-EL_MISSIONS_M4,
-EL_MISSIONS_M5,
-EL_MISSIONS_M6,
-EL_MISSIONS_M7,
-EL_MISSIONS_M8,
-EL_MISSIONS_BACK,
--1 // terminates list
+int menu_list_missions[] =
+	{
+		EL_MISSIONS_HEADING_MISSIONS,
+		EL_MISSIONS_M1,
+		EL_MISSIONS_M2,
+		EL_MISSIONS_M3,
+		EL_MISSIONS_M4,
+		EL_MISSIONS_M5,
+		EL_MISSIONS_M6,
+		EL_MISSIONS_M7,
+		EL_MISSIONS_M8,
+		EL_MISSIONS_BACK,
+		-1 // terminates list
 };
 
-int menu_list_advanced_missions [] =
-{
-EL_MISSIONS_HEADING_ADVANCED_MISSIONS,
-EL_ADVANCED_MISSIONS_M1,
-EL_ADVANCED_MISSIONS_M2,
-EL_ADVANCED_MISSIONS_M3,
-EL_ADVANCED_MISSIONS_M4,
-EL_ADVANCED_MISSIONS_M5,
-EL_ADVANCED_MISSIONS_M6,
-EL_ADVANCED_MISSIONS_M7,
-EL_ADVANCED_MISSIONS_M8,
-EL_ADVANCED_MISSIONS_BACK,
--1 // terminates list
+int menu_list_advanced_missions[] =
+	{
+		EL_MISSIONS_HEADING_ADVANCED_MISSIONS,
+		EL_ADVANCED_MISSIONS_M1,
+		EL_ADVANCED_MISSIONS_M2,
+		EL_ADVANCED_MISSIONS_M3,
+		EL_ADVANCED_MISSIONS_M4,
+		EL_ADVANCED_MISSIONS_M5,
+		EL_ADVANCED_MISSIONS_M6,
+		EL_ADVANCED_MISSIONS_M7,
+		EL_ADVANCED_MISSIONS_M8,
+		EL_ADVANCED_MISSIONS_BACK,
+		-1 // terminates list
 };
 
-
-int menu_list_tutorial [] =
-{
-EL_MISSIONS_HEADING_TUTORIAL,
-EL_MISSIONS_T1,
-EL_MISSIONS_T2,
-EL_MISSIONS_T3,
-EL_MISSIONS_HEADING_ADV_TUTORIAL,
-EL_MISSIONS_T4,
-EL_TUTORIAL_BACK,
--1 // terminates list
+int menu_list_tutorial[] =
+	{
+		EL_MISSIONS_HEADING_TUTORIAL,
+		EL_MISSIONS_T1,
+		EL_MISSIONS_T2,
+		EL_MISSIONS_T3,
+		EL_MISSIONS_HEADING_ADV_TUTORIAL,
+		EL_MISSIONS_T4,
+		EL_TUTORIAL_BACK,
+		-1 // terminates list
 };
-
-
 
 // MAX_ELEMENTS is the max number of elements in one menu
 #define MAX_ELEMENTS 30
-#define MENU_H (40 + scaleUI_y(FONT_SQUARE_LARGE,10))
-#define MENU_W scaleUI_x(FONT_SQUARE_LARGE,300)
+#define MENU_H (40 + scaleUI_y(FONT_SQUARE_LARGE, 10))
+#define MENU_W scaleUI_x(FONT_SQUARE_LARGE, 300)
 
-struct menu_elementstruct menu_element [MAX_ELEMENTS];
+struct menu_elementstruct menu_element[MAX_ELEMENTS];
 
 struct world_init_struct w_init; // this is the world_init generated by world setup menus
 
 enum
 {
-MENU_TYPE_NORMAL, // vertical list of options
-//MENU_TYPE_PREGAME, // just shows text
-
+  MENU_TYPE_NORMAL, // vertical list of options
+  // MENU_TYPE_PREGAME, // just shows text
 };
 
 /*enum
@@ -909,12 +891,12 @@ PREGAME_BUTTONS
 
 enum
 {
-MENU_TEXT_NONE,
-MENU_TEXT_PLAYER_0_NAME,
-MENU_TEXT_PLAYER_1_NAME,
-MENU_TEXT_PLAYER_2_NAME,
-MENU_TEXT_PLAYER_3_NAME,
-MENU_TEXT_MAP_CODE
+  MENU_TEXT_NONE,
+  MENU_TEXT_PLAYER_0_NAME,
+  MENU_TEXT_PLAYER_1_NAME,
+  MENU_TEXT_PLAYER_2_NAME,
+  MENU_TEXT_PLAYER_3_NAME,
+  MENU_TEXT_MAP_CODE
 };
 
 #define MENU_STRIPES 24
@@ -922,58 +904,56 @@ MENU_TEXT_MAP_CODE
 
 enum
 {
-MAP_CODE_PLAYERS,
-MAP_CODE_SIZE,
-MAP_CODE_CORES,
-MAP_CODE_DATA,
-MAP_CODE_SEED_0,
-MAP_CODE_SEED_1,
-MAP_CODE_SEED_2,
+  MAP_CODE_PLAYERS,
+  MAP_CODE_SIZE,
+  MAP_CODE_CORES,
+  MAP_CODE_DATA,
+  MAP_CODE_SEED_0,
+  MAP_CODE_SEED_1,
+  MAP_CODE_SEED_2,
 
-MAP_CODE_LENGTH
+  MAP_CODE_LENGTH
 };
 
 struct menu_statestruct
 {
- int menu_type; // MENU_TYPE_NORMAL or MENU_TYPE_PREGAME
- int menu_index;
+  int menu_type; // MENU_TYPE_NORMAL or MENU_TYPE_PREGAME
+  int menu_index;
 
- int elements; // this is the number of elements the current menu has. Set by open_menu()
- int h; // total height (in pixels) of menu display
- int window_pos; // if menu is too long to display, this is the pos of the top of screen
-// int edit_window;
- struct slider_struct mscrollbar; // vertical scrollbar if menu is too long to display
- int use_scrollbar; // 0 if no scrollbar, 1 if scrollbar
- int menu_templ_state; // e.g. MENU_TEMPL_STATE_MAIN
- int menu_text_box; // MENU_TEXT_xxx (is MENU_TEXT_NONE if no text box open)
+  int elements;					   // this is the number of elements the current menu has. Set by open_menu()
+  int h;						   // total height (in pixels) of menu display
+  int window_pos;				   // if menu is too long to display, this is the pos of the top of screen
+								   // int edit_window;
+  struct slider_struct mscrollbar; // vertical scrollbar if menu is too long to display
+  int use_scrollbar;			   // 0 if no scrollbar, 1 if scrollbar
+  int menu_templ_state;			   // e.g. MENU_TEMPL_STATE_MAIN
+  int menu_text_box;			   // MENU_TEXT_xxx (is MENU_TEXT_NONE if no text box open)
 
- char map_code_string [MAP_CODE_LENGTH + 1];
- char map_code_string_temp [MAP_CODE_LENGTH + 1]; // just used for the text box for entering the map code
+  char map_code_string[MAP_CODE_LENGTH + 1];
+  char map_code_string_temp[MAP_CODE_LENGTH + 1]; // just used for the text box for entering the map code
 
-/* int pregame_button_x [PREGAME_BUTTONS];
- int pregame_button_y [PREGAME_BUTTONS];
- int pregame_button_w [PREGAME_BUTTONS];
- int pregame_button_h [PREGAME_BUTTONS];
- int pregame_button_highlight [PREGAME_BUTTONS];*/
+  /* int pregame_button_x [PREGAME_BUTTONS];
+   int pregame_button_y [PREGAME_BUTTONS];
+   int pregame_button_w [PREGAME_BUTTONS];
+   int pregame_button_h [PREGAME_BUTTONS];
+   int pregame_button_highlight [PREGAME_BUTTONS];*/
 
- int stripe_group_col;
- int stripe_group_shade;
- int stripe_group_time;
- int stripe_next_group_count;
- int stripe_next_stripe;
+  int stripe_group_col;
+  int stripe_group_shade;
+  int stripe_group_time;
+  int stripe_next_group_count;
+  int stripe_next_stripe;
 
- int stripe_exists [MENU_STRIPES];
- float stripe_x [MENU_STRIPES];
- float stripe_size [MENU_STRIPES];
- int stripe_col [MENU_STRIPES];
- int stripe_shade [MENU_STRIPES];
+  int stripe_exists[MENU_STRIPES];
+  float stripe_x[MENU_STRIPES];
+  float stripe_size[MENU_STRIPES];
+  int stripe_col[MENU_STRIPES];
+  int stripe_shade[MENU_STRIPES];
 
- ALLEGRO_COLOR stripe_al_col [STRIPE_COLS];
-
+  ALLEGRO_COLOR stripe_al_col[STRIPE_COLS];
 };
 
 struct menu_statestruct mstate;
-
 
 void run_menu_input(void);
 void open_menu(int menu_index);
@@ -982,7 +962,6 @@ void display_menu_1(void);
 void display_menu_2(void);
 void menu_loop(void);
 void run_menu(void);
-void run_game_from_menu(void);
 static void fix_map_code(void);
 
 int get_menu_element_value(int t_index);
@@ -998,552 +977,530 @@ void draw_menu_button(float xa, float ya, float xb, float yb, ALLEGRO_COLOR butt
 void open_menu(int menu_index)
 {
 
+  // we don't want the new menu to receive the mouse button press (which I think is particularly a problem for sliders):
+  if (ex_control.mb_press[0] == BUTTON_JUST_PRESSED)
+	ex_control.mb_press[0] = BUTTON_HELD;
 
-// we don't want the new menu to receive the mouse button press (which I think is particularly a problem for sliders):
- if (ex_control.mb_press [0] == BUTTON_JUST_PRESSED)
-  ex_control.mb_press [0] = BUTTON_HELD;
+  int i = 0;
+  int using_list_index;
+  int x = MENU_X;
+  int y = 50;
+  if (settings.option[OPTION_WINDOW_H] >= 800)
+	y = 100;
+  // int values_from_pre [3] = {0,0,0};
+  int *mlist; // this is a pointer to an array of elements, which must be -1 terminated.
 
- int i = 0;
- int using_list_index;
- int x = MENU_X;
- int y = 50;
- if (settings.option [OPTION_WINDOW_H] >= 800)
-		y = 100;
-// int values_from_pre [3] = {0,0,0};
- int *mlist; // this is a pointer to an array of elements, which must be -1 terminated.
-
- switch(menu_index)
- {
+  switch (menu_index)
+  {
   case MENU_MAIN:
-   mlist = menu_list_main;
-   reset_menu_templates();
-   break;
+	mlist = menu_list_main;
+	reset_menu_templates();
+	break;
   case MENU_SETUP:
-   mlist = menu_list_setup;
-   reset_map_for_menu();
-   break;
+	mlist = menu_list_setup;
+	reset_map_for_menu();
+	break;
   case MENU_MISSIONS:
-   mlist = menu_list_missions;
-   break;
+	mlist = menu_list_missions;
+	break;
   case MENU_ADVANCED_MISSIONS:
-			mlist = menu_list_advanced_missions;
-			break;
+	mlist = menu_list_advanced_missions;
+	break;
   case MENU_TUTORIAL:
-			mlist = menu_list_tutorial;
-			break;
+	mlist = menu_list_tutorial;
+	break;
   default:
-   fprintf(stdout, "\ns_menu.c: open_menu(): unrecognised menu_index %i", menu_index);
-   error_call();
-   mlist = menu_list_main; // avoids compiler warning
-   break;
- }
+	fprintf(stdout, "\ns_menu.c: open_menu(): unrecognised menu_index %i", menu_index);
+	error_call();
+	mlist = menu_list_main; // avoids compiler warning
+	break;
+  }
 
- mstate.menu_index = menu_index;
+  mstate.menu_index = menu_index;
 
+  // if (settings.edit_window == EDIT_WINDOW_CLOSED)
+  //  open_templates();
 
-// if (settings.edit_window == EDIT_WINDOW_CLOSED)
-//  open_templates();
+  // inter.mode_button_available [MODE_BUTTON_SYSTEM] = 1;
+  // inter.mode_button_available [MODE_BUTTON_TEMPLATES] = 1;
+  // inter.mode_button_available [MODE_BUTTON_EDITOR] = 1;
+  // inter.mode_button_available [MODE_BUTTON_DESIGN] = 1;
+  // inter.mode_button_available [MODE_BUTTON_CLOSE] = 1;
+  // inter.mode_button_available [MODE_BUTTON_MIN_MAX] = 1;
 
-// inter.mode_button_available [MODE_BUTTON_SYSTEM] = 1;
-// inter.mode_button_available [MODE_BUTTON_TEMPLATES] = 1;
-// inter.mode_button_available [MODE_BUTTON_EDITOR] = 1;
-// inter.mode_button_available [MODE_BUTTON_DESIGN] = 1;
-// inter.mode_button_available [MODE_BUTTON_CLOSE] = 1;
-// inter.mode_button_available [MODE_BUTTON_MIN_MAX] = 1;
+  int ml = 0;
 
- int ml = 0;
-
- while (mlist [ml] != -1)
- {
+  while (mlist[ml] != -1)
+  {
 #ifdef SANITY_CHECK
-  if (i >= MAX_ELEMENTS)
-  {
-   fprintf(stdout, "\nError: s_menu.c: open_menu(): too many elements (%i) in menu %i (max %i).", i, menu_index, MAX_ELEMENTS);
-   error_call();
-  }
+	if (i >= MAX_ELEMENTS)
+	{
+	  fprintf(stdout, "\nError: s_menu.c: open_menu(): too many elements (%i) in menu %i (max %i).", i, menu_index, MAX_ELEMENTS);
+	  error_call();
+	}
 #endif
-  using_list_index = mlist [ml];
-// some mlist entries may not be displayed, depending on initialisation factors (currently, this is only done to remove player colour options for players that can't exist)
-/*  switch (using_list_index)
+	using_list_index = mlist[ml];
+	// some mlist entries may not be displayed, depending on initialisation factors (currently, this is only done to remove player colour options for players that can't exist)
+	/*  switch (using_list_index)
+	  {
+	//   case EL_SETUP_PLAYER_COL_1:
+	   case EL_SETUP_PLAYER_NAME_1:
+		if (max_players < 2)
+		{
+		 ml ++;
+		 continue;
+		}
+		break;
+	//   case EL_SETUP_PLAYER_COL_2:
+	   case EL_SETUP_PLAYER_NAME_2:
+		if (max_players < 3)
+		{
+		 ml ++;
+		 continue;
+		}
+		break;
+	//   case EL_SETUP_PLAYER_COL_3:
+	   case EL_SETUP_PLAYER_NAME_3:
+		if (max_players < 4)
+		{
+		 ml ++;
+		 continue;
+		}
+		break;
+	  }
+	*/
+	menu_element[i].list_index = using_list_index;
+	menu_element[i].x1 = x;
+	menu_element[i].y1 = y;
+	menu_element[i].w = MENU_W;
+	menu_element[i].h = MENU_H;
+	menu_element[i].x2 = x + menu_element[i].w;
+	menu_element[i].y2 = y + menu_element[i].h;
+	menu_element[i].highlight = 0;
+	menu_element[i].value = menu_list[using_list_index].start_value;
+	menu_element[i].type = menu_list[using_list_index].type;
+	menu_element[i].fixed = 0; // can be changed in derive_value_from_preinit_array
+							   // some values are derived from pre_init:
+	switch (menu_element[i].list_index)
+	{
+	  /*
+		 case EL_SETUP_PLAYERS: // derive_value_from_preinit_array() takes values from w_pre_init and puts them in values_from_pre and the value field of menu_element [i]
+		  derive_value_from_preinit_array(values_from_pre, w_pre_init.players, &menu_element [i]);
+		  max_players = values_from_pre [0]; // default value (which is used if value fixed)
+		  if (menu_element[i].fixed == 0) // if not fixed, use the maximum value that players can be set to
+		   max_players = values_from_pre [2];
+		  break;*/
+	  /*   case EL_SETUP_TURNS:
+		  derive_value_from_preinit_array(values_from_pre, w_pre_init.game_turns, &menu_element [i]);
+		  break;
+		 case EL_SETUP_MINUTES:
+		  derive_value_from_preinit_array(values_from_pre, w_pre_init.game_minutes_each_turn, &menu_element [i]);
+		  break;
+		 case EL_SETUP_PROCS:
+		  derive_value_from_preinit_array(values_from_pre, w_pre_init.procs_per_player, &menu_element [i]);
+		  break;*/
+	  //   case EL_SETUP_GEN_LIMIT:
+	  //    derive_value_from_preinit_array(values_from_pre, w_pre_init.gen_limit, &menu_element [i]);
+	  //    break;
+	  /*   case EL_SETUP_W_BLOCK:
+		  derive_value_from_preinit_array(values_from_pre, w_pre_init.w_block, &menu_element [i]);
+		  break;
+		 case EL_SETUP_H_BLOCK:
+		  derive_value_from_preinit_array(values_from_pre, w_pre_init.h_block, &menu_element [i]);
+		  break;
+	  */
+	}
+
+	menu_element[i].slider_index = menu_list[using_list_index].slider_index;
+
+	if (menu_element[i].slider_index != -1)
+	{
+	  /*
+		 init_slider(&element_slider [menu_element [i].slider_index],
+					 &menu_element [i].value, // value_pointer
+					 SLIDEDIR_HORIZONTAL,  // dir
+					 values_from_pre [1], // value_min
+					 values_from_pre [2], // value_max
+					 100, // total_length
+					 1, // button_increment
+					 1, // track_increment
+					 1, // slider_represents_size
+					 x + 160, // x
+					 y + 20, // y
+					 SLIDER_BUTTON_SIZE, // thickness
+					 COL_GREY, // colour
+					 0); // hidden_if_unused*/
+	}
+	y += MENU_H; // the final value of y is used to determine mstate.h
+	i++;
+	ml++;
+  };
+
+  y += 30; // a bit of space at the end
+
+  mstate.elements = i;
+  mstate.h = y;
+  mstate.window_pos = 0;
+
+  if (mstate.h > settings.option[OPTION_WINDOW_H])
   {
-//   case EL_SETUP_PLAYER_COL_1:
-   case EL_SETUP_PLAYER_NAME_1:
-    if (max_players < 2)
-    {
-     ml ++;
-     continue;
-    }
-    break;
-//   case EL_SETUP_PLAYER_COL_2:
-   case EL_SETUP_PLAYER_NAME_2:
-    if (max_players < 3)
-    {
-     ml ++;
-     continue;
-    }
-    break;
-//   case EL_SETUP_PLAYER_COL_3:
-   case EL_SETUP_PLAYER_NAME_3:
-    if (max_players < 4)
-    {
-     ml ++;
-     continue;
-    }
-    break;
+	/*   mstate.use_scrollbar = 1;
+	   init_slider(&mstate.mscrollbar, // *sl
+				   &mstate.window_pos, // *value_pointer
+				   SLIDEDIR_VERTICAL, //dir
+				   0, // value_min
+				   mstate.h - settings.option [OPTION_WINDOW_H], // value_max
+				   settings.option [OPTION_WINDOW_H], // total_length
+				   9, // button_increment
+				   80, // track_increment
+				   settings.option [OPTION_WINDOW_H], // slider_represents_size
+				   settings.editor_x_split - SLIDER_BUTTON_SIZE, // x
+				   0, // y
+				   SLIDER_BUTTON_SIZE, // thickness
+				   COL_GREEN, // colour
+				   0); // hidden_if_unused
+	*/
   }
-*/
-  menu_element [i].list_index = using_list_index;
-  menu_element [i].x1 = x;
-  menu_element [i].y1 = y;
-  menu_element [i].w = MENU_W;
-  menu_element [i].h = MENU_H;
-  menu_element [i].x2 = x + menu_element [i].w;
-  menu_element [i].y2 = y + menu_element [i].h;
-  menu_element [i].highlight = 0;
-  menu_element [i].value = menu_list[using_list_index].start_value;
-  menu_element [i].type = menu_list[using_list_index].type;
-  menu_element [i].fixed = 0; // can be changed in derive_value_from_preinit_array
-// some values are derived from pre_init:
-  switch(menu_element [i].list_index)
-  {
-/*
-   case EL_SETUP_PLAYERS: // derive_value_from_preinit_array() takes values from w_pre_init and puts them in values_from_pre and the value field of menu_element [i]
-    derive_value_from_preinit_array(values_from_pre, w_pre_init.players, &menu_element [i]);
-    max_players = values_from_pre [0]; // default value (which is used if value fixed)
-    if (menu_element[i].fixed == 0) // if not fixed, use the maximum value that players can be set to
-     max_players = values_from_pre [2];
-    break;*/
-/*   case EL_SETUP_TURNS:
-    derive_value_from_preinit_array(values_from_pre, w_pre_init.game_turns, &menu_element [i]);
-    break;
-   case EL_SETUP_MINUTES:
-    derive_value_from_preinit_array(values_from_pre, w_pre_init.game_minutes_each_turn, &menu_element [i]);
-    break;
-   case EL_SETUP_PROCS:
-    derive_value_from_preinit_array(values_from_pre, w_pre_init.procs_per_player, &menu_element [i]);
-    break;*/
-//   case EL_SETUP_GEN_LIMIT:
-//    derive_value_from_preinit_array(values_from_pre, w_pre_init.gen_limit, &menu_element [i]);
-//    break;
-/*   case EL_SETUP_W_BLOCK:
-    derive_value_from_preinit_array(values_from_pre, w_pre_init.w_block, &menu_element [i]);
-    break;
-   case EL_SETUP_H_BLOCK:
-    derive_value_from_preinit_array(values_from_pre, w_pre_init.h_block, &menu_element [i]);
-    break;
-*/
-
-  }
-
-  menu_element[i].slider_index = menu_list[using_list_index].slider_index;
-
-  if (menu_element [i].slider_index != -1)
-  {
-/*
-   init_slider(&element_slider [menu_element [i].slider_index],
-               &menu_element [i].value, // value_pointer
-               SLIDEDIR_HORIZONTAL,  // dir
-               values_from_pre [1], // value_min
-               values_from_pre [2], // value_max
-               100, // total_length
-               1, // button_increment
-               1, // track_increment
-               1, // slider_represents_size
-               x + 160, // x
-               y + 20, // y
-               SLIDER_BUTTON_SIZE, // thickness
-               COL_GREY, // colour
-               0); // hidden_if_unused*/
-  }
-  y += MENU_H; // the final value of y is used to determine mstate.h
-  i ++;
-  ml ++;
- };
-
- y += 30; // a bit of space at the end
-
- mstate.elements = i;
- mstate.h = y;
- mstate.window_pos = 0;
-
- if (mstate.h > settings.option [OPTION_WINDOW_H])
- {
-/*   mstate.use_scrollbar = 1;
-   init_slider(&mstate.mscrollbar, // *sl
-               &mstate.window_pos, // *value_pointer
-               SLIDEDIR_VERTICAL, //dir
-               0, // value_min
-               mstate.h - settings.option [OPTION_WINDOW_H], // value_max
-               settings.option [OPTION_WINDOW_H], // total_length
-               9, // button_increment
-               80, // track_increment
-               settings.option [OPTION_WINDOW_H], // slider_represents_size
-               settings.editor_x_split - SLIDER_BUTTON_SIZE, // x
-               0, // y
-               SLIDER_BUTTON_SIZE, // thickness
-               COL_GREEN, // colour
-               0); // hidden_if_unused
-*/
- }
   else
   {
-   mstate.use_scrollbar = 0;
+	mstate.use_scrollbar = 0;
   }
 
- mstate.menu_text_box = MENU_TEXT_NONE;
-
-
+  mstate.menu_text_box = MENU_TEXT_NONE;
 }
 
 // call this whenever we want to go back to just having a single gamefile template
 void reset_menu_templates(void)
 {
 
-//  setup_system_template();
-
+  //  setup_system_template();
 }
-
 
 void display_menu_1(void)
 {
 
- al_set_target_bitmap(al_get_backbuffer(display));
- al_set_clipping_rectangle(0, 0, settings.option [OPTION_WINDOW_W], settings.option [OPTION_WINDOW_H]);
+  al_set_target_bitmap(al_get_backbuffer(display));
+  al_set_clipping_rectangle(0, 0, settings.option[OPTION_WINDOW_W], settings.option[OPTION_WINDOW_H]);
 
- run_menu_stripes(1);
-
+  run_menu_stripes(1);
 }
-
 
 enum
 {
-SMS_PLAYERS_2,
-SMS_PLAYERS_3,
-SMS_PLAYERS_4,
-SMS_CORES_FEW,
-SMS_CORES_SOME,
-SMS_CORES_MANY,
-SMS_CORES_HEAPS,
-SMS_SIZE_SMALL,
-SMS_SIZE_MEDIUM,
-SMS_SIZE_LARGE,
-SMS_SIZE_HUGE,
-SMS_COMMAND_MODE_AUTO,
-SMS_COMMAND_MODE_COMMAND,
-SMS_DATA_300,
-SMS_DATA_600,
-SMS_DATA_900,
-SMS_DATA_1200,
-SMS_HARD_1,
-SMS_ADVANCED_1,
-SMS_ADVANCED_2,
-SMS_HARD_ADVANCED_1,
-SMS_STRINGS
+  SMS_PLAYERS_2,
+  SMS_PLAYERS_3,
+  SMS_PLAYERS_4,
+  SMS_CORES_FEW,
+  SMS_CORES_SOME,
+  SMS_CORES_MANY,
+  SMS_CORES_HEAPS,
+  SMS_SIZE_SMALL,
+  SMS_SIZE_MEDIUM,
+  SMS_SIZE_LARGE,
+  SMS_SIZE_HUGE,
+  SMS_COMMAND_MODE_AUTO,
+  SMS_COMMAND_MODE_COMMAND,
+  SMS_DATA_300,
+  SMS_DATA_600,
+  SMS_DATA_900,
+  SMS_DATA_1200,
+  SMS_HARD_1,
+  SMS_ADVANCED_1,
+  SMS_ADVANCED_2,
+  SMS_HARD_ADVANCED_1,
+  SMS_STRINGS
 };
 
-
-const char *setup_menu_string [SMS_STRINGS] =
-{
-"2", // SMS_PLAYERS_2,
-"3", // SMS_PLAYERS_3,
-"4", // SMS_PLAYERS_4,
-"16", // SMS_CORES_FEW,
-"32", // SMS_CORES_SOME,
-"64", // SMS_CORES_MANY,
-"128", // SMS_CORES_HEAPS,
-"small", // SMS_SIZE_SMALL,
-"medium", // SMS_SIZE_MEDIUM,
-"large", // SMS_SIZE_LARGE,
-"huge", // SMS_SIZE_HUGE,
-"auto", // SMS_COMMAND_MODE_AUTO,
-"command", // SMS_COMMAND_MODE_COMMAND,
-"300", // SMS_DATA_300,
-"600", // SMS_DATA_600,
-"900", // SMS_DATA_900,
-"1200", // SMS_DATA_1200,
-"Your opponents' processes are stronger and more plentiful.", // SMS_HARD_1
-"You cannot give commands.", // SMS_ADVANCED_1
-" Your processes must be coded to act by themselves.", // SMS_ADVANCED_2
-"Hard mode and autonomous mode at the same time.", // SMS_HARD_ADVANCED_1
+const char *setup_menu_string[SMS_STRINGS] =
+	{
+		"2",														  // SMS_PLAYERS_2,
+		"3",														  // SMS_PLAYERS_3,
+		"4",														  // SMS_PLAYERS_4,
+		"16",														  // SMS_CORES_FEW,
+		"32",														  // SMS_CORES_SOME,
+		"64",														  // SMS_CORES_MANY,
+		"128",														  // SMS_CORES_HEAPS,
+		"small",													  // SMS_SIZE_SMALL,
+		"medium",													  // SMS_SIZE_MEDIUM,
+		"large",													  // SMS_SIZE_LARGE,
+		"huge",														  // SMS_SIZE_HUGE,
+		"auto",														  // SMS_COMMAND_MODE_AUTO,
+		"command",													  // SMS_COMMAND_MODE_COMMAND,
+		"300",														  // SMS_DATA_300,
+		"600",														  // SMS_DATA_600,
+		"900",														  // SMS_DATA_900,
+		"1200",														  // SMS_DATA_1200,
+		"Your opponents' processes are stronger and more plentiful.", // SMS_HARD_1
+		"You cannot give commands.",								  // SMS_ADVANCED_1
+		" Your processes must be coded to act by themselves.",		  // SMS_ADVANCED_2
+		"Hard mode and autonomous mode at the same time.",			  // SMS_HARD_ADVANCED_1
 };
-
 
 // when this is called, the editor or template windows may have already been drawn on the right side
 void display_menu_2(void)
 {
 
-
- al_set_target_bitmap(al_get_backbuffer(display));
- al_set_clipping_rectangle(0, 0, settings.option [OPTION_WINDOW_W], settings.option [OPTION_WINDOW_H]);
- reset_i_buttons();
+  al_set_target_bitmap(al_get_backbuffer(display));
+  al_set_clipping_rectangle(0, 0, settings.option[OPTION_WINDOW_W], settings.option[OPTION_WINDOW_H]);
+  reset_i_buttons();
 
 #ifdef NETWORK_ENABLED
- // Handle multiplayer menu phase drawing
- if (game.phase == GAME_PHASE_MULTIPLAYER) {
-   multiplayer_menu_draw();
-   al_flip_display();
-   return;
- }
+  // Handle multiplayer menu phase drawing
+  if (game.phase == GAME_PHASE_MULTIPLAYER)
+  {
+	multiplayer_menu_draw();
+	al_flip_display();
+	return;
+  }
 #endif
 
- int i, j, y1, y2;
+  int i, j, y1, y2;
 
-   for (i = 0; i < mstate.elements; i ++)
-   {
-    y1 = menu_element[i].y1 - mstate.window_pos;
-    y2 = menu_element[i].y2 - mstate.window_pos;
+  for (i = 0; i < mstate.elements; i++)
+  {
+	y1 = menu_element[i].y1 - mstate.window_pos;
+	y2 = menu_element[i].y2 - mstate.window_pos;
 #define MENU_HEADING_OFFSET (-15)
-    if (menu_element[i].type == EL_TYPE_HEADING)
-    {
-      add_menu_button(menu_element[i].x1 + 1 + MENU_HEADING_OFFSET, y1 + 1, menu_element[i].x2 - 1 + MENU_HEADING_OFFSET, y2 - 1, colours.base_trans [COL_TURQUOISE] [SHADE_MED] [TRANS_MED], 4, 9);
-      add_menu_string(menu_element[i].x1 + 15 + MENU_HEADING_OFFSET, y1 + 22, &colours.base [COL_GREY] [SHADE_MAX], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
-      continue;
-    }
+	if (menu_element[i].type == EL_TYPE_HEADING)
+	{
+	  add_menu_button(menu_element[i].x1 + 1 + MENU_HEADING_OFFSET, y1 + 1, menu_element[i].x2 - 1 + MENU_HEADING_OFFSET, y2 - 1, colours.base_trans[COL_TURQUOISE][SHADE_MED][TRANS_MED], 4, 9);
+	  add_menu_string(menu_element[i].x1 + 15 + MENU_HEADING_OFFSET, y1 + 22, &colours.base[COL_GREY][SHADE_MAX], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
+	  continue;
+	}
 
-#define SELECT_BUTTON_W scaleUI_x(FONT_SQUARE,60)
-#define SELECT_BUTTON_MIDDLE (SELECT_BUTTON_W/2)
+#define SELECT_BUTTON_W scaleUI_x(FONT_SQUARE, 60)
+#define SELECT_BUTTON_MIDDLE (SELECT_BUTTON_W / 2)
 #define SELECT_BUTTON_GAP 5
-#define SELECT_BUTTON_H scaleUI_y(FONT_SQUARE,15)
-    if (menu_element[i].type == EL_TYPE_SELECT)
-    {
-     add_menu_string(menu_element[i].x1 + 15, y1 + 8, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
-    	int select_buttons = menu_list[menu_element[i].list_index].start_value - menu_list[menu_element[i].list_index].action + 1;
-					int sb_y = y1 + 25;
-    	for (j = 0; j < select_buttons; j++)
-					{
-						int sb_x = menu_element[i].x1 + 30 + (j*(SELECT_BUTTON_W+SELECT_BUTTON_GAP));
-						int sb_col = COL_BLUE;
-						int sb_shade = SHADE_MED;
-						if (ex_control.mouse_x_pixels >= sb_x
-       && ex_control.mouse_x_pixels <= sb_x + SELECT_BUTTON_W
-       && ex_control.mouse_y_pixels >= sb_y
-       && ex_control.mouse_y_pixels <= sb_y + SELECT_BUTTON_H)
-      {
-      	sb_shade = SHADE_HIGH;
-      }
-      add_menu_button(sb_x, sb_y,
-																						sb_x + SELECT_BUTTON_W, sb_y + SELECT_BUTTON_H,
-																						colours.base_trans [sb_col] [sb_shade] [TRANS_THICK], 4, 2);
+#define SELECT_BUTTON_H scaleUI_y(FONT_SQUARE, 15)
+	if (menu_element[i].type == EL_TYPE_SELECT)
+	{
+	  add_menu_string(menu_element[i].x1 + 15, y1 + 8, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
+	  int select_buttons = menu_list[menu_element[i].list_index].start_value - menu_list[menu_element[i].list_index].action + 1;
+	  int sb_y = y1 + 25;
+	  for (j = 0; j < select_buttons; j++)
+	  {
+		int sb_x = menu_element[i].x1 + 30 + (j * (SELECT_BUTTON_W + SELECT_BUTTON_GAP));
+		int sb_col = COL_BLUE;
+		int sb_shade = SHADE_MED;
+		if (ex_control.mouse_x_pixels >= sb_x && ex_control.mouse_x_pixels <= sb_x + SELECT_BUTTON_W && ex_control.mouse_y_pixels >= sb_y && ex_control.mouse_y_pixels <= sb_y + SELECT_BUTTON_H)
+		{
+		  sb_shade = SHADE_HIGH;
+		}
+		add_menu_button(sb_x, sb_y,
+						sb_x + SELECT_BUTTON_W, sb_y + SELECT_BUTTON_H,
+						colours.base_trans[sb_col][sb_shade][TRANS_THICK], 4, 2);
 
-						switch(menu_element[i].list_index)
-						{
-							case EL_SETUP_PLAYERS:
-        add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string [SMS_PLAYERS_2 + j]);
-        if (w_init.players == j + 2)
-         add_menu_button(sb_x - 2, sb_y - 2,
-				   																		sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
-							   															colours.base_trans [COL_CYAN] [SHADE_HIGH] [TRANS_MED], 6, 3);
-        break;
-							case EL_SETUP_CORES:
-        add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string [SMS_CORES_FEW + j]);
-        if (w_init.core_setting == j)
-         add_menu_button(sb_x - 2, sb_y - 2,
-				   																		sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
-							   															colours.base_trans [COL_CYAN] [SHADE_HIGH] [TRANS_MED], 6, 3);
-        break;
-							case EL_SETUP_DATA:
-        add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string [SMS_DATA_300 + j]);
-        if (w_init.starting_data_setting [0] == j) // assume that settings for all players are the same
-         add_menu_button(sb_x - 2, sb_y - 2,
-				   																		sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
-							   															colours.base_trans [COL_CYAN] [SHADE_HIGH] [TRANS_MED], 6, 3);
-        break;
-							case EL_SETUP_MAP_SIZE:
-        add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string [SMS_SIZE_SMALL + j]);
-        if (w_init.size_setting == j)
-         add_menu_button(sb_x - 2, sb_y - 2,
-				   																		sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
-							   															colours.base_trans [COL_CYAN] [SHADE_HIGH] [TRANS_MED], 6, 3);
-        break;
-							case EL_SETUP_COMMAND_MODE:
-        add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string [SMS_COMMAND_MODE_AUTO + j]);
-        if (w_init.command_mode == j)
-         add_menu_button(sb_x - 2, sb_y - 2,
-				   																		sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
-							   															colours.base_trans [COL_CYAN] [SHADE_HIGH] [TRANS_MED], 6, 3);
-        break;
-						}
-					}
-					continue;
-    }
+		switch (menu_element[i].list_index)
+		{
+		case EL_SETUP_PLAYERS:
+		  add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string[SMS_PLAYERS_2 + j]);
+		  if (w_init.players == j + 2)
+			add_menu_button(sb_x - 2, sb_y - 2,
+							sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
+							colours.base_trans[COL_CYAN][SHADE_HIGH][TRANS_MED], 6, 3);
+		  break;
+		case EL_SETUP_CORES:
+		  add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string[SMS_CORES_FEW + j]);
+		  if (w_init.core_setting == j)
+			add_menu_button(sb_x - 2, sb_y - 2,
+							sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
+							colours.base_trans[COL_CYAN][SHADE_HIGH][TRANS_MED], 6, 3);
+		  break;
+		case EL_SETUP_DATA:
+		  add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string[SMS_DATA_300 + j]);
+		  if (w_init.starting_data_setting[0] == j) // assume that settings for all players are the same
+			add_menu_button(sb_x - 2, sb_y - 2,
+							sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
+							colours.base_trans[COL_CYAN][SHADE_HIGH][TRANS_MED], 6, 3);
+		  break;
+		case EL_SETUP_MAP_SIZE:
+		  add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string[SMS_SIZE_SMALL + j]);
+		  if (w_init.size_setting == j)
+			add_menu_button(sb_x - 2, sb_y - 2,
+							sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
+							colours.base_trans[COL_CYAN][SHADE_HIGH][TRANS_MED], 6, 3);
+		  break;
+		case EL_SETUP_COMMAND_MODE:
+		  add_menu_string(sb_x + SELECT_BUTTON_MIDDLE, sb_y + 3, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_CENTRE, FONT_SQUARE, setup_menu_string[SMS_COMMAND_MODE_AUTO + j]);
+		  if (w_init.command_mode == j)
+			add_menu_button(sb_x - 2, sb_y - 2,
+							sb_x + SELECT_BUTTON_W + 2, sb_y + SELECT_BUTTON_H + 2,
+							colours.base_trans[COL_CYAN][SHADE_HIGH][TRANS_MED], 6, 3);
+		  break;
+		}
+	  }
+	  continue;
+	}
 
-/*
-								if (menu_list[menu_element[i].list_index].action == EL_ACTION_START_MISSION)
-								{
-									if (missions.locked [menu_list[menu_element[i].list_index].start_value] == 1)
+	/*
+									if (menu_list[menu_element[i].list_index].action == EL_ACTION_START_MISSION)
 									{
-          add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_TURQUOISE] [SHADE_LOW] [TRANS_FAINT], 6, 3);
-          add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base [COL_BLUE] [SHADE_MED], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, locked_string);
-									}
-           else
-											{
-            if (menu_element[i].highlight)
-             add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_HIGH] [TRANS_THICK], 6, 3);
-              else
-               add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_MED] [TRANS_THICK], 6, 3);
-            add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
-
-
-											}
-
-
-									continue;
-								}
-*/
-
-
-        switch(menu_element[i].list_index)
-        {
-         case EL_SETUP_PLAYER_NAME_0:
-         case EL_SETUP_PLAYER_NAME_1:
-         case EL_SETUP_PLAYER_NAME_2:
-         case EL_SETUP_PLAYER_NAME_3:
-         	if (w_init.players <= menu_element[i].list_index - EL_SETUP_PLAYER_NAME_0)
+										if (missions.locked [menu_list[menu_element[i].list_index].start_value] == 1)
 										{
-           add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_LOW] [TRANS_MED], 9, 4);
-           continue;
+			  add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_TURQUOISE] [SHADE_LOW] [TRANS_FAINT], 6, 3);
+			  add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base [COL_BLUE] [SHADE_MED], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, locked_string);
 										}
-    	     add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE,145), y1 + 22, &colours.base [COL_BLUE] [SHADE_MAX], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, w_init.player_name [menu_element[i].list_index - EL_SETUP_PLAYER_NAME_0]);
-    	     add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE,134), y1 + 21, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, "[             ]");
-          if (menu_element[i].highlight)
-           add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_HIGH] [TRANS_THICK], 9, 4);
-            else
-             add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_MED] [TRANS_THICK], 9, 4);
-          add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, menu_list[menu_element[i].list_index].name);
-          continue;
-         case EL_SETUP_CODE:
-    	     add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE,145), y1 + 22, &colours.base [COL_BLUE] [SHADE_MAX], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, mstate.map_code_string);
-    	     add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE,134), y1 + 21, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, "[        ]");
-         	break;
-         case EL_MAIN_START_GAME_HARD:
-          if (menu_element[i].highlight)
-          {
-    	      add_menu_string(menu_element[i].x2 + 20, y1 + 17, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_HARD_1]);
-//    	      add_menu_string(menu_element[i].x2 + 20, y1 + 30, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_ADVANCED_2]);
-          }
-										break;
-         case EL_MAIN_START_GAME_ADVANCED:
-          if (menu_element[i].highlight)
-          {
-    	      add_menu_string(menu_element[i].x2 + 20, y1 + 17, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_ADVANCED_1]);
-    	      add_menu_string(menu_element[i].x2 + 20, y1 + 17 + scaleUI_y(FONT_SQUARE, 13), &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_ADVANCED_2]);
-          }
-										break;
-         case EL_MAIN_START_GAME_ADVANCED_HARD:
-          if (menu_element[i].highlight)
-          {
-    	      add_menu_string(menu_element[i].x2 + 20, y1 + 17, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_HARD_ADVANCED_1]);
-//    	      add_menu_string(menu_element[i].x2 + 20, y1 + 30, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_ADVANCED_2]);
-          }
-										break;
-        }
+			   else
+												{
+				if (menu_element[i].highlight)
+				 add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_HIGH] [TRANS_THICK], 6, 3);
+				  else
+				   add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_MED] [TRANS_THICK], 6, 3);
+				add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
 
-    if (menu_element[i].highlight)
-     add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_HIGH] [TRANS_THICK], 9, 4);
-      else
-       add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans [COL_BLUE] [SHADE_MED] [TRANS_THICK], 9, 4);
 
-    add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
+												}
 
-   }
 
-   draw_button_buffer();
-   draw_menu_strings();
+										continue;
+									}
+	*/
+
+	switch (menu_element[i].list_index)
+	{
+	case EL_SETUP_PLAYER_NAME_0:
+	case EL_SETUP_PLAYER_NAME_1:
+	case EL_SETUP_PLAYER_NAME_2:
+	case EL_SETUP_PLAYER_NAME_3:
+	  if (w_init.players <= menu_element[i].list_index - EL_SETUP_PLAYER_NAME_0)
+	  {
+		add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans[COL_BLUE][SHADE_LOW][TRANS_MED], 9, 4);
+		continue;
+	  }
+	  add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE, 145), y1 + 22, &colours.base[COL_BLUE][SHADE_MAX], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, w_init.player_name[menu_element[i].list_index - EL_SETUP_PLAYER_NAME_0]);
+	  add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE, 134), y1 + 21, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, "[             ]");
+	  if (menu_element[i].highlight)
+		add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans[COL_BLUE][SHADE_HIGH][TRANS_THICK], 9, 4);
+	  else
+		add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans[COL_BLUE][SHADE_MED][TRANS_THICK], 9, 4);
+	  add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, menu_list[menu_element[i].list_index].name);
+	  continue;
+	case EL_SETUP_CODE:
+	  add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE, 145), y1 + 22, &colours.base[COL_BLUE][SHADE_MAX], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, mstate.map_code_string);
+	  add_menu_string(menu_element[i].x1 + scaleUI_x(FONT_SQUARE, 134), y1 + 21, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, "[        ]");
+	  break;
+	case EL_MAIN_START_GAME_HARD:
+	  if (menu_element[i].highlight)
+	  {
+		add_menu_string(menu_element[i].x2 + 20, y1 + 17, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string[SMS_HARD_1]);
+		//    	      add_menu_string(menu_element[i].x2 + 20, y1 + 30, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_ADVANCED_2]);
+	  }
+	  break;
+	case EL_MAIN_START_GAME_ADVANCED:
+	  if (menu_element[i].highlight)
+	  {
+		add_menu_string(menu_element[i].x2 + 20, y1 + 17, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string[SMS_ADVANCED_1]);
+		add_menu_string(menu_element[i].x2 + 20, y1 + 17 + scaleUI_y(FONT_SQUARE, 13), &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string[SMS_ADVANCED_2]);
+	  }
+	  break;
+	case EL_MAIN_START_GAME_ADVANCED_HARD:
+	  if (menu_element[i].highlight)
+	  {
+		add_menu_string(menu_element[i].x2 + 20, y1 + 17, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string[SMS_HARD_ADVANCED_1]);
+		//    	      add_menu_string(menu_element[i].x2 + 20, y1 + 30, &colours.base [COL_GREY] [SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE, setup_menu_string [SMS_ADVANCED_2]);
+	  }
+	  break;
+	}
+
+	if (menu_element[i].highlight)
+	  add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans[COL_BLUE][SHADE_HIGH][TRANS_THICK], 9, 4);
+	else
+	  add_menu_button(menu_element[i].x1 + 1, y1 + 1, menu_element[i].x2 - 1, y2 - 1, colours.base_trans[COL_BLUE][SHADE_MED][TRANS_THICK], 9, 4);
+
+	add_menu_string(menu_element[i].x1 + 15, y1 + 22, &colours.base[COL_GREY][SHADE_HIGH], ALLEGRO_ALIGN_LEFT, FONT_SQUARE_LARGE, menu_list[menu_element[i].list_index].name);
+  }
+
+  draw_button_buffer();
+  draw_menu_strings();
 
 #define MAP_SIZE_FACTOR 4
 
-   if (mstate.menu_index == MENU_SETUP)
-			{
-				float base_x = MENU_X + MENU_W + 30;
-				float base_y = 200;
-				al_draw_filled_rectangle(base_x,
-																													base_y,
-																													base_x + map_init.map_size_blocks * MAP_SIZE_FACTOR,
-																													base_y + map_init.map_size_blocks * MAP_SIZE_FACTOR,
-																													colours.base [COL_GREY] [SHADE_MIN]);
-					for (i = 0; i < map_init.players; i ++)
-					{
-				  al_draw_filled_rectangle(base_x + map_init.spawn_position[i].x * MAP_SIZE_FACTOR - 3,
-																													  base_y + map_init.spawn_position[i].y * MAP_SIZE_FACTOR - 3,
-                               base_x + map_init.spawn_position[i].x * MAP_SIZE_FACTOR + 3,
-																													  base_y + map_init.spawn_position[i].y * MAP_SIZE_FACTOR + 3,
-																													  colours.base [i] [SHADE_HIGH]);
-					}
-					for (i = 0; i < map_init.data_wells; i ++)
-					{
-				  al_draw_filled_rectangle(base_x + map_init.data_well_position[i].x * MAP_SIZE_FACTOR - 2,
-																													  base_y + map_init.data_well_position[i].y * MAP_SIZE_FACTOR - 2,
-                               base_x + map_init.data_well_position[i].x * MAP_SIZE_FACTOR + 2,
-																													  base_y + map_init.data_well_position[i].y * MAP_SIZE_FACTOR + 2,
-																													  colours.base [COL_YELLOW] [SHADE_HIGH]);
+  if (mstate.menu_index == MENU_SETUP)
+  {
+	float base_x = MENU_X + MENU_W + 30;
+	float base_y = 200;
+	al_draw_filled_rectangle(base_x,
+							 base_y,
+							 base_x + map_init.map_size_blocks * MAP_SIZE_FACTOR,
+							 base_y + map_init.map_size_blocks * MAP_SIZE_FACTOR,
+							 colours.base[COL_GREY][SHADE_MIN]);
+	for (i = 0; i < map_init.players; i++)
+	{
+	  al_draw_filled_rectangle(base_x + map_init.spawn_position[i].x * MAP_SIZE_FACTOR - 3,
+							   base_y + map_init.spawn_position[i].y * MAP_SIZE_FACTOR - 3,
+							   base_x + map_init.spawn_position[i].x * MAP_SIZE_FACTOR + 3,
+							   base_y + map_init.spawn_position[i].y * MAP_SIZE_FACTOR + 3,
+							   colours.base[i][SHADE_HIGH]);
+	}
+	for (i = 0; i < map_init.data_wells; i++)
+	{
+	  al_draw_filled_rectangle(base_x + map_init.data_well_position[i].x * MAP_SIZE_FACTOR - 2,
+							   base_y + map_init.data_well_position[i].y * MAP_SIZE_FACTOR - 2,
+							   base_x + map_init.data_well_position[i].x * MAP_SIZE_FACTOR + 2,
+							   base_y + map_init.data_well_position[i].y * MAP_SIZE_FACTOR + 2,
+							   colours.base[COL_YELLOW][SHADE_HIGH]);
+	}
+  }
 
-					}
-			}
-
-
-// finally, if a text box is open need to draw it over the top:
- switch(mstate.menu_text_box)
- {
- 	case MENU_TEXT_PLAYER_0_NAME:
- 	case MENU_TEXT_PLAYER_1_NAME:
- 	case MENU_TEXT_PLAYER_2_NAME:
- 	case MENU_TEXT_PLAYER_3_NAME:
-   {
+  // finally, if a text box is open need to draw it over the top:
+  switch (mstate.menu_text_box)
+  {
+  case MENU_TEXT_PLAYER_0_NAME:
+  case MENU_TEXT_PLAYER_1_NAME:
+  case MENU_TEXT_PLAYER_2_NAME:
+  case MENU_TEXT_PLAYER_3_NAME: {
 #define NAME_BOX_X (MENU_X - 20)
-#define NAME_BOX_W scaleUI_x(FONT_SQUARE,250)
+#define NAME_BOX_W scaleUI_x(FONT_SQUARE, 250)
 #define NAME_BOX_Y 245
-#define NAME_BOX_H scaleUI_y(FONT_SQUARE,55)
+#define NAME_BOX_H scaleUI_y(FONT_SQUARE, 55)
 #define NAME_TEXT_BOX_X 50
-#define NAME_TEXT_BOX_W scaleUI_x(FONT_SQUARE,90)
+#define NAME_TEXT_BOX_W scaleUI_x(FONT_SQUARE, 90)
 #define NAME_TEXT_BOX_Y 25
-#define NAME_TEXT_BOX_H scaleUI_y(FONT_SQUARE,15)
-     int naming_player = mstate.menu_text_box - MENU_TEXT_PLAYER_0_NAME;
+#define NAME_TEXT_BOX_H scaleUI_y(FONT_SQUARE, 15)
+	int naming_player = mstate.menu_text_box - MENU_TEXT_PLAYER_0_NAME;
 #ifdef SANITY_CHECK
-    if (naming_player < 0
-     || naming_player >= PLAYERS)
-    {
-     fprintf(stdout, "\nError: s_menu.c:display_menu_2(): naming_player out of bounds (%i)", naming_player);
-     error_call();
-    }
+	if (naming_player < 0 || naming_player >= PLAYERS)
+	{
+	  fprintf(stdout, "\nError: s_menu.c:display_menu_2(): naming_player out of bounds (%i)", naming_player);
+	  error_call();
+	}
 #endif
-     char* naming_player_name = w_init.player_name[naming_player];
-     al_draw_filled_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base [COL_BLUE] [SHADE_LOW]);
-     al_draw_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base [COL_BLUE] [SHADE_MAX], 1);
-     al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], NAME_BOX_X + 10, NAME_BOX_Y + 6, ALLEGRO_ALIGN_LEFT, "Player %i name", naming_player);
-// draw box for text to appear in
-     al_draw_filled_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base [COL_BLUE] [SHADE_MIN]);
-     al_draw_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base [COL_BLUE] [SHADE_HIGH], 1);
+	char *naming_player_name = w_init.player_name[naming_player];
+	al_draw_filled_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base[COL_BLUE][SHADE_LOW]);
+	al_draw_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base[COL_BLUE][SHADE_MAX], 1);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], NAME_BOX_X + 10, NAME_BOX_Y + 6, ALLEGRO_ALIGN_LEFT, "Player %i name", naming_player);
+	// draw box for text to appear in
+	al_draw_filled_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base[COL_BLUE][SHADE_MIN]);
+	al_draw_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base[COL_BLUE][SHADE_HIGH], 1);
 
-     al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], NAME_BOX_X + NAME_TEXT_BOX_X + 3, NAME_BOX_Y + NAME_TEXT_BOX_Y + 3, ALLEGRO_ALIGN_LEFT, "%s", naming_player_name);
-// TO DO: cursor flash
-     int cursor_x = NAME_BOX_X + NAME_TEXT_BOX_X + 3 + (strlen(naming_player_name) * font[FONT_SQUARE].width);
-     int cursor_y = NAME_BOX_Y + NAME_TEXT_BOX_Y + 1;
-     al_draw_filled_rectangle(cursor_x, cursor_y, cursor_x + scaleUI_x(FONT_SQUARE,2), cursor_y + scaleUI_y(FONT_SQUARE,12), colours.base [COL_GREY] [SHADE_MAX]);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], NAME_BOX_X + NAME_TEXT_BOX_X + 3, NAME_BOX_Y + NAME_TEXT_BOX_Y + 3, ALLEGRO_ALIGN_LEFT, "%s", naming_player_name);
+	// TO DO: cursor flash
+	int cursor_x = NAME_BOX_X + NAME_TEXT_BOX_X + 3 + (strlen(naming_player_name) * font[FONT_SQUARE].width);
+	int cursor_y = NAME_BOX_Y + NAME_TEXT_BOX_Y + 1;
+	al_draw_filled_rectangle(cursor_x, cursor_y, cursor_x + scaleUI_x(FONT_SQUARE, 2), cursor_y + scaleUI_y(FONT_SQUARE, 12), colours.base[COL_GREY][SHADE_MAX]);
   }
   break; // end player naming
-  case MENU_TEXT_MAP_CODE:
-  {
-     al_draw_filled_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base [COL_BLUE] [SHADE_LOW]);
-     al_draw_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base [COL_BLUE] [SHADE_MAX], 1);
-     al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], NAME_BOX_X + 10, NAME_BOX_Y + 6, ALLEGRO_ALIGN_LEFT, "Enter map code");
-// draw box for text to appear in
-     al_draw_filled_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base [COL_BLUE] [SHADE_MIN]);
-     al_draw_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base [COL_BLUE] [SHADE_HIGH], 1);
+  case MENU_TEXT_MAP_CODE: {
+	al_draw_filled_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base[COL_BLUE][SHADE_LOW]);
+	al_draw_rectangle(NAME_BOX_X, NAME_BOX_Y, NAME_BOX_X + NAME_BOX_W, NAME_BOX_Y + NAME_BOX_H, colours.base[COL_BLUE][SHADE_MAX], 1);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], NAME_BOX_X + 10, NAME_BOX_Y + 6, ALLEGRO_ALIGN_LEFT, "Enter map code");
+	// draw box for text to appear in
+	al_draw_filled_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base[COL_BLUE][SHADE_MIN]);
+	al_draw_rectangle(NAME_BOX_X + NAME_TEXT_BOX_X, NAME_BOX_Y + NAME_TEXT_BOX_Y, NAME_BOX_X + NAME_TEXT_BOX_X + NAME_TEXT_BOX_W, NAME_BOX_Y + NAME_TEXT_BOX_Y + NAME_TEXT_BOX_H, colours.base[COL_BLUE][SHADE_HIGH], 1);
 
-     al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], NAME_BOX_X + NAME_TEXT_BOX_X + 3, NAME_BOX_Y + NAME_TEXT_BOX_Y + 3, ALLEGRO_ALIGN_LEFT, "%s", mstate.map_code_string_temp);
-// TO DO: cursor flash
-     int cursor_x = NAME_BOX_X + NAME_TEXT_BOX_X + 3 + (strlen(mstate.map_code_string_temp) * font[FONT_SQUARE].width);
-     int cursor_y = NAME_BOX_Y + NAME_TEXT_BOX_Y + 1;
-     al_draw_filled_rectangle(cursor_x, cursor_y, cursor_x + scaleUI_x(FONT_SQUARE,2), cursor_y + scaleUI_y(FONT_SQUARE,12), colours.base [COL_GREY] [SHADE_MAX]);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], NAME_BOX_X + NAME_TEXT_BOX_X + 3, NAME_BOX_Y + NAME_TEXT_BOX_Y + 3, ALLEGRO_ALIGN_LEFT, "%s", mstate.map_code_string_temp);
+	// TO DO: cursor flash
+	int cursor_x = NAME_BOX_X + NAME_TEXT_BOX_X + 3 + (strlen(mstate.map_code_string_temp) * font[FONT_SQUARE].width);
+	int cursor_y = NAME_BOX_Y + NAME_TEXT_BOX_Y + 1;
+	al_draw_filled_rectangle(cursor_x, cursor_y, cursor_x + scaleUI_x(FONT_SQUARE, 2), cursor_y + scaleUI_y(FONT_SQUARE, 12), colours.base[COL_GREY][SHADE_MAX]);
   }
   break;
- }
+  }
 
-// if (settings.option [OPTION_SPECIAL_CURSOR])
+  // if (settings.option [OPTION_SPECIAL_CURSOR])
   draw_mouse_cursor();
- al_flip_display();
- al_set_target_bitmap(al_get_backbuffer(display));
-
+  al_flip_display();
+  al_set_target_bitmap(al_get_backbuffer(display));
 }
 
 void draw_menu_button(float xa, float ya, float xb, float yb, ALLEGRO_COLOR button_colour)
@@ -1552,220 +1509,208 @@ void draw_menu_button(float xa, float ya, float xb, float yb, ALLEGRO_COLOR butt
 #define BUTTON_NOTCH_Y 6
 //#define BUTTON_NOTCH_X (BUTTON_NOTCH_Y / 3.0)
 #define BUTTON_NOTCH_X (BUTTON_NOTCH_Y)
-     static ALLEGRO_VERTEX button_fan [8];
-     int b = 0;
+  static ALLEGRO_VERTEX button_fan[8];
+  int b = 0;
 
-     button_fan[b].x = xa + BUTTON_NOTCH_X;
-     button_fan[b].y = ya;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb - BUTTON_NOTCH_X*2;
-     button_fan[b].y = ya;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb;
-     button_fan[b].y = ya + BUTTON_NOTCH_Y*2;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb;
-     button_fan[b].y = yb - BUTTON_NOTCH_Y;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb - BUTTON_NOTCH_X;
-     button_fan[b].y = yb;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa + BUTTON_NOTCH_X*2;
-     button_fan[b].y = yb;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa;
-     button_fan[b].y = yb - BUTTON_NOTCH_Y*2;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa;
-     button_fan[b].y = ya + BUTTON_NOTCH_Y;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
+  button_fan[b].x = xa + BUTTON_NOTCH_X;
+  button_fan[b].y = ya;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xb - BUTTON_NOTCH_X * 2;
+  button_fan[b].y = ya;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xb;
+  button_fan[b].y = ya + BUTTON_NOTCH_Y * 2;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xb;
+  button_fan[b].y = yb - BUTTON_NOTCH_Y;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xb - BUTTON_NOTCH_X;
+  button_fan[b].y = yb;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xa + BUTTON_NOTCH_X * 2;
+  button_fan[b].y = yb;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xa;
+  button_fan[b].y = yb - BUTTON_NOTCH_Y * 2;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
+  button_fan[b].x = xa;
+  button_fan[b].y = ya + BUTTON_NOTCH_Y;
+  button_fan[b].z = 0;
+  button_fan[b].color = button_colour;
+  b++;
 
+  /*
+	   button_fan[b].x = xa;
+	   button_fan[b].y = ya;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xb - BUTTON_NOTCH_X;
+	   button_fan[b].y = ya;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xb;
+	   button_fan[b].y = ya + BUTTON_NOTCH_Y;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xb;
+	   button_fan[b].y = yb;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xa + BUTTON_NOTCH_X;
+	   button_fan[b].y = yb;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xa;
+	   button_fan[b].y = yb - BUTTON_NOTCH_Y;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+  */
+  /*
+	   button_fan[b].x = xa + BUTTON_NOTCH_X;
+	   button_fan[b].y = ya;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xb;
+	   button_fan[b].y = ya;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xb;
+	   button_fan[b].y = yb - BUTTON_NOTCH_Y;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xb - BUTTON_NOTCH_X;
+	   button_fan[b].y = yb;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xa;
+	   button_fan[b].y = yb;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;
+	   button_fan[b].x = xa;
+	   button_fan[b].y = ya + BUTTON_NOTCH_Y;
+	   button_fan[b].z = 0;
+	   button_fan[b].color = button_colour;
+	   b++;*/
 
-/*
-     button_fan[b].x = xa;
-     button_fan[b].y = ya;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb - BUTTON_NOTCH_X;
-     button_fan[b].y = ya;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb;
-     button_fan[b].y = ya + BUTTON_NOTCH_Y;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb;
-     button_fan[b].y = yb;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa + BUTTON_NOTCH_X;
-     button_fan[b].y = yb;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa;
-     button_fan[b].y = yb - BUTTON_NOTCH_Y;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-*/
-/*
-     button_fan[b].x = xa + BUTTON_NOTCH_X;
-     button_fan[b].y = ya;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb;
-     button_fan[b].y = ya;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb;
-     button_fan[b].y = yb - BUTTON_NOTCH_Y;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xb - BUTTON_NOTCH_X;
-     button_fan[b].y = yb;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa;
-     button_fan[b].y = yb;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;
-     button_fan[b].x = xa;
-     button_fan[b].y = ya + BUTTON_NOTCH_Y;
-     button_fan[b].z = 0;
-     button_fan[b].color = button_colour;
-     b++;*/
-
-
-//  al_draw_prim(fan_buffer, NULL, NULL, fan_vertex_list, fan_index[i].vertices, ALLEGRO_PRIM_TRIANGLE_FAN);
+  //  al_draw_prim(fan_buffer, NULL, NULL, fan_vertex_list, fan_index[i].vertices, ALLEGRO_PRIM_TRIANGLE_FAN);
   al_draw_prim(button_fan, NULL, NULL, 0, b, ALLEGRO_PRIM_TRIANGLE_FAN);
-
-
-
-
-
 }
-
-
 
 // This function should only be called once, from the startup routines in m_main
 void start_menus(void)
 {
 
- game.phase = GAME_PHASE_MENU;
+  game.phase = GAME_PHASE_MENU;
 
- mstate.menu_type = MENU_TYPE_NORMAL;
+  mstate.menu_type = MENU_TYPE_NORMAL;
 
- mstate.stripe_group_col = 0;
- mstate.stripe_group_shade = SHADE_HIGH;
- mstate.stripe_group_time = 30;
- mstate.stripe_next_group_count = 200;
- mstate.stripe_next_stripe = 40;
- int i;
+  mstate.stripe_group_col = 0;
+  mstate.stripe_group_shade = SHADE_HIGH;
+  mstate.stripe_group_time = 30;
+  mstate.stripe_next_group_count = 200;
+  mstate.stripe_next_stripe = 40;
+  int i;
 
- for (i = 0; i < MENU_STRIPES; i ++)
-	{
-  mstate.stripe_exists [i] = 0;
-  mstate.stripe_x [i] = 0;
-  mstate.stripe_size [i] = 5;
-  mstate.stripe_col [i] = 3;
-  mstate.stripe_shade [i] = SHADE_MAX;
-	}
+  for (i = 0; i < MENU_STRIPES; i++)
+  {
+	mstate.stripe_exists[i] = 0;
+	mstate.stripe_x[i] = 0;
+	mstate.stripe_size[i] = 5;
+	mstate.stripe_col[i] = 3;
+	mstate.stripe_shade[i] = SHADE_MAX;
+  }
 
-	mstate.stripe_al_col [0] = al_map_rgb(10, 60, 110);
-	mstate.stripe_al_col [1] = al_map_rgb(10, 40, 120);
-	mstate.stripe_al_col [2] = al_map_rgb(30, 30, 90);
-	mstate.stripe_al_col [3] = al_map_rgb(30, 15, 100);
-	mstate.stripe_al_col [4] = al_map_rgb(50, 10, 90);
-	mstate.stripe_al_col [5] = al_map_rgb(50, 5, 140);
-	mstate.stripe_al_col [6] = al_map_rgb(10, 70, 100);
-	mstate.stripe_al_col [7] = al_map_rgb(10, 30, 120);
-	mstate.stripe_al_col [8] = al_map_rgb(40, 30, 110);
-	mstate.stripe_al_col [9] = al_map_rgb(30, 23, 70);
-	mstate.stripe_al_col [10] = al_map_rgb(30, 80, 120);
-	mstate.stripe_al_col [11] = al_map_rgb(120, 10, 80); // rare colour
+  mstate.stripe_al_col[0] = al_map_rgb(10, 60, 110);
+  mstate.stripe_al_col[1] = al_map_rgb(10, 40, 120);
+  mstate.stripe_al_col[2] = al_map_rgb(30, 30, 90);
+  mstate.stripe_al_col[3] = al_map_rgb(30, 15, 100);
+  mstate.stripe_al_col[4] = al_map_rgb(50, 10, 90);
+  mstate.stripe_al_col[5] = al_map_rgb(50, 5, 140);
+  mstate.stripe_al_col[6] = al_map_rgb(10, 70, 100);
+  mstate.stripe_al_col[7] = al_map_rgb(10, 30, 120);
+  mstate.stripe_al_col[8] = al_map_rgb(40, 30, 110);
+  mstate.stripe_al_col[9] = al_map_rgb(30, 23, 70);
+  mstate.stripe_al_col[10] = al_map_rgb(30, 80, 120);
+  mstate.stripe_al_col[11] = al_map_rgb(120, 10, 80); // rare colour
 
- for (i = 0; i < settings.option [OPTION_WINDOW_W]; i ++)
- {
- 	run_menu_stripes(0);
- }
+  for (i = 0; i < settings.option[OPTION_WINDOW_W]; i++)
+  {
+	run_menu_stripes(0);
+  }
 
- run_intro_screen();
+  run_intro_screen();
 
- init_w_init(); // initialises world_init values for the setup menu
+  init_w_init(); // initialises world_init values for the setup menu
 
- fix_map_code();
+  fix_map_code();
 
- open_menu(MENU_MAIN);
+  open_menu(MENU_MAIN);
 
- menu_loop();
-
+  menu_loop();
 }
 
-void init_w_init(void) // also called from s_mission.c
+inline void init_w_init() // also called from s_mission.c
 {
 
-	w_init.players = 2;
-	w_init.core_setting = 2;
-//	w_init.starting_data_setting = 0;
-	w_init.game_seed = 0;
-//	w_init.data_wells = 0;
+  w_init.players = 2;
+  w_init.core_setting = 2;
+  //	w_init.starting_data_setting = 0;
+  w_init.game_seed = 0;
+  //	w_init.data_wells = 0;
 
-	w_init.size_setting = 2;
-	w_init.command_mode = COMMAND_MODE_AUTO;
- fix_w_init_size();
+  w_init.size_setting = 2;
+  w_init.command_mode = COMMAND_MODE_AUTO;
+  fix_w_init_size();
 
-	int i;
+  int i;
 
-	for (i = 0; i < PLAYERS; i ++)
-	{
-		sprintf(w_init.player_name [i], "Player %i", i);
-		w_init.starting_data_setting [i] = 0;
-//		w_init.player_starting_data [i] = (w_init.starting_data_setting + 1) * 300; // may be changed by some missions
-	}
+  for (i = 0; i < PLAYERS; i++)
+  {
+	sprintf(w_init.player_name[i], "Player %i", i);
+	w_init.starting_data_setting[i] = 0;
+	//		w_init.player_starting_data [i] = (w_init.starting_data_setting + 1) * 300; // may be changed by some missions
+  }
 
-// this function doesn't initialise everything - it leaves some things (like player spawn positions) that must be initialised when the game is being started.
-
+  // this function doesn't initialise everything - it leaves some things (like player spawn positions) that must be initialised when the game is being started.
 }
 
 static void fix_map_code(void)
 {
 
-	mstate.map_code_string [MAP_CODE_PLAYERS] = 'A' + w_init.players - 2;
-	mstate.map_code_string [MAP_CODE_SIZE] = 'A' + w_init.size_setting;
-	mstate.map_code_string [MAP_CODE_CORES] = 'A' + w_init.core_setting;
-	mstate.map_code_string [MAP_CODE_DATA] = 'A' + w_init.starting_data_setting [0]; // assume all are the same
-	mstate.map_code_string [MAP_CODE_SEED_0] = '0' + w_init.game_seed / 100;
-	mstate.map_code_string [MAP_CODE_SEED_1] = '0' + (w_init.game_seed / 10) % 10;
-	mstate.map_code_string [MAP_CODE_SEED_2] = '0' + (w_init.game_seed) % 10;
+  mstate.map_code_string[MAP_CODE_PLAYERS] = 'A' + w_init.players - 2;
+  mstate.map_code_string[MAP_CODE_SIZE] = 'A' + w_init.size_setting;
+  mstate.map_code_string[MAP_CODE_CORES] = 'A' + w_init.core_setting;
+  mstate.map_code_string[MAP_CODE_DATA] = 'A' + w_init.starting_data_setting[0]; // assume all are the same
+  mstate.map_code_string[MAP_CODE_SEED_0] = '0' + w_init.game_seed / 100;
+  mstate.map_code_string[MAP_CODE_SEED_1] = '0' + (w_init.game_seed / 10) % 10;
+  mstate.map_code_string[MAP_CODE_SEED_2] = '0' + (w_init.game_seed) % 10;
 
-	mstate.map_code_string [MAP_CODE_LENGTH] = '\0';
-
+  mstate.map_code_string[MAP_CODE_LENGTH] = '\0';
 }
 
 // this function handles timing etc for the menu interface.
@@ -1774,464 +1719,445 @@ static void fix_map_code(void)
 void menu_loop(void)
 {
 
+  al_flush_event_queue(event_queue);
+  al_flush_event_queue(fps_queue);
 
- al_flush_event_queue(event_queue);
- al_flush_event_queue(fps_queue);
+  ALLEGRO_EVENT ev;
 
- ALLEGRO_EVENT ev;
+  do
+  {
 
- do
- {
+	rand(); // change the rand state (this prevents the music being predictable, as it's seeded by rand())
 
-  rand(); // change the rand state (this prevents the music being predictable, as it's seeded by rand())
+	display_menu_1(); // prepares screen for menu and possible editor/templates to be written
 
-  display_menu_1(); // prepares screen for menu and possible editor/templates to be written
+	run_menu();
 
-  run_menu();
+	run_menu_input(); // note that this function can result in a change in menu
 
-  run_menu_input(); // note that this function can result in a change in menu
+	display_menu_2(); // finishes drawing menu stuff
 
-  display_menu_2(); // finishes drawing menu stuff
+	//  check_sound_queue();
 
-//  check_sound_queue();
+	al_wait_for_event(event_queue, &ev);
 
-  al_wait_for_event(event_queue, &ev);
-
- } while (TRUE);
-
-
+  } while (TRUE);
 }
 
 // this function does basic maintenance stuff for the current menu
 void run_menu(void)
 {
 
- int i;
+  int i;
 
- for (i = 0; i < mstate.elements; i ++)
- {
-  menu_element[i].highlight = 0;
- }
-
+  for (i = 0; i < mstate.elements; i++)
+  {
+	menu_element[i].highlight = 0;
+  }
 }
 
 void run_menu_input(void)
 {
 
- get_ex_control(0, 0);
+  get_ex_control(0, 0);
 
 #ifdef NETWORK_ENABLED
- // Handle multiplayer menu phase
- if (game.phase == GAME_PHASE_MULTIPLAYER) {
-   multiplayer_menu_update();
-   multiplayer_menu_handle_input();
-   return;
- }
-#endif
-
- int i;
- int mouse_x = ex_control.mouse_x_pixels;
-// int mouse_y = ex_control.mouse_y_pixels; // ignores window_pos
- int abs_mouse_y = ex_control.mouse_y_pixels + mstate.window_pos; // absolute mouse_y
- int just_pressed = (ex_control.mb_press [0] == BUTTON_JUST_PRESSED);
-// int rmb_just_pressed = (ex_control.mb_press [1] == BUTTON_JUST_PRESSED);
-/*
- if (just_pressed == 1)
-	{
-		static int sample_play;
-  play_interface_sound(sample_play, TONE_1C);
-  sample_play++;
-  sample_play %= 3;
-	}*/
-
-
-// fprintf(stdout, "\n(%i: %i, my %i amy %i)", mstate.h, mstate.window_pos, mouse_y, abs_mouse_y);
-
- switch(mstate.menu_text_box)
- {
-	 case MENU_TEXT_PLAYER_0_NAME:
- 	case MENU_TEXT_PLAYER_1_NAME:
- 	case MENU_TEXT_PLAYER_2_NAME:
- 	case MENU_TEXT_PLAYER_3_NAME:
-   if (accept_text_box_input(TEXT_BOX_PLAYER_NAME) == 1
-    || just_pressed == 1)
-     mstate.menu_text_box = MENU_TEXT_NONE;
-   return;
-  case MENU_TEXT_MAP_CODE:
-   if (accept_text_box_input(TEXT_BOX_MAP_CODE) == 1
-    || just_pressed == 1)
-   {
-   	 enter_map_code(); // derives map information from map code
-     reset_map_for_menu();
-     mstate.menu_text_box = MENU_TEXT_NONE;
-   }
-   return;
-
-
- }
-
-// if (mstate.use_scrollbar)
-//  && mstate.menu_type != MENU_TYPE_PREGAME) // pregame menu doesn't have a scrollbar (but use_scrollbar is retained from the previous menu in case we return there)
-//  run_slider(&mstate.mscrollbar, 0, 0);
-
-/*
-
-// check for the mouse pointer being in the editor/template window:
-  if (settings.edit_window != EDIT_WINDOW_CLOSED
-   && mouse_x >= settings.editor_x_split)
+  // Handle multiplayer menu phase
+  if (game.phase == GAME_PHASE_MULTIPLAYER)
   {
-   if (just_pressed)
-    settings.keyboard_capture = INPUT_EDITOR;
-   return;
+	multiplayer_menu_update();
+	multiplayer_menu_handle_input();
+	return;
   }
-*/
-/*
- if (mstate.menu_type == MENU_TYPE_PREGAME)
- {
-  for (i = 0; i < PREGAME_BUTTONS; i ++)
-  {
-   if (mouse_x >= mstate.pregame_button_x [i]
-    && mouse_x <= mstate.pregame_button_x [i] + mstate.pregame_button_w [i]
-    && mouse_y >= mstate.pregame_button_y [i] // use mouse_y not abs_mouse_y because the menu that opened the pregame menu may have been scrolled down
-    && mouse_y <= mstate.pregame_button_y [i] + mstate.pregame_button_h [i])
-   {
-    mstate.pregame_button_highlight [i] = 1;
-    if (just_pressed)
-    {
-     switch(i)
-     {
-      case PREGAME_BUTTON_GO:
-// assume that derive_world_init_from_menu() was called when the pregame menu was opened, so world_init will have been set up
-       if (!setup_world_programs_from_templates()) // this function initialises programs as well as copying from templates. Must be called before run_game().
-        return; // if setup_world_programs_from_templates() fails it writes a failure message to the mlog
-       run_game_from_menu(1);
-       return; // note return, not break!
-      case PREGAME_BUTTON_BACK:
-       mstate.menu_type = MENU_TYPE_NORMAL; // should just go back to the setup menu or similar
-       game.phase = GAME_PHASE_MENU;
-       reset_menu_templates(); // TO DO: when new menu types are added, this call may need to identify the menu we are returning to
-       return; // note return, not break!
-     }
-    }
-   }
-    else
-     mstate.pregame_button_highlight [i] = 0;
-  } // end for i loop
-  return;
- } // end MENU_TYPE_PREGAME
-*/
-
- for (i = 0; i < mstate.elements; i ++)
- {
-
-//   if (menu_element[i].slider_index != -1
-//    && !menu_element[i].fixed)
-//    run_slider(&element_slider [menu_element[i].slider_index], 0, mstate.window_pos);
-
-  if (mouse_x > menu_element[i].x1
-   && mouse_x < menu_element[i].x2
-   && abs_mouse_y > menu_element[i].y1
-   && abs_mouse_y < menu_element[i].y2)
-  {
-   menu_element[i].highlight = 1;
-   if (just_pressed)
-   {
-    if (menu_list[menu_element[i].list_index].type == EL_TYPE_ACTION)
-    {
-     switch(menu_list[menu_element[i].list_index].action)
-     {
-      case EL_ACTION_QUIT:
-// TO DO: think about what happens here if the user has unsaved source tabs open in the editor.
-       safe_exit(0);
-       break;
-      case EL_ACTION_STORY:
-//      case EL_ACTION_MISSION:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-       // first load gamefile (and setup system program for use if appropriate)
-//       setup_templates_for_mission_menu();
-//       open_menu(MENU_MISSIONS);
-//       init_story(STORY_TYPE_NORMAL);
-       enter_story_mode(STORY_TYPE_NORMAL);
-       break;
-      case EL_ACTION_STORY_ADVANCED:
-//      case EL_ACTION_ADVANCED_MISSION:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2D);
-//       init_story(STORY_TYPE_ADVANCED);
-       enter_story_mode(STORY_TYPE_ADVANCED); // need to set to autonomous mode at some point!
-       // first load gamefile (and setup system program for use if appropriate)
-//       setup_templates_for_mission_menu();
-//       setup_templates_for_advanced_mission_menu();
-//       open_menu(MENU_ADVANCED_MISSIONS);
-       break;
-      case EL_ACTION_STORY_HARD:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-       enter_story_mode(STORY_TYPE_HARD);
-       break;
-      case EL_ACTION_STORY_ADVANCED_HARD:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2D);
-       enter_story_mode(STORY_TYPE_ADVANCED_HARD); // need to set to autonomous mode at some point!
-       break;
-      case EL_ACTION_TUTORIAL:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2E);
-       open_menu(MENU_TUTORIAL);
-       break;
-      case EL_ACTION_START_GAME_FROM_SETUP:
-      	{
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-       game.type = GAME_TYPE_BASIC; // i.e. not playing a mission
-       game.story_type = STORY_TYPE_NORMAL; // nothing special
-//       w_init.story_area = (w_init.game_seed % (STORY_AREAS - 1)) + 1; // AREA_BLUE to AREA_RED (not AREA_TUTORIAL)
-// TO DO: allow custom games to be in any area
-       game.area_index = AREA_BLUE; // these game values are just used to generate the music. Should probably fix them.
-       w_init.story_area = AREA_BLUE;
-       game.region_in_area_index = -1; // means to use random music
-
-      	int player_base_cols [PLAYERS] = {TEAM_COL_BLUE,1,2,3}; // index in base_proc_col array
-	      int player_packet_cols [PLAYERS] = {PACKET_COL_YELLOW_ORANGE,1,2,3}; // index in base_packet_colours array and similar interface array
-
-       set_game_colours(BACK_COLS_BLUE, // index in back_and_hex_colours array
-																				    BACK_COLS_BLUE, // index in back_and_hex_colours array
-																				    w_init.players, // players in game
-																				    player_base_cols, // index in base_proc_col array
-																				    player_packet_cols); // index in base_packet_colours array and similar interface array
-
-       new_world_from_world_init();
-       generate_random_map(w_init.story_area, w_init.map_size_blocks, w_init.players, w_init.game_seed);
-//       game.area_index = AREA_BLUE; // these game values are just used to generate the music. Should probably fix them.
-       game.region_in_area_index = 0;
-       reset_log();
-       open_template(0, 0);
-       start_world();
-       run_game_from_menu();
-      	}
-       break;
-/*      case EL_ACTION_SAVE_GAMEFILE:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-// this button appears in the setup menu
-// it generates a gamefile containing all of the current menu and w_init settings, as well as the system program's bcode
-// when loaded (from main menu) it lets the player choose which player they are, then goes straight to pregame
-       derive_world_init_from_menu();
-       if (save_gamefile()) // in f_game.c
-       {
-        play_interface_sound(SAMPLE_BLIP1, TONE_2G);
-        open_menu(MENU_MAIN); // don't go back to main menu if save failed
-       }
-         else
-          play_interface_sound(SAMPLE_BLIP1, TONE_1E);
-       break;*/
-
-      case EL_ACTION_LOAD_GAMEFILE:
-/*       play_interface_sound(SAMPLE_BLIP1, TONE_3C);
-       if (load_gamefile() // first loads a gamefile
-        && use_sysfile_from_template()) // then tries to use the system file that load_gamefile() should have loaded into template 0
-       {
-        play_interface_sound(SAMPLE_BLIP1, TONE_3C);
-//        setup_templates_for_game_start();
-//        mstate.menu_templ_state = MENU_TEMPL_STATE_PREGAME;
-//        open_pregame_menu(); // this changes the menu type but leaves the elements unchanged - they will be used later by derive_world_init_from_menu
-        run_game_from_menu(1, -1); // 1 means needs to initialise (because not loading from saved game); -1 means not playing a mission
-       }
-        else
-        {
-         play_interface_sound(SAMPLE_BLIP1, TONE_1E);
-//         reset_menu_templates();
-        }*/
-       break;
-
-      case EL_ACTION_BACK_TO_START:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2E);
-       open_menu(MENU_MAIN);
-       break;
-
-      case EL_ACTION_SETUP_GAME:
-       play_interface_sound(SAMPLE_BLIP1, TONE_3C);
-       open_menu(MENU_SETUP);
-       break;
-
-#ifdef NETWORK_ENABLED
-      case EL_ACTION_MULTIPLAYER:
-       play_interface_sound(SAMPLE_BLIP1, TONE_3C);
-       // Initialize and open multiplayer menu system
-       if (multiplayer_menu_init()) {
-         // Switch to multiplayer menu mode
-         game.phase = GAME_PHASE_MULTIPLAYER;
-         multiplayer_menu_set_state(MP_MENU_MAIN);
-       } else {
-         // Network initialization failed
-         write_line_to_log("Failed to initialize multiplayer system", MLOG_COL_ERROR);
-       }
-       break;
 #endif
 
+  int i;
+  int mouse_x = ex_control.mouse_x_pixels;
+  // int mouse_y = ex_control.mouse_y_pixels; // ignores window_pos
+  int abs_mouse_y = ex_control.mouse_y_pixels + mstate.window_pos; // absolute mouse_y
+  int just_pressed = (ex_control.mb_press[0] == BUTTON_JUST_PRESSED);
+  // int rmb_just_pressed = (ex_control.mb_press [1] == BUTTON_JUST_PRESSED);
+  /*
+   if (just_pressed == 1)
+	  {
+		  static int sample_play;
+	play_interface_sound(sample_play, TONE_1C);
+	sample_play++;
+	sample_play %= 3;
+	  }*/
 
-/*
-      case EL_ACTION_USE_SYSFILE:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-       if (use_sysfile_from_template()) // in s_setup.c. If the gamefile results in a system program, this sets w.system_program.active to 1
-       {
-// use_sysfile_from_template() will have called derive_program_properties_from_bcode(), so w_pre_init will be usable.
-// next step is to use the now filled-in w_pre_init as the basis of a setup menu:
-        open_menu(MENU_SETUP);
-       } // on failure, use_sysfile_from_template() writes error message to mlog. We don't need to otherwise deal with it failing.
-       break;*/
-/*
-      case EL_ACTION_LOAD:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-       if (load_game())
-       {
-        play_interface_sound(SAMPLE_BLIP1, TONE_2G);
-        run_game_from_menu(0, w.playing_mission); // 0 means don't initialise world as load_game() has already done so. load_game() has also set w.playing_mission.
-       }
-        else
-        {
-         play_interface_sound(SAMPLE_BLIP1, TONE_1E);
-         reset_menu_templates(); // load_game may have partially loaded templates before exiting
-        }
-       break;*/
+  // fprintf(stdout, "\n(%i: %i, my %i amy %i)", mstate.h, mstate.window_pos, mouse_y, abs_mouse_y);
 
-      case EL_ACTION_NAME:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-       start_text_input_box(TEXT_BOX_PLAYER_NAME, w_init.player_name[menu_list[menu_element[i].list_index].start_value], PLAYER_NAME_LENGTH);
-       mstate.menu_text_box = MENU_TEXT_PLAYER_0_NAME + menu_list[menu_element[i].list_index].start_value;
-       break;
+  switch (mstate.menu_text_box)
+  {
+  case MENU_TEXT_PLAYER_0_NAME:
+  case MENU_TEXT_PLAYER_1_NAME:
+  case MENU_TEXT_PLAYER_2_NAME:
+  case MENU_TEXT_PLAYER_3_NAME:
+	if (accept_text_box_input(TEXT_BOX_PLAYER_NAME) == 1 || just_pressed == 1)
+	  mstate.menu_text_box = MENU_TEXT_NONE;
+	return;
+  case MENU_TEXT_MAP_CODE:
+	if (accept_text_box_input(TEXT_BOX_MAP_CODE) == 1 || just_pressed == 1)
+	{
+	  enter_map_code(); // derives map information from map code
+	  reset_map_for_menu();
+	  mstate.menu_text_box = MENU_TEXT_NONE;
+	}
+	return;
+  }
 
-      case EL_ACTION_ENTER_CODE:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-       start_text_input_box(TEXT_BOX_MAP_CODE, mstate.map_code_string_temp, MAP_CODE_LENGTH+1);
-       mstate.menu_text_box = MENU_TEXT_MAP_CODE;
-       break;
+  // if (mstate.use_scrollbar)
+  //  && mstate.menu_type != MENU_TYPE_PREGAME) // pregame menu doesn't have a scrollbar (but use_scrollbar is retained from the previous menu in case we return there)
+  //  run_slider(&mstate.mscrollbar, 0, 0);
 
-      case EL_ACTION_RANDOMISE_CODE:
-       play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-							w_init.game_seed = grand(1000);
-							fix_map_code();
-       reset_map_for_menu();
-							break;
+  /*
 
-      case EL_ACTION_START_MISSION:
-/*
-      	if (missions.locked [menu_list[menu_element[i].list_index].start_value])
-							{
-        play_interface_sound(SAMPLE_BLIP1, TONE_1A);
-        break;
-							}
-       play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-       game.type = GAME_TYPE_MISSION;
-       game.mission_index = menu_list[menu_element[i].list_index].start_value;
-							prepare_templates_for_new_game();
-       prepare_for_mission(); // sets up w_init so that start_world will prepare the world for a mission
-        // also loads in enemy templates and does other preparation for a mission
-       new_world_from_world_init();
-       generate_map_from_map_init();
-//       generate_random_map(w_init.map_size_blocks, w_init.players, w_init.game_seed);
-       start_world();
-       run_game_from_menu();*/
-       break;
+  // check for the mouse pointer being in the editor/template window:
+	if (settings.edit_window != EDIT_WINDOW_CLOSED
+	 && mouse_x >= settings.editor_x_split)
+	{
+	 if (just_pressed)
+	  settings.keyboard_capture = INPUT_EDITOR;
+	 return;
+	}
+  */
+  /*
+   if (mstate.menu_type == MENU_TYPE_PREGAME)
+   {
+	for (i = 0; i < PREGAME_BUTTONS; i ++)
+	{
+	 if (mouse_x >= mstate.pregame_button_x [i]
+	  && mouse_x <= mstate.pregame_button_x [i] + mstate.pregame_button_w [i]
+	  && mouse_y >= mstate.pregame_button_y [i] // use mouse_y not abs_mouse_y because the menu that opened the pregame menu may have been scrolled down
+	  && mouse_y <= mstate.pregame_button_y [i] + mstate.pregame_button_h [i])
+	 {
+	  mstate.pregame_button_highlight [i] = 1;
+	  if (just_pressed)
+	  {
+	   switch(i)
+	   {
+		case PREGAME_BUTTON_GO:
+  // assume that derive_world_init_from_menu() was called when the pregame menu was opened, so world_init will have been set up
+		 if (!setup_world_programs_from_templates()) // this function initialises programs as well as copying from templates. Must be called before run_game().
+		  return; // if setup_world_programs_from_templates() fails it writes a failure message to the mlog
+		 run_game_from_menu(1);
+		 return; // note return, not break!
+		case PREGAME_BUTTON_BACK:
+		 mstate.menu_type = MENU_TYPE_NORMAL; // should just go back to the setup menu or similar
+		 game.phase = GAME_PHASE_MENU;
+		 reset_menu_templates(); // TO DO: when new menu types are added, this call may need to identify the menu we are returning to
+		 return; // note return, not break!
+	   }
+	  }
+	 }
+	  else
+	   mstate.pregame_button_highlight [i] = 0;
+	} // end for i loop
+	return;
+   } // end MENU_TYPE_PREGAME
+  */
 
-     } // end of switch action
+  for (i = 0; i < mstate.elements; i++)
+  {
 
-    } // end of if action
+	//   if (menu_element[i].slider_index != -1
+	//    && !menu_element[i].fixed)
+	//    run_slider(&element_slider [menu_element[i].slider_index], 0, mstate.window_pos);
 
-    if (menu_list[menu_element[i].list_index].type == EL_TYPE_SELECT
-					&& ex_control.mouse_y_pixels >= menu_element[i].y1 + 25
-					&& ex_control.mouse_y_pixels <= menu_element[i].y1 + 25 + SELECT_BUTTON_H)
-				{
-					int x_offset = ex_control.mouse_x_pixels - (menu_element[i].x1 + 30);
-					if (x_offset % (int) (SELECT_BUTTON_W+SELECT_BUTTON_GAP) < SELECT_BUTTON_W)
+	if (mouse_x > menu_element[i].x1 && mouse_x < menu_element[i].x2 && abs_mouse_y > menu_element[i].y1 && abs_mouse_y < menu_element[i].y2)
+	{
+	  menu_element[i].highlight = 1;
+	  if (just_pressed)
+	  {
+		if (menu_list[menu_element[i].list_index].type == EL_TYPE_ACTION)
+		{
+		  switch (menu_list[menu_element[i].list_index].action)
+		  {
+		  case EL_ACTION_QUIT:
+			// TO DO: think about what happens here if the user has unsaved source tabs open in the editor.
+			safe_exit(0);
+			break;
+		  case EL_ACTION_STORY:
+			//      case EL_ACTION_MISSION:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+			// first load gamefile (and setup system program for use if appropriate)
+			//       setup_templates_for_mission_menu();
+			//       open_menu(MENU_MISSIONS);
+			//       init_story(STORY_TYPE_NORMAL);
+			enter_story_mode(STORY_TYPE_NORMAL);
+			break;
+		  case EL_ACTION_STORY_ADVANCED:
+			//      case EL_ACTION_ADVANCED_MISSION:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2D);
+			//       init_story(STORY_TYPE_ADVANCED);
+			enter_story_mode(STORY_TYPE_ADVANCED); // need to set to autonomous mode at some point!
+			// first load gamefile (and setup system program for use if appropriate)
+			//       setup_templates_for_mission_menu();
+			//       setup_templates_for_advanced_mission_menu();
+			//       open_menu(MENU_ADVANCED_MISSIONS);
+			break;
+		  case EL_ACTION_STORY_HARD:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+			enter_story_mode(STORY_TYPE_HARD);
+			break;
+		  case EL_ACTION_STORY_ADVANCED_HARD:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2D);
+			enter_story_mode(STORY_TYPE_ADVANCED_HARD); // need to set to autonomous mode at some point!
+			break;
+		  case EL_ACTION_TUTORIAL:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2E);
+			open_menu(MENU_TUTORIAL);
+			break;
+		  case EL_ACTION_START_GAME_FROM_SETUP: {
+			play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+			game.type = GAME_TYPE_BASIC;		 // i.e. not playing a mission
+			game.story_type = STORY_TYPE_NORMAL; // nothing special
+												 //       w_init.story_area = (w_init.game_seed % (STORY_AREAS - 1)) + 1; // AREA_BLUE to AREA_RED (not AREA_TUTORIAL)
+												 // TO DO: allow custom games to be in any area
+			game.area_index = AREA_BLUE;		 // these game values are just used to generate the music. Should probably fix them.
+			w_init.story_area = AREA_BLUE;
+			game.region_in_area_index = -1; // means to use random music
+
+			int player_base_cols[PLAYERS] = {TEAM_COL_BLUE, 1, 2, 3};			   // index in base_proc_col array
+			int player_packet_cols[PLAYERS] = {PACKET_COL_YELLOW_ORANGE, 1, 2, 3}; // index in base_packet_colours array and similar interface array
+
+			set_game_colours(BACK_COLS_BLUE,	  // index in back_and_hex_colours array
+							 BACK_COLS_BLUE,	  // index in back_and_hex_colours array
+							 w_init.players,	  // players in game
+							 player_base_cols,	  // index in base_proc_col array
+							 player_packet_cols); // index in base_packet_colours array and similar interface array
+
+			new_world_from_world_init();
+			generate_random_map(w_init.story_area, w_init.map_size_blocks, w_init.players, w_init.game_seed);
+			//       game.area_index = AREA_BLUE; // these game values are just used to generate the music. Should probably fix them.
+			game.region_in_area_index = 0;
+			reset_log();
+			open_template(0, 0);
+			start_world();
+			run_game_from_menu();
+		  }
+		  break;
+			/*      case EL_ACTION_SAVE_GAMEFILE:
+				   play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+			// this button appears in the setup menu
+			// it generates a gamefile containing all of the current menu and w_init settings, as well as the system program's bcode
+			// when loaded (from main menu) it lets the player choose which player they are, then goes straight to pregame
+				   derive_world_init_from_menu();
+				   if (save_gamefile()) // in f_game.c
+				   {
+					play_interface_sound(SAMPLE_BLIP1, TONE_2G);
+					open_menu(MENU_MAIN); // don't go back to main menu if save failed
+				   }
+					 else
+					  play_interface_sound(SAMPLE_BLIP1, TONE_1E);
+				   break;*/
+
+		  case EL_ACTION_LOAD_GAMEFILE:
+			/*       play_interface_sound(SAMPLE_BLIP1, TONE_3C);
+				   if (load_gamefile() // first loads a gamefile
+					&& use_sysfile_from_template()) // then tries to use the system file that load_gamefile() should have loaded into template 0
+				   {
+					play_interface_sound(SAMPLE_BLIP1, TONE_3C);
+			//        setup_templates_for_game_start();
+			//        mstate.menu_templ_state = MENU_TEMPL_STATE_PREGAME;
+			//        open_pregame_menu(); // this changes the menu type but leaves the elements unchanged - they will be used later by derive_world_init_from_menu
+					run_game_from_menu(1, -1); // 1 means needs to initialise (because not loading from saved game); -1 means not playing a mission
+				   }
+					else
 					{
-					 int select_button = x_offset / (SELECT_BUTTON_W+SELECT_BUTTON_GAP);
-				  switch(menu_element[i].list_index)
-				  {
-						 case EL_SETUP_PLAYERS:
-							 if (select_button >= 0
-								 && select_button <= 2)
-								 {
- 									w_init.players = select_button + 2;
-          fix_map_code();
-          reset_map_for_menu();
-          play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-								 }
-							 break;
-						 case EL_SETUP_CORES:
-							 if (select_button >= 0
-								 && select_button <= 4)
-								 {
- 									w_init.core_setting = select_button;
-          fix_map_code();
-          reset_map_for_menu();
-          play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-								 }
-							 break;
-						 case EL_SETUP_DATA:
-							 if (select_button >= 0
-								 && select_button <= 3)
-								 {
-								 	int player_index;
-								 	for (player_index = 0; player_index < PLAYERS; player_index ++)
-										{
-								 	 w_init.starting_data_setting [player_index] = select_button;
-										}
-          fix_map_code();
-          play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-								 }
-							 break;
-						 case EL_SETUP_MAP_SIZE:
-							 if (select_button >= 0
-								 && select_button <= 4)
-								 {
- 									w_init.size_setting = select_button;
-          fix_map_code();
-          reset_map_for_menu();
-          play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-								 }
-							 break;
-						 case EL_SETUP_COMMAND_MODE:
-							 if (select_button >= 0
-								 && select_button < COMMAND_MODES)
-								 {
- 									w_init.command_mode = select_button;
-          play_interface_sound(SAMPLE_BLIP1, TONE_2A);
-								 }
-							 break;
-				  }
+					 play_interface_sound(SAMPLE_BLIP1, TONE_1E);
+			//         reset_menu_templates();
+					}*/
+			break;
+
+		  case EL_ACTION_BACK_TO_START:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2E);
+			open_menu(MENU_MAIN);
+			break;
+
+		  case EL_ACTION_SETUP_GAME:
+			play_interface_sound(SAMPLE_BLIP1, TONE_3C);
+			open_menu(MENU_SETUP);
+			break;
+
+#ifdef NETWORK_ENABLED
+		  case EL_ACTION_MULTIPLAYER:
+			play_interface_sound(SAMPLE_BLIP1, TONE_3C);
+			// Initialize and open multiplayer menu system
+			if (multiplayer_menu_init())
+			{
+			  // Switch to multiplayer menu mode
+			  game.phase = GAME_PHASE_MULTIPLAYER;
+			  multiplayer_menu_set_state(MP_MENU_MAIN);
+			}
+			else
+			{
+			  // Network initialization failed
+			  write_line_to_log("Failed to initialize multiplayer system", MLOG_COL_ERROR);
+			}
+			break;
+#endif
+
+			/*
+				  case EL_ACTION_USE_SYSFILE:
+				   play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+				   if (use_sysfile_from_template()) // in s_setup.c. If the gamefile results in a system program, this sets w.system_program.active to 1
+				   {
+			// use_sysfile_from_template() will have called derive_program_properties_from_bcode(), so w_pre_init will be usable.
+			// next step is to use the now filled-in w_pre_init as the basis of a setup menu:
+					open_menu(MENU_SETUP);
+				   } // on failure, use_sysfile_from_template() writes error message to mlog. We don't need to otherwise deal with it failing.
+				   break;*/
+			/*
+				  case EL_ACTION_LOAD:
+				   play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+				   if (load_game())
+				   {
+					play_interface_sound(SAMPLE_BLIP1, TONE_2G);
+					run_game_from_menu(0, w.playing_mission); // 0 means don't initialise world as load_game() has already done so. load_game() has also set w.playing_mission.
+				   }
+					else
+					{
+					 play_interface_sound(SAMPLE_BLIP1, TONE_1E);
+					 reset_menu_templates(); // load_game may have partially loaded templates before exiting
 					}
-				} // end of if EL_TYPE_SELECT
+				   break;*/
 
-   } // end of if just_pressed
-//   if (rmb_just_pressed)
-//			{
-//				print_help(menu_list[menu_element[i].list_index].help_type);
-//			}
-   break;
-  } // end of if mouse in menu
+		  case EL_ACTION_NAME:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			start_text_input_box(TEXT_BOX_PLAYER_NAME, w_init.player_name[menu_list[menu_element[i].list_index].start_value], PLAYER_NAME_LENGTH);
+			mstate.menu_text_box = MENU_TEXT_PLAYER_0_NAME + menu_list[menu_element[i].list_index].start_value;
+			break;
 
- } // end of for i loop for menu elements
+		  case EL_ACTION_ENTER_CODE:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			start_text_input_box(TEXT_BOX_MAP_CODE, mstate.map_code_string_temp, MAP_CODE_LENGTH + 1);
+			mstate.menu_text_box = MENU_TEXT_MAP_CODE;
+			break;
+
+		  case EL_ACTION_RANDOMISE_CODE:
+			play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			w_init.game_seed = grand(1000);
+			fix_map_code();
+			reset_map_for_menu();
+			break;
+
+		  case EL_ACTION_START_MISSION:
+			/*
+					if (missions.locked [menu_list[menu_element[i].list_index].start_value])
+										{
+					play_interface_sound(SAMPLE_BLIP1, TONE_1A);
+					break;
+										}
+				   play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+				   game.type = GAME_TYPE_MISSION;
+				   game.mission_index = menu_list[menu_element[i].list_index].start_value;
+										prepare_templates_for_new_game();
+				   prepare_for_mission(); // sets up w_init so that start_world will prepare the world for a mission
+					// also loads in enemy templates and does other preparation for a mission
+				   new_world_from_world_init();
+				   generate_map_from_map_init();
+			//       generate_random_map(w_init.map_size_blocks, w_init.players, w_init.game_seed);
+				   start_world();
+				   run_game_from_menu();*/
+			break;
+
+		  } // end of switch action
+
+		} // end of if action
+
+		if (menu_list[menu_element[i].list_index].type == EL_TYPE_SELECT && ex_control.mouse_y_pixels >= menu_element[i].y1 + 25 && ex_control.mouse_y_pixels <= menu_element[i].y1 + 25 + SELECT_BUTTON_H)
+		{
+		  int x_offset = ex_control.mouse_x_pixels - (menu_element[i].x1 + 30);
+		  if (x_offset % (int)(SELECT_BUTTON_W + SELECT_BUTTON_GAP) < SELECT_BUTTON_W)
+		  {
+			int select_button = x_offset / (SELECT_BUTTON_W + SELECT_BUTTON_GAP);
+			switch (menu_element[i].list_index)
+			{
+			case EL_SETUP_PLAYERS:
+			  if (select_button >= 0 && select_button <= 2)
+			  {
+				w_init.players = select_button + 2;
+				fix_map_code();
+				reset_map_for_menu();
+				play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			  }
+			  break;
+			case EL_SETUP_CORES:
+			  if (select_button >= 0 && select_button <= 4)
+			  {
+				w_init.core_setting = select_button;
+				fix_map_code();
+				reset_map_for_menu();
+				play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			  }
+			  break;
+			case EL_SETUP_DATA:
+			  if (select_button >= 0 && select_button <= 3)
+			  {
+				int player_index;
+				for (player_index = 0; player_index < PLAYERS; player_index++)
+				{
+				  w_init.starting_data_setting[player_index] = select_button;
+				}
+				fix_map_code();
+				play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			  }
+			  break;
+			case EL_SETUP_MAP_SIZE:
+			  if (select_button >= 0 && select_button <= 4)
+			  {
+				w_init.size_setting = select_button;
+				fix_map_code();
+				reset_map_for_menu();
+				play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			  }
+			  break;
+			case EL_SETUP_COMMAND_MODE:
+			  if (select_button >= 0 && select_button < COMMAND_MODES)
+			  {
+				w_init.command_mode = select_button;
+				play_interface_sound(SAMPLE_BLIP1, TONE_2A);
+			  }
+			  break;
+			}
+		  }
+		} // end of if EL_TYPE_SELECT
+
+	  } // end of if just_pressed
+		//   if (rmb_just_pressed)
+		//			{
+		//				print_help(menu_list[menu_element[i].list_index].help_type);
+		//			}
+	  break;
+	} // end of if mouse in menu
+
+  } // end of for i loop for menu elements
 
 // number of lines scrolled by moving the mousewheel:
 #define EDITOR_MOUSEWHEEL_SPEED 48
 
-// check for mousewheel movement:
- if (mstate.use_scrollbar)
- {
-  if (ex_control.mousewheel_change == 1)
+  // check for mousewheel movement:
+  if (mstate.use_scrollbar)
   {
-   mstate.window_pos += EDITOR_MOUSEWHEEL_SPEED;
-   if (mstate.window_pos > mstate.h - settings.option [OPTION_WINDOW_H])
-    mstate.window_pos = mstate.h - settings.option [OPTION_WINDOW_H];
-   slider_moved_to_value(&mstate.mscrollbar, mstate.window_pos);
+	if (ex_control.mousewheel_change == 1)
+	{
+	  mstate.window_pos += EDITOR_MOUSEWHEEL_SPEED;
+	  if (mstate.window_pos > mstate.h - settings.option[OPTION_WINDOW_H])
+		mstate.window_pos = mstate.h - settings.option[OPTION_WINDOW_H];
+	  slider_moved_to_value(&mstate.mscrollbar, mstate.window_pos);
+	}
+	if (ex_control.mousewheel_change == -1)
+	{
+	  mstate.window_pos -= EDITOR_MOUSEWHEEL_SPEED;
+	  if (mstate.window_pos < 0)
+		mstate.window_pos = 0;
+	  slider_moved_to_value(&mstate.mscrollbar, mstate.window_pos);
+	}
   }
-  if (ex_control.mousewheel_change == -1)
-  {
-   mstate.window_pos -= EDITOR_MOUSEWHEEL_SPEED;
-   if (mstate.window_pos < 0)
-    mstate.window_pos = 0;
-   slider_moved_to_value(&mstate.mscrollbar, mstate.window_pos);
-  }
- }
 
-
-// may not reach here
-
+  // may not reach here
 }
 
 // call this when a map code has been entered
@@ -2239,138 +2165,128 @@ void run_menu_input(void)
 static void enter_map_code(void)
 {
 
- int i;
+  int i;
 
- if (strlen(mstate.map_code_string_temp) != MAP_CODE_LENGTH)
-		return;
+  if (strlen(mstate.map_code_string_temp) != MAP_CODE_LENGTH)
+	return;
 
-// read_map_code_value with 0 final argument always returns a number 0-3. With 1 it returns 0-9.
+  // read_map_code_value with 0 final argument always returns a number 0-3. With 1 it returns 0-9.
 
-	int code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_PLAYERS], 0);
-// need to adjust player number because A means 2, B = 3 etc
-	code_value += 2;
-	if (code_value > 4)
-		code_value = 4;
-	w_init.players = code_value;
+  int code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_PLAYERS], 0);
+  // need to adjust player number because A means 2, B = 3 etc
+  code_value += 2;
+  if (code_value > 4)
+	code_value = 4;
+  w_init.players = code_value;
 
-	code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_CORES], 0);
-	w_init.core_setting = code_value;
+  code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_CORES], 0);
+  w_init.core_setting = code_value;
 
-	code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_SIZE], 0);
-	w_init.size_setting = code_value;
+  code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_SIZE], 0);
+  w_init.size_setting = code_value;
 
-	code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_DATA], 0);
-	for (i = 0; i < PLAYERS; i ++)
-	{
-	 w_init.starting_data_setting [i] = code_value;
-	}
+  code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_DATA], 0);
+  for (i = 0; i < PLAYERS; i++)
+  {
+	w_init.starting_data_setting[i] = code_value;
+  }
 
+  w_init.game_seed = 0;
 
-	w_init.game_seed = 0;
+  code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_SEED_0], 1);
+  w_init.game_seed += code_value * 100;
 
-	code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_SEED_0], 1);
-	w_init.game_seed += code_value * 100;
+  code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_SEED_1], 1);
+  w_init.game_seed += code_value * 10;
 
-	code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_SEED_1], 1);
-	w_init.game_seed += code_value * 10;
+  code_value = read_map_code_value(mstate.map_code_string_temp[MAP_CODE_SEED_2], 1);
+  w_init.game_seed += code_value;
 
-	code_value = read_map_code_value(mstate.map_code_string_temp [MAP_CODE_SEED_2], 1);
-	w_init.game_seed += code_value;
-
-	fix_map_code(); // this takes the w_init values and writes the correct code to mstate.map_code_string
-
+  fix_map_code(); // this takes the w_init values and writes the correct code to mstate.map_code_string
 }
 
 static int read_map_code_value(char read_char, int number)
 {
 
-	if (number) // expects 0-9
-	{
-		if (read_char < '0'
-			|| read_char > '9')
-			return 0;
+  if (number) // expects 0-9
+  {
+	if (read_char < '0' || read_char > '9')
+	  return 0;
 
-		return read_char - '0';
-	}
+	return read_char - '0';
+  }
 
-	switch(read_char)
-	{
+  switch (read_char)
+  {
   default:
-	 case 'a':
-	 case 'A':
-		 return 0;
-		case 'b':
-		case 'B':
-			return 1;
-		case 'c':
-		case 'C':
-			return 2;
-		case 'd':
-		case 'D':
-			return 3;
-	}
-
+  case 'a':
+  case 'A':
 	return 0;
+  case 'b':
+  case 'B':
+	return 1;
+  case 'c':
+  case 'C':
+	return 2;
+  case 'd':
+  case 'D':
+	return 3;
+  }
 
+  return 0;
 }
-
 
 void run_game_from_menu(void)
 {
 
-// at this point we need to wait for the user to let go of the left mouse button
-//  (otherwise the game will regard it as having just been clicked when the game starts)
+  // at this point we need to wait for the user to let go of the left mouse button
+  //  (otherwise the game will regard it as having just been clicked when the game starts)
 
-//  ALLEGRO_EVENT ev;
-/*
-  while (TRUE)
-  {
-   al_wait_for_event(event_queue, &ev);
-   get_ex_control();
-   if (ex_control.mb_press [0] != BUTTON_HELD)
-    break;
-  }*/
+  //  ALLEGRO_EVENT ev;
+  /*
+	while (TRUE)
+	{
+	 al_wait_for_event(event_queue, &ev);
+	 get_ex_control();
+	 if (ex_control.mb_press [0] != BUTTON_HELD)
+	  break;
+	}*/
 
+  al_flush_event_queue(event_queue);
+  al_flush_event_queue(fps_queue);
 
- al_flush_event_queue(event_queue);
- al_flush_event_queue(fps_queue);
+  // clear_sound_list();
+  // reset_music(rand());
 
-// clear_sound_list();
-// reset_music(rand());
+  //       game.phase = GAME_PHASE_PREGAME;
+  run_game();
 
-
-//       game.phase = GAME_PHASE_PREGAME;
-       run_game();
-
-// finished, so we return to menu:
-       game.phase = GAME_PHASE_MENU;
-//       settings.edit_window = EDIT_WINDOW_CLOSED;
-       mstate.menu_type = MENU_TYPE_NORMAL;
-       open_menu(MENU_MAIN);
-//       reset_menu_templates(); - not needed - open_menu(MENU_MAIN) calls this
-
+  // finished, so we return to menu:
+  game.phase = GAME_PHASE_MENU;
+  //       settings.edit_window = EDIT_WINDOW_CLOSED;
+  mstate.menu_type = MENU_TYPE_NORMAL;
+  open_menu(MENU_MAIN);
+  //       reset_menu_templates(); - not needed - open_menu(MENU_MAIN) calls this
 }
-
 
 // finds a menu_element based on list[t_index] and returns its value
 // assumes element exists (exits with error on failure)
 int get_menu_element_value(int t_index)
 {
 
- int i = 0;
+  int i = 0;
 
- while(TRUE)
- {
-  if (i >= mstate.elements)
+  while (TRUE)
   {
-   fprintf(stdout, "\nError: could not find menu list member %i.", t_index);
-   error_call();
-  }
-  if (menu_element[i].list_index == t_index)
-   return menu_element[i].value;
-  i ++;
- };
-
+	if (i >= mstate.elements)
+	{
+	  fprintf(stdout, "\nError: could not find menu list member %i.", t_index);
+	  error_call();
+	}
+	if (menu_element[i].list_index == t_index)
+	  return menu_element[i].value;
+	i++;
+  };
 }
 
 /*
@@ -2455,117 +2371,102 @@ static int mrand(int range)
 }
 */
 
-
-
-
-ALLEGRO_BITMAP* title_bitmap;
+ALLEGRO_BITMAP *title_bitmap;
 
 // assumes settings already setup
 void run_intro_screen(void)
 {
 
-
- al_set_target_bitmap(al_get_backbuffer(display));
-
- al_flush_event_queue(event_queue);
- al_flush_event_queue(fps_queue);
-
- ALLEGRO_EVENT ev;
- int mouse_x;
- int mouse_y;
- int just_pressed;
- int y_line;
- int screen_centre_x = settings.option [OPTION_WINDOW_W] / 2;
- int key_test = 0;
-
-#define START_BOX_Y (settings.option [OPTION_WINDOW_H] / 2)
-#define START_BOX_W scaleUI_x(FONT_SQUARE_LARGE,150)
-#define START_BOX_H scaleUI_y(FONT_SQUARE_LARGE,20)
-
- do
- {
-
-  get_ex_control(1, 0); // 1 means that clicking the native close window button will exit immediately
-  mouse_x = ex_control.mouse_x_pixels;
-  mouse_y = ex_control.mouse_y_pixels;
-  just_pressed = (ex_control.mb_press [0] == BUTTON_JUST_PRESSED);
-
-// key test is for people using non-QWERTY keyboards. See init.txt.
-  if (ex_control.unichar_input == 'k')
-			key_test = 1;
-
-//  if (ex_control.key_press [ALLEGRO_KEY_ESCAPE] > 0)
-//    return;
-
-//  al_clear_to_color(colours.base [COL_BLUE] [SHADE_LOW]);
-  run_menu_stripes(1);
-
-
-//  al_draw_textf(font[FONT_SQUARE_LARGE].fnt, colours.base [COL_GREY] [SHADE_MAX], settings.option [OPTION_WINDOW_W] / 2, 200, ALLEGRO_ALIGN_CENTRE, "L I B E R A T I O N   C I R C U I T");
-   al_draw_bitmap(title_bitmap, settings.option [OPTION_WINDOW_W] / 2 - 300, 200, 0);
-
-
-
-  reset_i_buttons();
-
-  if (mouse_x >= screen_centre_x - START_BOX_W
-   && mouse_x <= screen_centre_x + START_BOX_W
-   && mouse_y >= START_BOX_Y - START_BOX_H
-   && mouse_y <= START_BOX_Y + START_BOX_H)
-  {
-   add_menu_button(screen_centre_x - START_BOX_W, START_BOX_Y - START_BOX_H,
-                    screen_centre_x + START_BOX_W, START_BOX_Y + START_BOX_H,
-                    colours.base_trans [COL_BLUE] [SHADE_HIGH] [TRANS_THICK], 9, 4);
-/*
-   al_draw_rectangle(screen_centre_x - START_BOX_W, START_BOX_Y - START_BOX_H,
-                    screen_centre_x + START_BOX_W, START_BOX_Y + START_BOX_H,
-                    colours.base [COL_BLUE] [SHADE_HIGH], 1);*/
-
-   if (just_pressed)
-   {
-    play_interface_sound(SAMPLE_BLIP1, TONE_2C);
-    return;
-   }
-
-  }
-   else
-    add_menu_button(screen_centre_x - START_BOX_W, START_BOX_Y - START_BOX_H,
-                    screen_centre_x + START_BOX_W, START_BOX_Y + START_BOX_H,
-                    colours.base_trans [COL_BLUE] [SHADE_MED] [TRANS_THICK], 9, 4);
-
-  draw_menu_buttons();
-
-  al_draw_textf(font[FONT_SQUARE_LARGE].fnt, colours.base [COL_GREY] [SHADE_MAX], settings.option [OPTION_WINDOW_W] / 2, START_BOX_Y - 4, ALLEGRO_ALIGN_CENTRE, ">>   START   <<");
-
-  y_line = scaleUI_y(FONT_SQUARE,100);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], settings.option [OPTION_WINDOW_W] - 50, settings.option [OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "version 1.3");
-  y_line -= scaleUI_y(FONT_SQUARE,25);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], settings.option [OPTION_WINDOW_W] - 50, settings.option [OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Copyright 2017 Linley Henzell");
-  y_line -= scaleUI_y(FONT_SQUARE,15);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], settings.option [OPTION_WINDOW_W] - 50, settings.option [OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Free software (GPL v3 or later)");
-  y_line -= scaleUI_y(FONT_SQUARE,15);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], settings.option [OPTION_WINDOW_W] - 50, settings.option [OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Built with Allegro 5");
-  y_line -= scaleUI_y(FONT_SQUARE,15);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], settings.option [OPTION_WINDOW_W] - 50, settings.option [OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Procedural music based on Otomata by Batuhan Bozkurt");
-
-  if (key_test)
-			print_key_codes();
-
-
-//  if (settings.option [OPTION_SPECIAL_CURSOR])
-   draw_mouse_cursor();
-  al_flip_display();
   al_set_target_bitmap(al_get_backbuffer(display));
-  al_wait_for_event(event_queue, &ev);
 
- } while (TRUE);
+  al_flush_event_queue(event_queue);
+  al_flush_event_queue(fps_queue);
 
+  ALLEGRO_EVENT ev;
+  int mouse_x;
+  int mouse_y;
+  int just_pressed;
+  int y_line;
+  int screen_centre_x = settings.option[OPTION_WINDOW_W] / 2;
+  int key_test = 0;
+
+#define START_BOX_Y (settings.option[OPTION_WINDOW_H] / 2)
+#define START_BOX_W scaleUI_x(FONT_SQUARE_LARGE, 150)
+#define START_BOX_H scaleUI_y(FONT_SQUARE_LARGE, 20)
+
+  do
+  {
+
+	get_ex_control(1, 0); // 1 means that clicking the native close window button will exit immediately
+	mouse_x = ex_control.mouse_x_pixels;
+	mouse_y = ex_control.mouse_y_pixels;
+	just_pressed = (ex_control.mb_press[0] == BUTTON_JUST_PRESSED);
+
+	// key test is for people using non-QWERTY keyboards. See init.txt.
+	if (ex_control.unichar_input == 'k')
+	  key_test = 1;
+
+	//  if (ex_control.key_press [ALLEGRO_KEY_ESCAPE] > 0)
+	//    return;
+
+	//  al_clear_to_color(colours.base [COL_BLUE] [SHADE_LOW]);
+	run_menu_stripes(1);
+
+	//  al_draw_textf(font[FONT_SQUARE_LARGE].fnt, colours.base [COL_GREY] [SHADE_MAX], settings.option [OPTION_WINDOW_W] / 2, 200, ALLEGRO_ALIGN_CENTRE, "L I B E R A T I O N   C I R C U I T");
+	al_draw_bitmap(title_bitmap, settings.option[OPTION_WINDOW_W] / 2 - 300, 200, 0);
+
+	reset_i_buttons();
+
+	if (mouse_x >= screen_centre_x - START_BOX_W && mouse_x <= screen_centre_x + START_BOX_W && mouse_y >= START_BOX_Y - START_BOX_H && mouse_y <= START_BOX_Y + START_BOX_H)
+	{
+	  add_menu_button(screen_centre_x - START_BOX_W, START_BOX_Y - START_BOX_H,
+					  screen_centre_x + START_BOX_W, START_BOX_Y + START_BOX_H,
+					  colours.base_trans[COL_BLUE][SHADE_HIGH][TRANS_THICK], 9, 4);
+	  /*
+		 al_draw_rectangle(screen_centre_x - START_BOX_W, START_BOX_Y - START_BOX_H,
+						  screen_centre_x + START_BOX_W, START_BOX_Y + START_BOX_H,
+						  colours.base [COL_BLUE] [SHADE_HIGH], 1);*/
+
+	  if (just_pressed)
+	  {
+		play_interface_sound(SAMPLE_BLIP1, TONE_2C);
+		return;
+	  }
+	}
+	else
+	  add_menu_button(screen_centre_x - START_BOX_W, START_BOX_Y - START_BOX_H,
+					  screen_centre_x + START_BOX_W, START_BOX_Y + START_BOX_H,
+					  colours.base_trans[COL_BLUE][SHADE_MED][TRANS_THICK], 9, 4);
+
+	draw_menu_buttons();
+
+	al_draw_textf(font[FONT_SQUARE_LARGE].fnt, colours.base[COL_GREY][SHADE_MAX], settings.option[OPTION_WINDOW_W] / 2, START_BOX_Y - 4, ALLEGRO_ALIGN_CENTRE, ">>   START   <<");
+
+	y_line = scaleUI_y(FONT_SQUARE, 100);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], settings.option[OPTION_WINDOW_W] - 50, settings.option[OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "version 1.3");
+	y_line -= scaleUI_y(FONT_SQUARE, 25);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], settings.option[OPTION_WINDOW_W] - 50, settings.option[OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Copyright 2017 Linley Henzell");
+	y_line -= scaleUI_y(FONT_SQUARE, 15);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], settings.option[OPTION_WINDOW_W] - 50, settings.option[OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Free software (GPL v3 or later)");
+	y_line -= scaleUI_y(FONT_SQUARE, 15);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], settings.option[OPTION_WINDOW_W] - 50, settings.option[OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Built with Allegro 5");
+	y_line -= scaleUI_y(FONT_SQUARE, 15);
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], settings.option[OPTION_WINDOW_W] - 50, settings.option[OPTION_WINDOW_H] - y_line, ALLEGRO_ALIGN_RIGHT, "Procedural music based on Otomata by Batuhan Bozkurt");
+
+	if (key_test)
+	  print_key_codes();
+
+	//  if (settings.option [OPTION_SPECIAL_CURSOR])
+	draw_mouse_cursor();
+	al_flip_display();
+	al_set_target_bitmap(al_get_backbuffer(display));
+	al_wait_for_event(event_queue, &ev);
+
+  } while (TRUE);
 }
-
 
 static void print_key_codes(void)
 {
-
 
   ALLEGRO_KEYBOARD_STATE key_state;
 
@@ -2574,166 +2475,154 @@ static void print_key_codes(void)
   int i;
   float text_y = 400;
 
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], 400, text_y, ALLEGRO_ALIGN_RIGHT, "Key code test mode");
-  text_y += scaleUI_y(FONT_SQUARE,15);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], 400, text_y, ALLEGRO_ALIGN_RIGHT, "(see init.txt for more information)");
-  text_y += scaleUI_y(FONT_SQUARE,15);
-  al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], 400, text_y, ALLEGRO_ALIGN_RIGHT, "Press a key:");
+  al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], 400, text_y, ALLEGRO_ALIGN_RIGHT, "Key code test mode");
+  text_y += scaleUI_y(FONT_SQUARE, 15);
+  al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], 400, text_y, ALLEGRO_ALIGN_RIGHT, "(see init.txt for more information)");
+  text_y += scaleUI_y(FONT_SQUARE, 15);
+  al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], 400, text_y, ALLEGRO_ALIGN_RIGHT, "Press a key:");
 
   int keys_pressed = 0;
 
-  for (i = 0; i < ALLEGRO_KEY_MAX; i ++)
-		{
-			if (al_key_down(&key_state, i))
-			{
-				keys_pressed ++;
-    al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_HIGH], 405, text_y, ALLEGRO_ALIGN_LEFT, "%i", i);
-    text_y += scaleUI_y(FONT_SQUARE,15);
-    if (i == ALLEGRO_KEY_ESCAPE)
-					error_call();
-			}
-		}
+  for (i = 0; i < ALLEGRO_KEY_MAX; i++)
+  {
+	if (al_key_down(&key_state, i))
+	{
+	  keys_pressed++;
+	  al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_HIGH], 405, text_y, ALLEGRO_ALIGN_LEFT, "%i", i);
+	  text_y += scaleUI_y(FONT_SQUARE, 15);
+	  if (i == ALLEGRO_KEY_ESCAPE)
+		error_call();
+	}
+  }
 
-		if (!keys_pressed)
-   al_draw_textf(font[FONT_SQUARE].fnt, colours.base [COL_GREY] [SHADE_MED], 405, text_y, ALLEGRO_ALIGN_LEFT, "none");
-
-
+  if (!keys_pressed)
+	al_draw_textf(font[FONT_SQUARE].fnt, colours.base[COL_GREY][SHADE_MED], 405, text_y, ALLEGRO_ALIGN_LEFT, "none");
 }
-
-
 
 #define STRIPE_POLY_BUFFER 1000
 #define STRIPE_SPEED 1.31
 
-ALLEGRO_VERTEX stripe_poly_buffer [STRIPE_POLY_BUFFER];
+ALLEGRO_VERTEX stripe_poly_buffer[STRIPE_POLY_BUFFER];
 int stripe_vertex_pos;
 void add_stripe_vertex(float x, float y, int col, int shade);
 
 void run_menu_stripes(int draw)
 {
 
- int i;
- int top_displace = settings.option [OPTION_WINDOW_H] / 3;
+  int i;
+  int top_displace = settings.option[OPTION_WINDOW_H] / 3;
 
-// first move all stripes and count down:
- mstate.stripe_next_group_count --;
- mstate.stripe_group_time ++;
+  // first move all stripes and count down:
+  mstate.stripe_next_group_count--;
+  mstate.stripe_group_time++;
 
- if (mstate.stripe_next_group_count <= 0)
+  if (mstate.stripe_next_group_count <= 0)
+  {
+	mstate.stripe_next_group_count = 300 + grand(300);
+	mstate.stripe_group_time = 0;
+	mstate.stripe_next_stripe = 1;
+	int new_col = grand(STRIPE_COLS - 1);
+	if (new_col == mstate.stripe_group_col)
+	  new_col++; // this is the only way to get col 11
+	mstate.stripe_group_col = new_col;
+	//					  mstate.stripe_group_col ++;
+	mstate.stripe_group_col %= STRIPE_COLS;
+
+	//					  fprintf(stdout, "\nnew_col %i", mstate.stripe_group_col );
+  }
+
+  if (mstate.stripe_next_stripe > 0)
+  {
+	mstate.stripe_next_stripe--;
+	if (mstate.stripe_next_stripe == 0)
 	{
-		mstate.stripe_next_group_count = 300 + grand(300);
-  mstate.stripe_group_time = 0;
-  mstate.stripe_next_stripe = 1;
-					  int new_col = grand(STRIPE_COLS - 1);
-					  if (new_col == mstate.stripe_group_col)
-								new_col ++; // this is the only way to get col 11
-					  mstate.stripe_group_col = new_col;
-//					  mstate.stripe_group_col ++;
-					  mstate.stripe_group_col %= STRIPE_COLS;
-
-//					  fprintf(stdout, "\nnew_col %i", mstate.stripe_group_col );
-	}
-
- if (mstate.stripe_next_stripe > 0)
- {
-		mstate.stripe_next_stripe --;
-		if (mstate.stripe_next_stripe == 0)
+	  for (i = 0; i < MENU_STRIPES; i++)
+	  {
+		if (mstate.stripe_exists[i] == 0)
 		{
-			for (i = 0; i < MENU_STRIPES; i ++)
-			{
-				if (mstate.stripe_exists [i] == 0)
-				{
-					mstate.stripe_exists [i] = 1;
-					mstate.stripe_x [i] = settings.option [OPTION_WINDOW_W];
-				 mstate.stripe_col [i] = mstate.stripe_group_col;
-				 mstate.stripe_shade [i] = mstate.stripe_group_shade;
-					if (mstate.stripe_group_time < 100)
-					{
-					 mstate.stripe_size [i] = 10 + grand(40);
-					 mstate.stripe_next_stripe = mstate.stripe_size [i] + 5 + grand(50);
-					}
-					 else
-					 {
-						 mstate.stripe_next_stripe = -1; // no more stripes until end
-					  mstate.stripe_size [i] = (mstate.stripe_next_group_count + 200) * STRIPE_SPEED;
-					 }
-					break;
-				}
-			}
+		  mstate.stripe_exists[i] = 1;
+		  mstate.stripe_x[i] = settings.option[OPTION_WINDOW_W];
+		  mstate.stripe_col[i] = mstate.stripe_group_col;
+		  mstate.stripe_shade[i] = mstate.stripe_group_shade;
+		  if (mstate.stripe_group_time < 100)
+		  {
+			mstate.stripe_size[i] = 10 + grand(40);
+			mstate.stripe_next_stripe = mstate.stripe_size[i] + 5 + grand(50);
+		  }
+		  else
+		  {
+			mstate.stripe_next_stripe = -1; // no more stripes until end
+			mstate.stripe_size[i] = (mstate.stripe_next_group_count + 200) * STRIPE_SPEED;
+		  }
+		  break;
 		}
- }
-
-
- for (i = 0; i < MENU_STRIPES; i ++)
-	{
-		if (mstate.stripe_exists [i] == 0)
-			continue;
-		mstate.stripe_x [i] -= STRIPE_SPEED;
-		if (mstate.stripe_x [i] + mstate.stripe_size [i] < top_displace * -1)
-			mstate.stripe_exists [i] = 0;
+	  }
 	}
+  }
 
- if (!draw)
-		return;
+  for (i = 0; i < MENU_STRIPES; i++)
+  {
+	if (mstate.stripe_exists[i] == 0)
+	  continue;
+	mstate.stripe_x[i] -= STRIPE_SPEED;
+	if (mstate.stripe_x[i] + mstate.stripe_size[i] < top_displace * -1)
+	  mstate.stripe_exists[i] = 0;
+  }
 
-// now draw:
+  if (!draw)
+	return;
 
- al_clear_to_color(colours.base [COL_BLUE] [SHADE_LOW]);
-/*
- for (i = 0; i < MENU_STRIPES; i++)
+  // now draw:
+
+  al_clear_to_color(colours.base[COL_BLUE][SHADE_LOW]);
+  /*
+   for (i = 0; i < MENU_STRIPES; i++)
+	  {
+		  if (mstate.stripe_exists [i] != 0)
+		  {
+		al_draw_filled_rectangle(mstate.stripe_x [i], 0, mstate.stripe_x [i] + mstate.stripe_size [i], settings.option [OPTION_WINDOW_H] + 1, colours.base [mstate.stripe_col [i]] [mstate.stripe_shade [i]]);
+		  }
+	  }*/
+
+  stripe_vertex_pos = 0;
+
+  for (i = 0; i < MENU_STRIPES; i++)
+  {
+	if (mstate.stripe_exists[i] != 0)
 	{
-		if (mstate.stripe_exists [i] != 0)
-		{
-	  al_draw_filled_rectangle(mstate.stripe_x [i], 0, mstate.stripe_x [i] + mstate.stripe_size [i], settings.option [OPTION_WINDOW_H] + 1, colours.base [mstate.stripe_col [i]] [mstate.stripe_shade [i]]);
-		}
-	}*/
+	  add_stripe_vertex(mstate.stripe_x[i], settings.option[OPTION_WINDOW_H] + 1, mstate.stripe_col[i], mstate.stripe_shade[i]);
+	  add_stripe_vertex(mstate.stripe_x[i] + top_displace, -1, mstate.stripe_col[i], mstate.stripe_shade[i]);
+	  add_stripe_vertex(mstate.stripe_x[i] + mstate.stripe_size[i], settings.option[OPTION_WINDOW_H] + 1, mstate.stripe_col[i], mstate.stripe_shade[i]);
 
- stripe_vertex_pos = 0;
+	  add_stripe_vertex(mstate.stripe_x[i] + mstate.stripe_size[i], settings.option[OPTION_WINDOW_H] + 1, mstate.stripe_col[i], mstate.stripe_shade[i]);
+	  add_stripe_vertex(mstate.stripe_x[i] + top_displace, -1, mstate.stripe_col[i], mstate.stripe_shade[i]);
+	  add_stripe_vertex(mstate.stripe_x[i] + top_displace + mstate.stripe_size[i], -1, mstate.stripe_col[i], mstate.stripe_shade[i]);
 
- for (i = 0; i < MENU_STRIPES; i++)
-	{
-		if (mstate.stripe_exists [i] != 0)
-		{
-			add_stripe_vertex(mstate.stripe_x [i], settings.option [OPTION_WINDOW_H] + 1, mstate.stripe_col [i], mstate.stripe_shade [i]);
-			add_stripe_vertex(mstate.stripe_x [i] + top_displace, -1, mstate.stripe_col [i], mstate.stripe_shade [i]);
-			add_stripe_vertex(mstate.stripe_x [i] + mstate.stripe_size [i], settings.option [OPTION_WINDOW_H] + 1, mstate.stripe_col [i], mstate.stripe_shade [i]);
-
-			add_stripe_vertex(mstate.stripe_x [i] + mstate.stripe_size [i], settings.option [OPTION_WINDOW_H] + 1, mstate.stripe_col [i], mstate.stripe_shade [i]);
-			add_stripe_vertex(mstate.stripe_x [i] + top_displace, -1, mstate.stripe_col [i], mstate.stripe_shade [i]);
-			add_stripe_vertex(mstate.stripe_x [i] + top_displace + mstate.stripe_size [i], -1, mstate.stripe_col [i], mstate.stripe_shade [i]);
-
-			if (stripe_vertex_pos >= STRIPE_POLY_BUFFER - 6)
-				break;
-		}
+	  if (stripe_vertex_pos >= STRIPE_POLY_BUFFER - 6)
+		break;
 	}
+  }
 
-
-
- al_draw_prim(stripe_poly_buffer, NULL, NULL, 0, stripe_vertex_pos, ALLEGRO_PRIM_TRIANGLE_LIST);
-
-
+  al_draw_prim(stripe_poly_buffer, NULL, NULL, 0, stripe_vertex_pos, ALLEGRO_PRIM_TRIANGLE_LIST);
 }
 
 void add_stripe_vertex(float x, float y, int col, int shade)
 {
 
-			stripe_poly_buffer [stripe_vertex_pos].x = x;
-			stripe_poly_buffer [stripe_vertex_pos].y = y;
-			stripe_poly_buffer [stripe_vertex_pos].z = 0;
-			stripe_poly_buffer [stripe_vertex_pos].color = mstate.stripe_al_col [col];
-			stripe_vertex_pos ++;
-
+  stripe_poly_buffer[stripe_vertex_pos].x = x;
+  stripe_poly_buffer[stripe_vertex_pos].y = y;
+  stripe_poly_buffer[stripe_vertex_pos].z = 0;
+  stripe_poly_buffer[stripe_vertex_pos].color = mstate.stripe_al_col[col];
+  stripe_vertex_pos++;
 }
-
 
 static void reset_map_for_menu(void)
 {
 
- fix_w_init_size();
+  fix_w_init_size();
 
- generate_scattered_map(w_init.story_area,
-																					w_init.map_size_blocks,
-																					w_init.players,
-																					w_init.game_seed);
-
+  generate_scattered_map(w_init.story_area,
+						 w_init.map_size_blocks,
+						 w_init.players,
+						 w_init.game_seed);
 }
